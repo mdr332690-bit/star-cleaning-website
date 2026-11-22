@@ -8,11 +8,12 @@ import { LanguageLink } from './LanguageLink'
 import { PromotionBanner } from './PromotionBanner'
 import { Brand, Eyebrow, Modal, ContactActions, ContactNumber } from './SiteUI'
 import { LazyBooking } from './LazyBooking'
-import { imageUrl as cdn, imageSrcSet } from '../data/images'
+import { homeHeroImage, imageUrl as cdn, imageSrcSet } from '../data/images'
 import { Icon, Star } from './Icon'
 import { BookingForm } from './BookingForm'
 import { bookingCopy } from '../data/booking'
 import { GoogleBusinessLinks } from './GoogleBusinessLinks'
+import { LocalEnquiryGuide } from './LocalEnquiryGuide'
 
 const navIds = ['home', 'about', 'services', 'why-us', 'contact']
 type ModalState =
@@ -218,12 +219,7 @@ export function MarketingPage({ lang }: { lang: Language }) {
             <div className="hero-visual">
               <img
                 className="hero-photo"
-                src={cdn('cleaning-team.png', 1000)}
-                srcSet={imageSrcSet(
-                  'cleaning-team.png',
-                  [360, 480, 600, 640, 800, 928],
-                )}
-                sizes="(max-width: 760px) calc(100vw - 48px), (max-width: 1352px) 46vw, 585px"
+                {...homeHeroImage}
                 alt={t.imageAlt}
                 width="928"
                 height="1152"
@@ -599,6 +595,8 @@ export function MarketingPage({ lang }: { lang: Language }) {
             </div>
           </div>
         </section>
+
+        <LocalEnquiryGuide lang={lang} />
 
         <section className="section faq-section" id="faq">
           <div className="container faq-grid">

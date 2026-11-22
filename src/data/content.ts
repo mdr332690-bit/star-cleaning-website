@@ -218,7 +218,7 @@ export const copy = {
     servicesTitle: 'Professional cleaning in Kuwait.',
     servicesEm: 'For your space.',
     servicesDescription:
-      'Explore five cleaning services for homes and workplaces across Kuwait. Find the right starting point, then discuss your space, scope and preferred date.',
+      'Explore five cleaning services for homes and workplaces in Kuwait. Find the right starting point, then discuss your space, scope and preferred date.',
     serviceGuideIntro:
       'A closer look at each service: explore the suggested scope before preparing your enquiry.',
     servicePageLink: 'Read the full service guide',
@@ -236,7 +236,7 @@ export const copy = {
     scopeNote: 'Scope, availability and pricing are confirmed before booking.',
     aboutEyebrow: 'MEET STAR CLEANING',
     aboutTitle: 'Star Cleaning Kuwait.',
-    aboutEm: 'Your cleaning company in Kuwait.',
+    aboutEm: 'A professional cleaning company in Kuwait.',
     aboutText:
       'Your home is your haven. Your workplace is your reputation. At STAR CLEANING Kuwait, we understand the care both deserve.',
     aboutText2:
@@ -325,6 +325,11 @@ export const copy = {
         question: 'Do you provide house and apartment cleaning in Kuwait?',
         answer:
           'Yes. House cleaning and apartment cleaning are part of our home cleaning service in Kuwait. Tell us the number of rooms, the approximate size and the surfaces that need attention so we can discuss the scope. All cleaning staff are male.',
+      },
+      {
+        question: 'Do you provide female cleaning staff in Kuwait?',
+        answer:
+          'No. Star Cleaning provides male cleaning staff only. If you require female cleaning staff, our service does not meet that requirement. Please confirm the staff arrangements and cleaning scope before booking.',
       },
       {
         question: 'Do you offer cleaning services across Kuwait?',
@@ -426,17 +431,17 @@ export const copy = {
       'لمسة شخصية',
     ],
     servicesEyebrow: 'خدمات التنظيف في الكويت',
-    servicesTitle: 'خدمات تنظيف الكويت.',
+    servicesTitle: 'خدمات تنظيف احترافية في الكويت.',
     servicesEm: 'تناسب مساحتك.',
     servicesDescription:
-      'اكتشف خمس خدمات تنظيف للمنازل وأماكن العمل في أنحاء الكويت. اختر الخدمة المناسبة ثم ناقش مساحتك ونطاق العمل والموعد المفضل.',
+      'اكتشف خمس خدمات تنظيف للمنازل وأماكن العمل في الكويت. اختر الخدمة المناسبة ثم ناقش مساحتك ونطاق العمل والموعد المفضل.',
     serviceGuideIntro:
       'تعرّف على تفاصيل كل خدمة ونطاق العمل المقترح قبل تجهيز استفسارك.',
     servicePageLink: 'اقرأ دليل الخدمة الكامل',
     serviceDirectory: 'أدلة خدمات التنظيف',
     loadingBooking: 'جارٍ تحميل نموذج الاستفسار…',
     homeCleaningNote:
-      'تشمل خدمة تنظيف المنازل لدينا تنظيف الشقق والبيوت في الكويت. شاركنا عدد الغرف ومساحة منزلك وأولوياتك لمناقشة نطاق العمل المناسب.',
+      'نقدم خدمات تنظيف المنازل في الكويت للبيوت والشقق. شاركنا عدد الغرف ومساحة منزلك وأولوياتك لمناقشة نطاق العمل المناسب.',
     enquireAbout: 'استفسر عن',
     serviceExplore: 'اكتشف الخدمة',
     allServices: 'عرض جميع الخدمات',
@@ -532,6 +537,11 @@ export const copy = {
         question: 'هل تقدمون تنظيف المنازل والشقق في الكويت؟',
         answer:
           'نعم، يندرج تنظيف البيوت والشقق ضمن خدمة تنظيف المنازل في الكويت. أخبرنا بعدد الغرف والمساحة التقريبية والأسطح التي تحتاج إلى عناية لمناقشة نطاق العمل. جميع أفراد طاقم التنظيف من الرجال.',
+      },
+      {
+        question: 'هل توفرون عاملات تنظيف في الكويت؟',
+        answer:
+          'لا، توفر ستار كلينينج طاقم تنظيف من الرجال فقط. إذا كنت تحتاج إلى عاملات تنظيف، فإن خدمتنا لا تلبي هذا الشرط. يرجى التأكد من ترتيبات طاقم العمل ونطاق التنظيف قبل الحجز.',
       },
       {
         question: 'هل تقدمون خدمات التنظيف في أنحاء الكويت؟',
