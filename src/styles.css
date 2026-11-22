@@ -1729,6 +1729,10 @@ em {
     transform 0.2s,
     background 0.2s;
 }
+/* Keep the English contact control above the platform badge. */
+.site[dir='ltr'] .floating-whatsapp {
+  bottom: 80px;
+}
 .floating-whatsapp:hover {
   transform: translateY(-3px);
   background: var(--green);
