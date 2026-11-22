@@ -13,7 +13,7 @@ import { Icon, Star } from './Icon'
 import { BookingForm } from './BookingForm'
 import { bookingCopy } from '../data/booking'
 import { GoogleBusinessLinks } from './GoogleBusinessLinks'
-import { LocalEnquiryGuide } from './LocalEnquiryGuide'
+import { ServiceAreas } from './ServiceAreas'
 
 const navIds = ['home', 'about', 'services', 'why-us', 'contact']
 type ModalState =
@@ -596,7 +596,7 @@ export function MarketingPage({ lang }: { lang: Language }) {
           </div>
         </section>
 
-        <LocalEnquiryGuide lang={lang} />
+        <ServiceAreas lang={lang} />
 
         <section className="section faq-section" id="faq">
           <div className="container faq-grid">
@@ -637,6 +637,7 @@ export function MarketingPage({ lang }: { lang: Language }) {
           className="section inquiry-section"
           id="booking"
           aria-labelledby="booking-heading"
+          tabIndex={-1}
         >
           <div className="container inquiry-layout">
             <div className="inquiry-intro">
