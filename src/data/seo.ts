@@ -3,6 +3,7 @@ import { homePath, servicePath, servicePages } from './servicePages'
 import type { ServicePageData } from './servicePages'
 import { site } from './site'
 import { fontPreloads } from './fonts'
+import { imageUrl } from './images'
 
 type PageLink = {
   rel: string
@@ -15,9 +16,9 @@ type PageLink = {
 
 export const seo = {
   en: {
-    title: 'Cleaning Services Kuwait | Star Cleaning Company',
+    title: 'Cleaning Services Kuwait | Star Cleaning Service',
     description:
-      'Star Cleaning provides cleaning services across Kuwait with male staff only. Explore house, office, villa, sofa, carpet and deep cleaning. 10+ years of experience.',
+      'Home, apartment, office, villa, sofa, carpet and deep cleaning in Kuwait. Call Star Cleaning on +965 50258260 to discuss your space, availability and a quote.',
     locale: 'en_KW',
     alternateLocale: 'ar_KW',
     imageAlt:
@@ -26,7 +27,7 @@ export const seo = {
   ar: {
     title: 'شركة تنظيف الكويت | خدمات ستار كلينينج',
     description:
-      'ستار كلينينج شركة تنظيف في الكويت بخبرة تزيد عن 10 سنوات. خدمات تنظيف المنازل والشقق والمكاتب والفلل والكنب والسجاد والتنظيف العميق بطاقم من الرجال فقط.',
+      'خدمات تنظيف المنازل والشقق والمكاتب والفلل والكنب والسجاد والتنظيف العميق في الكويت. اتصل بستار كلينينج على +96550258260 لمناقشة الخدمة وعرض السعر.',
     locale: 'ar_KW',
     alternateLocale: 'en_KW',
     imageAlt: 'صورة توضيحية لعامل تنظيف يعتني بكنبة كريمية',
@@ -45,7 +46,7 @@ export const businessStructuredData = (lang: Language) => ({
       '@type': 'LocalBusiness',
       '@id': `${site.url}#business`,
       name: site.name,
-      alternateName: 'ستار كلينينج الكويت',
+      alternateName: ['Star Cleaning Service', 'ستار كلينينج الكويت'],
       url: site.url,
       telephone: site.phone,
       description: seo[lang].description,
@@ -72,6 +73,9 @@ export const businessStructuredData = (lang: Language) => ({
             url: new URL(servicePath(lang, service.page.slug), site.url).href,
             areaServed: { '@type': 'Country', name: 'Kuwait' },
             provider: { '@id': `${site.url}#business` },
+            mainEntityOfPage: {
+              '@id': `${new URL(servicePath(lang, service.page.slug), site.url).href}#webpage`,
+            },
           },
         })),
       },
@@ -104,14 +108,13 @@ export function pageStructuredData(lang: Language, service?: ServicePageData) {
   const pageImage = service
     ? {
         '@type': 'ImageObject',
-        url: new URL(
-          `/.netlify/images?url=/img/${service.image}&w=1200&fm=webp`,
-          site.url,
-        ).href,
+        '@id': `${url}#primaryimage`,
+        url: new URL(imageUrl(service.image, 1000), site.url).href,
         caption: service.imageAlt[lang],
       }
     : {
         '@type': 'ImageObject',
+        '@id': `${url}#primaryimage`,
         url: socialImage,
         width: 1200,
         height: 630,
@@ -133,6 +136,7 @@ export function pageStructuredData(lang: Language, service?: ServicePageData) {
         inLanguage: lang,
         isPartOf: { '@id': `${site.url}#website` },
         about: { '@id': serviceUrl ?? `${site.url}#business` },
+        mainEntity: { '@id': serviceUrl ?? `${site.url}#business` },
         ...(service && { breadcrumb: { '@id': `${url}#breadcrumb` } }),
         primaryImageOfPage: pageImage,
       },

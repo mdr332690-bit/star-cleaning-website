@@ -8,3 +8,9 @@
   command = "npm run dev"
   targetPort = 3000
   port = 8889
+
+# Keep the static form-processing helper out of search results.
+[[headers]]
+  for = "/__forms.html"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"

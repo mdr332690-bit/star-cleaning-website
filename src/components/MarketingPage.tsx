@@ -6,14 +6,8 @@ import { site } from '../data/site'
 import { servicePageCopy } from '../data/servicePages'
 import { LanguageLink } from './LanguageLink'
 import { PromotionBanner } from './PromotionBanner'
-import {
-  Brand,
-  Eyebrow,
-  Modal,
-  Booking,
-  ContactActions,
-  ContactNumber,
-} from './SiteUI'
+import { Brand, Eyebrow, Modal, ContactActions, ContactNumber } from './SiteUI'
+import { LazyBooking } from './LazyBooking'
 import { imageUrl as cdn, imageSrcSet } from '../data/images'
 import { Icon, Star } from './Icon'
 import { BookingForm } from './BookingForm'
@@ -176,10 +170,8 @@ export function MarketingPage({ lang }: { lang: Language }) {
             <div className="hero-copy">
               <Eyebrow>{t.eyebrow}</Eyebrow>
               <h1>
-                {t.heroLine1}
-                <br />
-                {t.heroLine2}
-                <br className="hero-break" /> <em>{t.heroEm}</em>
+                {t.heroLine1} <br />
+                {t.heroLine2} <br className="hero-break" /> <em>{t.heroEm}</em>
               </h1>
               <p className="hero-description">{t.heroDescription}</p>
               <p className="staff-note">{t.staffNote}</p>
@@ -282,6 +274,22 @@ export function MarketingPage({ lang }: { lang: Language }) {
               </div>
               <p>{t.servicesDescription}</p>
             </div>
+            <nav className="service-directory" aria-label={t.serviceDirectory}>
+              {services.map((service) => (
+                <Link
+                  key={service.id}
+                  to={
+                    lang === 'ar'
+                      ? '/ar/services/$service'
+                      : '/services/$service'
+                  }
+                  params={{ service: servicePageCopy[service.id].slug }}
+                >
+                  {service.title[lang]}
+                  <Icon name="arrow" size={15} />
+                </Link>
+              ))}
+            </nav>
             <div
               className={`services-grid ${showAllServices ? 'expanded' : ''}`}
               id="service-list"
@@ -808,7 +816,7 @@ export function MarketingPage({ lang }: { lang: Language }) {
           wide={modal.type === 'video'}
         >
           {modal.type === 'booking' ? (
-            <Booking lang={lang} initialService={bookingService} />
+            <LazyBooking lang={lang} initialService={bookingService} />
           ) : modal.type === 'video' ? (
             <div className="video-modal-content">
               <Eyebrow>{t.videoLabel}</Eyebrow>

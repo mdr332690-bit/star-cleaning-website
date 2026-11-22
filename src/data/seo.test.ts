@@ -85,6 +85,7 @@ describe('bilingual SEO contracts', () => {
       })
       expect(business.hasOfferCatalog.itemListElement).toHaveLength(5)
       expect(business.telephone).toBe('+96550258260')
+      expect(business.alternateName).toContain('Star Cleaning Service')
       for (const unsupported of [
         'address',
         'email',
@@ -101,6 +102,10 @@ describe('bilingual SEO contracts', () => {
       )
       expect(webpage.url).toBe(origin + path)
       expect(webpage.inLanguage).toBe(lang)
+      expect(webpage.mainEntity).toEqual(webpage.about)
+      expect(webpage.primaryImageOfPage['@id']).toBe(
+        `${webpage.url}#primaryimage`,
+      )
       if (service) {
         const breadcrumb = graph.find(
           (node: Record<string, unknown>) => node['@type'] === 'BreadcrumbList',
@@ -115,6 +120,7 @@ describe('bilingual SEO contracts', () => {
             '@id': webpage.about['@id'],
             url: webpage.url,
             name: service.page.heading[lang],
+            mainEntityOfPage: { '@id': webpage['@id'] },
           }),
         )
       }
@@ -147,5 +153,16 @@ describe('bilingual SEO contracts', () => {
         )
       }
     }
+  })
+
+  it('allows crawling and declares the canonical HTTPS sitemap', () => {
+    const robots = readFileSync(
+      new URL('../../public/robots.txt', import.meta.url),
+      'utf8',
+    )
+    expect(robots).toMatch(/^User-agent: \*$/m)
+    expect(robots).toMatch(/^Allow: \/$/m)
+    expect(robots).not.toMatch(/^Disallow:\s*\//m)
+    expect(robots).toContain(`Sitemap: ${origin}/sitemap.xml`)
   })
 })
