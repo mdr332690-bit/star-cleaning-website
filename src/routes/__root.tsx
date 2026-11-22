@@ -53,18 +53,32 @@ function RootDocument({ children }: { children: React.ReactNode }) {
   return (
     <html lang={isArabic ? 'ar' : 'en'} dir={isArabic ? 'rtl' : 'ltr'}>
       <head>
-        {/* Google tag (gtag.js) */}
-        <script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=AW-18535502279"
-        />
+        {/* Apply privacy controls before loading either Google runtime. */}
         <script
           dangerouslySetInnerHTML={{
             __html: `window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    ad_storage: 'denied',
+    analytics_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied'
+  });
+  gtag('policy', 'detect_user_provided_data', function() { return false; });
+  gtag('set', {
+    allow_enhanced_conversions: false,
+    allow_google_signals: false,
+    allow_ad_personalization_signals: false,
+    ads_data_redaction: true
+  });
   gtag('js', new Date());
 
-  gtag('config', 'AW-18535502279');`,
+  gtag('config', 'AW-18535502279', { send_page_view: false });
+
+  var googleTag = document.createElement('script');
+  googleTag.async = true;
+  googleTag.src = 'https://www.googletagmanager.com/gtag/js?id=AW-18535502279';
+  document.head.appendChild(googleTag);`,
           }}
         />
         <script
