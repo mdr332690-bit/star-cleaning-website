@@ -14,6 +14,7 @@ import {
 } from '../data/booking'
 import type { BookingErrors, BookingField } from '../data/booking'
 import { site } from '../data/site'
+import { trackBookingSuccess } from '../data/googleAds'
 import { Icon } from './Icon'
 
 export function BookingForm({
@@ -142,6 +143,10 @@ export function BookingForm({
       )
         throw new Error('Form processing unavailable')
       setState('success')
+      // A honeypot rejection can still return HTTP 200. Do not count it, or a
+      // request aborted when the dialog closed, as an accepted enquiry.
+      if (!data.get('bot-field') && !controller.current?.signal.aborted)
+        trackBookingSuccess()
     } catch {
       if (!controller.current?.signal.aborted || pending.current)
         setState('error')

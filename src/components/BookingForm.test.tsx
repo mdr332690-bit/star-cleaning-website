@@ -2,6 +2,7 @@ import { readFileSync, existsSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import {
+  act,
   cleanup,
   fireEvent,
   render,
@@ -21,6 +22,7 @@ import {
 
 beforeEach(() => {
   vi.stubGlobal('open', vi.fn().mockReturnValue(null))
+  vi.stubGlobal('gtag', vi.fn())
 })
 
 afterEach(() => {
@@ -101,6 +103,7 @@ describe('booking inquiry submission', () => {
       submit(lang)
       expect(fetch).not.toHaveBeenCalled()
       expect(window.open).not.toHaveBeenCalled()
+      expect(window.gtag).not.toHaveBeenCalled()
       expect(
         screen.getByText(bookingCopy[lang].validation.fullName),
       ).toBeTruthy()
@@ -118,10 +121,12 @@ describe('booking inquiry submission', () => {
   it.each(['en', 'ar'] as const)(
     'opens a complete WhatsApp message, sends URL-encoded data and shows success in %s',
     async (lang) => {
-      const fetch = vi.fn().mockResolvedValue(
-        new Response('<html>Thank you for your submission.</html>', {
-          status: 200,
-        }),
+      const fetch = vi.fn().mockImplementation(() =>
+        Promise.resolve(
+          new Response('<html>Thank you for your submission.</html>', {
+            status: 200,
+          }),
+        ),
       )
       vi.stubGlobal('fetch', fetch)
       render(<BookingForm lang={lang} />)
@@ -153,6 +158,13 @@ describe('booking inquiry submission', () => {
         ].join('\n'),
       )
       await screen.findByText(bookingCopy[lang].successTitle)
+      expect(vi.mocked(window.gtag!).mock.calls).toEqual([
+        [
+          'event',
+          'conversion',
+          { send_to: 'AW-18535502279/KBtqCJDU97wdEMejtYZF' },
+        ],
+      ])
       const [url, request] = fetch.mock.calls[0]
       expect(url).toBe('/__forms.html')
       expect(request.method).toBe('POST')
@@ -187,6 +199,12 @@ describe('booking inquiry submission', () => {
         ).value,
       ).toBe('')
       expect(screen.queryByRole('link', { name: t.openWhatsApp })).toBeNull()
+      expect(window.gtag).toHaveBeenCalledTimes(1)
+      fillForm(lang)
+      submit(lang)
+      await screen.findByText(t.successTitle)
+      expect(fetch).toHaveBeenCalledTimes(2)
+      expect(window.gtag).toHaveBeenCalledTimes(2)
     },
   )
 
@@ -219,6 +237,7 @@ describe('booking inquiry submission', () => {
       submit()
       await screen.findByRole('alert')
       expect(screen.queryByText(bookingCopy.en.successTitle)).toBeNull()
+      expect(window.gtag).not.toHaveBeenCalled()
       const whatsapp = screen.getByRole('link', {
         name: bookingCopy.en.openWhatsApp,
       })
@@ -242,6 +261,11 @@ describe('booking inquiry submission', () => {
       fetch.mockResolvedValue(new Response('Received', { status: 200 }))
       submit()
       await screen.findByText(bookingCopy.en.successTitle)
+      expect(window.gtag).toHaveBeenCalledExactlyOnceWith(
+        'event',
+        'conversion',
+        { send_to: 'AW-18535502279/KBtqCJDU97wdEMejtYZF' },
+      )
     },
   )
 
@@ -268,8 +292,10 @@ describe('booking inquiry submission', () => {
     submit()
     expect(fetch).toHaveBeenCalledTimes(1)
     expect(window.open).toHaveBeenCalledTimes(1)
+    expect(window.gtag).not.toHaveBeenCalled()
     resolve(new Response('Received'))
     await screen.findByText(bookingCopy.en.successTitle)
+    expect(window.gtag).toHaveBeenCalledTimes(1)
   })
 
   it('still saves the inquiry if the browser refuses to open WhatsApp', async () => {
@@ -283,6 +309,7 @@ describe('booking inquiry submission', () => {
     submit()
     await screen.findByText(bookingCopy.en.successTitle)
     expect(fetch).toHaveBeenCalledTimes(1)
+    expect(window.gtag).toHaveBeenCalledTimes(1)
     expect(
       screen.getByRole('link', { name: bookingCopy.en.openWhatsApp }),
     ).toBeTruthy()
@@ -304,5 +331,64 @@ describe('booking inquiry submission', () => {
         'https://wa.me/96550258260?text=Please%20discuss%20villa%20cleaning%20with%20me.',
       )
     })
+    expect(window.gtag).not.toHaveBeenCalled()
+  })
+
+  it.each(['en', 'ar'] as const)(
+    'does not count a honeypot submission even if its response is successful in %s',
+    async (lang) => {
+      vi.stubGlobal(
+        'fetch',
+        vi.fn().mockResolvedValue(new Response('Received')),
+      )
+      const { container } = render(<BookingForm lang={lang} />)
+      fillForm(lang)
+      fireEvent.change(container.querySelector('[name="bot-field"]')!, {
+        target: { value: 'spam' },
+      })
+      submit(lang)
+      await screen.findByText(bookingCopy[lang].successTitle)
+      expect(window.gtag).not.toHaveBeenCalled()
+    },
+  )
+
+  it.each(['missing', 'throwing'])(
+    'preserves confirmed success when the Google tag is %s',
+    async (failure) => {
+      vi.stubGlobal(
+        'gtag',
+        failure === 'missing'
+          ? undefined
+          : vi.fn(() => {
+              throw new Error('Tracking blocked')
+            }),
+      )
+      const fetch = vi.fn().mockResolvedValue(new Response('Received'))
+      vi.stubGlobal('fetch', fetch)
+      render(<BookingForm lang="en" />)
+      fillForm()
+      submit()
+      await screen.findByText(bookingCopy.en.successTitle)
+      expect(screen.queryByRole('alert')).toBeNull()
+      expect(fetch).toHaveBeenCalledTimes(1)
+    },
+  )
+
+  it('does not count a late response after the booking dialog is unmounted', async () => {
+    let resolve!: (response: Response) => void
+    const fetch = vi.fn().mockReturnValue(
+      new Promise<Response>((done) => {
+        resolve = done
+      }),
+    )
+    vi.stubGlobal('fetch', fetch)
+    const { unmount } = render(<BookingForm lang="en" />)
+    fillForm()
+    submit()
+    const signal = fetch.mock.calls[0][1].signal as AbortSignal
+    unmount()
+    expect(signal.aborted).toBe(true)
+    await act(async () => resolve(new Response('Received')))
+    expect(window.gtag).not.toHaveBeenCalled()
   })
 })
