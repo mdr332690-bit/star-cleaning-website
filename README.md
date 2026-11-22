@@ -20,7 +20,7 @@ Open the local URL printed by the CLI. Use Netlify's development environment so 
 
 ## Business details
 
-Edit `src/data/site.ts` to add the verified phone number, email address and WhatsApp number. The WhatsApp number must use the international format with digits only. Once populated, the booking dialog opens WhatsApp with the selected service, optional date and editable message. Until then, visitors see an honest availability note and can copy an enquiry. Preparing or sending an enquiry does not confirm a booking.
+The verified business number in `src/data/site.ts` is +96550258260; WhatsApp uses the international digits 96550258260. Keep these details consistent when updating contact information. The homepage and booking dialogs send enquiries through Netlify Forms; the dialog also retains an editable WhatsApp message. Availability, scope and pricing must be agreed before a booking is confirmed. Do not add an email address until it has been verified.
 
 English and Arabic homepage content lives in `src/data/content.ts`, and service page copy lives in `src/data/servicePages.ts`. English is served at `/` and Arabic at `/ar`, with five translated service pages under `/services/` and `/ar/services/`. The URL determines the language, including on the server; browser storage never replaces the language of a requested URL. Language links remember a selection when browser storage is available and work when it is blocked. They do not send visitor data anywhere.
 
@@ -30,7 +30,7 @@ Testimonials are intentionally marked as awaiting verified reviews. Add only gen
 
 ## Media
 
-Static assets are in `public/img` and `public/video`. Images are served through Netlify Image CDN; the video loads only when the film dialog is opened. See `MEDIA.md` for source and license details. Generated photography and stock media are illustrative and do not claim to document the company's actual staff or projects.
+Static assets are in `public/img` and `public/video`. Images are served through Netlify Image CDN; the video loads only when the film dialog is opened. Booking dialogs load through `src/components/LazyBooking.tsx` when requested, while the homepage enquiry form remains available immediately. See `MEDIA.md` for source and license details. Generated photography and stock media are illustrative and do not claim to document the company's actual staff or projects.
 
 ## Accessibility and motion
 

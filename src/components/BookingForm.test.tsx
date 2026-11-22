@@ -9,7 +9,7 @@ import {
   waitFor,
 } from '@testing-library/react'
 import { BookingForm } from './BookingForm'
-import { Booking } from './SiteUI'
+import Booking from './Booking'
 import { copy } from '../data/content'
 import {
   bookingCopy,

@@ -1,0 +1,9 @@
+# Dependencies and generated output
+node_modules/
+dist/
+.netlify/
+
+# Local configuration
+.env
+.env.*
+!.env.example

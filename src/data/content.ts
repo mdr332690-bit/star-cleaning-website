@@ -222,6 +222,8 @@ export const copy = {
     serviceGuideIntro:
       'A closer look at each service: explore the suggested scope before preparing your enquiry.',
     servicePageLink: 'Read the full service guide',
+    serviceDirectory: 'Cleaning service guides',
+    loadingBooking: 'Loading the enquiry form…',
     homeCleaningNote:
       'Our home cleaning service covers house and apartment cleaning in Kuwait. Share the rooms, size and priorities of your home so we can discuss a suitable scope.',
     enquireAbout: 'Ask about',
@@ -345,6 +347,11 @@ export const copy = {
         answer:
           'Share the material, approximate size and any areas of concern. Photos can help us understand the condition. The cleaning method, expected drying time and scope should be agreed before the visit.',
       },
+      {
+        question: 'Can I include floor cleaning in my Kuwait home enquiry?',
+        answer:
+          'Yes. Floor care can be discussed as part of home, office or villa cleaning. Tell us the floor material, approximate area and any care instructions, then agree which rooms and accessible areas to include. If edges or corners need extra attention, mention this when discussing deep cleaning.',
+      },
     ],
     contactEyebrow: 'LET’S MAKE YOUR SPACE SHINE',
     contactTitle: 'Ask about cleaning',
@@ -422,6 +429,8 @@ export const copy = {
     serviceGuideIntro:
       'تعرّف على تفاصيل كل خدمة ونطاق العمل المقترح قبل تجهيز استفسارك.',
     servicePageLink: 'اقرأ دليل الخدمة الكامل',
+    serviceDirectory: 'أدلة خدمات التنظيف',
+    loadingBooking: 'جارٍ تحميل نموذج الاستفسار…',
     homeCleaningNote:
       'تشمل خدمة تنظيف المنازل لدينا تنظيف الشقق والبيوت في الكويت. شاركنا عدد الغرف ومساحة منزلك وأولوياتك لمناقشة نطاق العمل المناسب.',
     enquireAbout: 'استفسر عن',
@@ -540,6 +549,12 @@ export const copy = {
         question: 'ما المعلومات المطلوبة قبل تنظيف الكنب أو السجاد؟',
         answer:
           'شاركنا نوع القماش والحجم التقريبي وأي مناطق تحتاج إلى اهتمام. تساعدنا الصور على فهم الحالة. يتم الاتفاق على طريقة التنظيف ووقت الجفاف المتوقع ونطاق العمل قبل الزيارة.',
+      },
+      {
+        question:
+          'هل يمكن تضمين تنظيف الأرضيات في استفسار تنظيف منزلي بالكويت؟',
+        answer:
+          'نعم، يمكن مناقشة العناية بالأرضيات ضمن تنظيف المنازل أو المكاتب أو الفلل. أخبرنا بنوع الأرضية والمساحة التقريبية وأي تعليمات للعناية، ثم اتفق معنا على الغرف والمساحات المتاحة المطلوب تضمينها. إذا كانت الحواف أو الزوايا تحتاج إلى عناية إضافية، فاذكر ذلك عند مناقشة التنظيف العميق.',
       },
     ],
     contactEyebrow: 'لنمنح مساحتك إشراقة جديدة',

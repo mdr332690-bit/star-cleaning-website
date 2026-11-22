@@ -1,143 +1,92 @@
-# Star Cleaning Kuwait: bilingual SEO audit and implementation report
+# Star Cleaning Kuwait SEO audit and implementation report
 
-Audit date: 18 November 2026. The published homepage, Arabic URL, robots.txt and sitemap were checked before implementation. Source changes were then checked through the local Netlify development server. No publishing or deployment was initiated.
+Audit date: 22 November 2026. Website: https://star-cleaning-website.netlify.app/. Changes were prepared and tested in source and the local Netlify development environment. **No production build or deployment was initiated.** The published website does not yet include these changes.
 
-## Initial audit
+## Audit findings
 
-| Area                  | Existing behavior                                                                                                           | Improvement completed                                                                                                                                                         |
-| --------------------- | --------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| English homepage      | Server-rendered English title, description, H1 and canonical URL were present.                                              | Retained the relevant H1 and added stronger company/service headings, apartment coverage, staffing information and keyword-focused metadata.                                  |
-| Arabic visibility     | Arabic content, typography and RTL existed as a browser-only toggle. `/ar` returned 404.                                    | Added an independently accessible Arabic homepage and Arabic service pages, rendered in Arabic and RTL in the initial HTML.                                                   |
-| Service discovery     | Five services had cards, modal details and expandable homepage guides, with fragment links only.                            | Preserved those features and added a translated page for each verified service with a distinct introduction, planning guidance and service FAQ.                               |
-| Language targeting    | No hreflang tags or separate Arabic canonical URL existed.                                                                  | Added self-referencing canonicals and reciprocal `en`, `ar` and `x-default` alternates for all six translated page pairs.                                                     |
-| Sitemap and robots    | robots.txt correctly allowed crawling and referenced a sitemap containing only `/`.                                         | Expanded the sitemap to all 12 canonical URLs with matching language alternates. Kept the correct robots.txt declaration.                                                     |
-| Structured data       | LocalBusiness, WebSite, English WebPage and the five services were already described without invented addresses or reviews. | Localized the business catalogue and WebPage data, linked services to their real page URLs, and added service-page BreadcrumbList data and appropriate page-image references. |
-| Image alternatives    | Translated descriptive ALT text was already present.                                                                        | Refined image descriptions in both languages, clarified illustrative images and male-cleaner imagery, and retained empty ALT text for decorative images.                      |
-| Business restrictions | Contact details and verified reviews were intentionally missing; male-only staffing was not explicit in the page copy.      | Added the supplied male-only staffing policy in both languages. Kept enquiry and contact placeholders honest and limited services to the existing five.                       |
+The audit covered all 12 canonical English and Arabic URLs, the five service types, shared document shell, route metadata, structured data, navigation, service disclosures and dialogs, enquiry forms, contact actions, media delivery, typography, responsive styles, crawl files and missing-route handling. Historical audit documents described earlier versions; the current findings below supersede their statements about missing Arabic pages, missing contact details or unpublished service routes.
 
-## Pages and keyword mapping
+| Area                     | Published baseline                                                                                                                     | Work completed                                                                                                                                                                                                                                      |
+| ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Titles and descriptions  | All 12 pages already returned unique server-rendered titles and descriptions.                                                          | Refined the English homepage title to use the supplied business name, Star Cleaning Service. Updated both homepage descriptions to explain the service range and include the verified contact number. Preserved the distinct service-page metadata. |
+| Canonicals and languages | Correct HTTPS self-canonicals and reciprocal `en`, `ar` and `x-default` alternates already existed.                                    | Preserved and tested all six translated page pairs, including the clean canonical for URLs with advertising parameters.                                                                                                                             |
+| Crawl files              | robots.txt and sitemap.xml already returned 200; the sitemap contained all 12 canonical URLs and their alternates.                     | Validated their contents against the actual routes. No unnecessary replacement, fabricated last-modified dates or extra keyword pages were added.                                                                                                   |
+| Indexing                 | Important pages were indexable. Unknown pages and invalid service slugs returned real 404 responses with noindex and no canonical.     | Preserved those behaviors. Added an HTTP noindex/nofollow header to the form-registration helper, supplementing its existing meta instruction while allowing crawlers to read it.                                                                   |
+| Headings                 | Each valid page already had one H1 and structured H2/H3 sections.                                                                      | Made homepage heading word boundaries explicit in the HTML. Added useful H2 sections for service-specific care guidance.                                                                                                                            |
+| Service discovery        | Service pages were linked in footer and disclosure content; some cards required interaction.                                           | Added an always-visible, server-rendered directory of all five service pages beside the service section. Preserved card dialogs, disclosures and expansion.                                                                                         |
+| Service content          | Each service already had a unique introduction, scope, planning advice and FAQ.                                                        | Added distinct English and Arabic care guidance to every service, a floor-cleaning homepage FAQ, and contextual comparison links between relevant services.                                                                                         |
+| Local structured data    | LocalBusiness, WebSite, five Service entities, WebPage and service breadcrumbs already existed.                                        | Added the supplied business name as an alternate name, explicit page-to-service and service-to-page relationships, stable primary-image IDs and image references consistent with the shared CDN sizing helper.                                      |
+| Social sharing           | Open Graph and Twitter metadata already existed on every canonical page.                                                               | Retained and verified the HTTPS URLs, localized titles/descriptions, locale information, descriptive image ALT and 1200 × 630 social preview. Updated homepage social descriptions through the shared metadata source.                              |
+| Image loading            | Responsive WebP, dimension attributes, descriptive bilingual ALT, high-priority hero images and lazy secondary images already existed. | Added intermediate service-hero widths and more accurate mobile/desktop sizes. Preserved native-width caps, quality, original imagery and licensing records.                                                                                        |
+| JavaScript               | The shared branding/contact module imported booking and WhatsApp-editor code even on service pages with closed dialogs.                | Moved the booking UI into a separate module loaded when requested, with translated loading feedback. Retained the initial homepage enquiry form and all contact behavior.                                                                           |
+| HTTPS and mobile         | HTTP redirected to HTTPS; initial live HTML contained no insecure resource references.                                                 | Preserved existing HTTPS configuration, fonts, colors, mobile layouts, RTL behavior, keyboard access and reduced-motion support.                                                                                                                    |
 
-All paths below use `https://star-cleaning-website.netlify.app`. Arabic uses the same stable service slugs under `/ar`; translated slugs are not required for language targeting.
+## Pages and keyword coverage
 
-| English page                     | Arabic page                         | Target keyword intent                                                                         |
-| -------------------------------- | ----------------------------------- | --------------------------------------------------------------------------------------------- |
-| `/`                              | `/ar`                               | Cleaning Services Kuwait; Cleaning Company Kuwait; شركة تنظيف الكويت; خدمات تنظيف الكويت      |
-| `/services/house-cleaning`       | `/ar/services/house-cleaning`       | House Cleaning Kuwait; Apartment Cleaning Kuwait; تنظيف منازل الكويت; تنظيف شقق الكويت        |
-| `/services/deep-cleaning`        | `/ar/services/deep-cleaning`        | Deep Cleaning Kuwait; تنظيف عميق الكويت                                                       |
-| `/services/sofa-carpet-cleaning` | `/ar/services/sofa-carpet-cleaning` | Sofa Cleaning Kuwait; تنظيف كنب الكويت, while retaining the verified carpet service           |
-| `/services/villa-cleaning`       | `/ar/services/villa-cleaning`       | Villa Cleaning Kuwait; تنظيف فلل الكويت                                                       |
-| `/services/office-cleaning`      | `/ar/services/office-cleaning`      | Office Cleaning Kuwait; تنظيف مكاتب الكويت                                                    |
-| Homepage advice FAQ              | Homepage advice FAQ                 | “How do I choose the best cleaning company in Kuwait?” / “كيف أختار أفضل شركة تنظيف بالكويت؟” |
+Keywords were used in useful content and descriptive headings, with natural English and Arabic grammar. No hidden keywords or keyword meta tags were added. House, home and apartment intent share the existing home-cleaning page; floor care remains within the verified services rather than becoming an invented sixth service.
 
-House and apartment cleaning were grouped within the existing home cleaning service. No sixth service was invented. The “best” phrase was used in a helpful comparison question and answer, without making an unsupported superiority claim. Natural English and Arabic grammar, including “in Kuwait” and “في الكويت”, was used where appropriate instead of repeating exact-match keyword strings.
+| English URL                      | Arabic URL                          | Search intent                                                                                                  |
+| -------------------------------- | ----------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `/`                              | `/ar`                               | Cleaning Services Kuwait; cleaning company enquiries and service selection                                     |
+| `/services/house-cleaning`       | `/ar/services/house-cleaning`       | House Cleaning Kuwait; Home Cleaning Kuwait; Apartment Cleaning Kuwait; Floor Cleaning Kuwait within home care |
+| `/services/office-cleaning`      | `/ar/services/office-cleaning`      | Office Cleaning Kuwait; workstations, reception, shared routes and floor care                                  |
+| `/services/deep-cleaning`        | `/ar/services/deep-cleaning`        | Deep Cleaning Kuwait; accessible edges, corners, detailed checklists and floor-care priorities                 |
+| `/services/villa-cleaning`       | `/ar/services/villa-cleaning`       | Villa Cleaning Kuwait; rooms, levels, stairs and interior floor-care planning                                  |
+| `/services/sofa-carpet-cleaning` | `/ar/services/sofa-carpet-cleaning` | Sofa Cleaning Kuwait; carpet and rug care, fabric condition and drying questions                               |
 
-## Completed content and technical changes
+The English homepage title is **Cleaning Services Kuwait | Star Cleaning Service**. Service titles remain **House & Apartment Cleaning Kuwait | Star Cleaning**, **Office Cleaning Kuwait | Star Cleaning**, **Villa Cleaning Kuwait | Star Cleaning**, **Sofa & Carpet Cleaning Kuwait | Star Cleaning**, and **Deep Cleaning Kuwait | Star Cleaning**, with distinct Arabic equivalents. Each page has its own description, canonical and localized social metadata.
 
-The English homepage retained “Cleaning services in Kuwait” as its H1. The Arabic homepage retained the translated equivalent. Service pages each received one descriptive H1. Homepage H2 headings now identify Kuwait cleaning services and the cleaning company; expandable service-guide H3 headings and related-service H3 links identify the service and Kuwait. New service pages use H2 headings for service scope, planning, enquiries and questions.
+New service content explains floor materials and access in homes, equipment and documents around office cleaning, room and floor priorities in villas, preparation for upholstery and carpet care, and how to agree a useful deep-cleaning checklist. These sections help customers describe real requirements without promising unverified methods, results, availability or prices.
 
-All 12 URLs received unique titles and meta descriptions in the initial server response. Open Graph and Twitter titles, descriptions and image alternatives follow the page language; sharing URLs match each page’s canonical URL. The existing Google site verification tag was preserved.
+## Verified business information and media
 
-The language switch became a crawlable link to the equivalent translated page, including when a visitor is reading a service page. The requested URL determines page language consistently on the server and in the browser. Browser storage cannot override it, and switching continues to work when storage is blocked. Arabic responses include `lang="ar"` and `dir="rtl"` on the document itself. Existing Noto Sans Arabic typography, mirrored layouts and reduced-motion rules were retained.
+The existing STAR CLEANING Kuwait branding was preserved. The supplied business name, Star Cleaning Service, was included in the homepage title and business alternate names. The verified telephone number remains **+96550258260**, displayed as **+965 50258260**; WhatsApp uses **96550258260**. Kuwait remains the service country, not a fabricated street address.
 
-Homepage footer links and links within the existing service guides now lead to the relevant full service page. Each service page links to the homepage, relevant homepage sections and the other four verified services. Visible breadcrumbs and matching BreadcrumbList structured data connect services to their language-specific homepage. Existing homepage fragment links remain valid.
+No addresses, coordinates, opening hours, ratings, reviews, prices, certifications or customer identities were invented. Existing experience claims and explicitly labeled testimonial placeholders were preserved. LocalBusiness was retained as a valid schema.org type; a fictional CleaningService type was not introduced. Service and breadcrumb markup describes visible page content. FAQ markup was not added merely to suggest eligibility for Google FAQ rich results, which is generally restricted to authoritative government and health sites.
 
-The LocalBusiness graph identifies Star Cleaning Kuwait, its bilingual name, existing logo and image, Kuwait as the country served, supported languages and the five verified services. Every Service points to its provider and a corresponding translated URL. Each WebPage has its own language, URL, title and description. Service pages reference the image shown on that page. No street address, telephone number, opening hours, coordinates, prices, rating, customer review or social profile was fabricated. Kuwait coverage is represented as `areaServed`, not as an invented physical address.
+All meaningful images retained descriptive English and Arabic ALT text. The decorative film image correctly retained empty ALT. Existing descriptive asset filenames and source/license records were retained to preserve image URLs and avoid unnecessary asset churn. Images continue through Netlify Image CDN as responsive WebP; original generated PNGs are not loaded directly in the initial page. The local video is requested only when its dialog opens. No new imagery or media claims were introduced.
 
-The homepage kept all sections, the five service cards, expandable guides, service dialogs, video, FAQs, testimonials placeholder and enquiry flow. Shared dialog and enquiry components were reused on service pages. The forest green, ivory and brass palette, existing fonts, responsive behavior, SVG icons, lazy video loading and optimized image delivery were preserved. No application backend, database, persistent enquiry storage or new external booking integration was added.
+## Performance evidence
 
-The new page copy adds service-specific planning guidance and questions rather than producing separate near-identical landing pages for every keyword. Existing service details are intentionally retained for continuity, with new supporting content on each service page. Each translated page uses its own canonical URL; Arabic pages are not canonicalized to English. No obsolete meta-keywords tag or hidden keyword lists were introduced.
+A mobile Lighthouse run on the **published production homepage before these source changes** returned:
 
-## Titles and meta descriptions
+| Lab measurement          | Baseline |
+| ------------------------ | -------- |
+| Performance              | 87/100   |
+| SEO automated checks     | 100/100  |
+| First Contentful Paint   | 1.0 s    |
+| Largest Contentful Paint | 1.0 s    |
+| Cumulative Layout Shift  | 0.003    |
+| Total Blocking Time      | 500 ms   |
+| Speed Index              | 1.4 s    |
 
-### `/`
+This was one simulated mobile lab measurement, not field Core Web Vitals or a score for the changed source. Total Blocking Time is not INP. The audit estimated 285 KiB of unused JavaScript; roughly 250 KiB was attributed to Google scripts and 35 KiB to the application entry. Existing Ads and Tag Manager integrations were preserved. Their configuration and loading cost remain a separate review item.
 
-**Title:** Cleaning Services Kuwait | Star Cleaning Company
+For the house-cleaning service at a 390px viewport and 2× device density, the published page selected a 1000px-wide hero for a 348px display. The changed local page selected 800px for the same display width. The published 1000px WebP response measured 84,410 bytes; the same production CDN delivered the 800px version in 56,750 bytes, approximately 33% less. The local 800px response measured 56,162 bytes. These checks demonstrate more appropriate image selection; overall production performance after publication still requires verification.
 
-**Meta description:** Star Cleaning provides cleaning services across Kuwait with male staff only. Explore house, office, villa, sofa, carpet and deep cleaning. 10+ years of experience.
-
-### `/ar`
-
-**Title:** شركة تنظيف الكويت | خدمات ستار كلينينج
-
-**Meta description:** ستار كلينينج شركة تنظيف في الكويت بخبرة تزيد عن 10 سنوات. خدمات تنظيف المنازل والشقق والمكاتب والفلل والكنب والسجاد والتنظيف العميق بطاقم من الرجال فقط.
-
-### `/services/house-cleaning`
-
-**Title:** House & Apartment Cleaning Kuwait | Star Cleaning
-
-**Meta description:** House and apartment cleaning in Kuwait with male cleaning staff. Discuss rooms, kitchen and bathroom surfaces, floor care and your priorities with Star Cleaning.
-
-### `/ar/services/house-cleaning`
-
-**Title:** تنظيف منازل وشقق الكويت | ستار كلينينج
-
-**Meta description:** تنظيف منازل وشقق الكويت مع ستار كلينينج بطاقم من الرجال فقط. ناقش تنظيف الغرف وأسطح المطبخ والحمامات والأرضيات ونطاق العمل المناسب لمنزلك قبل الحجز.
-
-### `/services/office-cleaning`
-
-**Title:** Office Cleaning Kuwait | Star Cleaning
-
-**Meta description:** Office cleaning in Kuwait for workstations, meeting rooms and shared spaces. Discuss your workplace routine and cleaning scope with Star Cleaning’s male staff.
-
-### `/ar/services/office-cleaning`
-
-**Title:** تنظيف مكاتب الكويت | ستار كلينينج
-
-**Meta description:** تنظيف مكاتب الكويت لمحطات العمل وغرف الاجتماعات والمساحات المشتركة. ناقش أوقات العمل ونطاق التنظيف مع ستار كلينينج، بطاقم تنظيف من الرجال فقط.
-
-### `/services/villa-cleaning`
-
-**Title:** Villa Cleaning Kuwait | Star Cleaning
-
-**Meta description:** Villa cleaning in Kuwait with male cleaning staff. Plan care for rooms, stairs and interior surfaces, with the scope agreed for your villa before booking.
-
-### `/ar/services/villa-cleaning`
-
-**Title:** تنظيف فلل الكويت | ستار كلينينج
-
-**Meta description:** تنظيف فلل الكويت بطاقم من الرجال فقط. خطط لتنظيف الغرف والسلالم والأسطح الداخلية مع ستار كلينينج، وناقش مساحة الفيلا والأولويات ونطاق العمل قبل الحجز.
-
-### `/services/sofa-carpet-cleaning`
-
-**Title:** Sofa & Carpet Cleaning Kuwait | Star Cleaning
-
-**Meta description:** Sofa and carpet cleaning in Kuwait with male cleaning staff. Discuss fabric, size, condition and expected drying time with Star Cleaning before your visit.
-
-### `/ar/services/sofa-carpet-cleaning`
-
-**Title:** تنظيف كنب وسجاد الكويت | ستار كلينينج
-
-**Meta description:** تنظيف كنب وسجاد الكويت مع ستار كلينينج بطاقم من الرجال فقط. شاركنا نوع القماش والحجم والحالة لمناقشة طريقة العناية ووقت الجفاف المتوقع قبل الزيارة.
-
-### `/services/deep-cleaning`
-
-**Title:** Deep Cleaning Kuwait | Star Cleaning
-
-**Meta description:** Deep cleaning in Kuwait for high-use areas, edges, corners and accessible surfaces. Discuss a detailed cleaning scope with Star Cleaning’s male cleaning staff.
-
-### `/ar/services/deep-cleaning`
-
-**Title:** تنظيف عميق الكويت | ستار كلينينج
-
-**Meta description:** تنظيف عميق الكويت للمناطق كثيرة الاستخدام والحواف والزوايا والأسطح المتاحة. ناقش أولويات منزلك أو مكتبك مع ستار كلينينج بطاقم تنظيف من الرجال فقط.
+Browser network checks also confirmed that service-page booking form code was not requested until the enquiry dialog opened. The homepage form remained available in the initial page, and the video remained deferred. No unverified JavaScript savings, new production score, or field performance improvement was claimed. Existing route splitting, local fonts, responsive styles and normal production CSS/JavaScript optimization were retained; stylesheet rules were not removed without evidence that they were unused.
 
 ## Validation completed
 
-- TypeScript: `pnpm run typecheck` passed after the development server generated the route tree. The generated file was not edited manually.
-- Regression tests: `pnpm test` passed all 26 tests for canonical URLs, reciprocal hreflang, unique metadata, translated schema, verified-business restrictions and sitemap consistency.
-- Formatting: Prettier checks passed for all changed source and documentation files. `git diff --check` passed.
-- Local HTTP crawl: all 12 sitemap URLs returned 200 and contained the expected initial HTML language/direction, one H1, one description, self-canonical, matching hreflang, valid JSON-LD and the preserved verification tag. All 218 internal links, including fragment targets, were checked.
-- Error handling: an unknown page and invalid English and Arabic service slugs returned 404 with `noindex, follow` and no inappropriate canonical URL.
-- Browser checks: all 12 pages passed at 1440px and 390px viewport widths, with no horizontal overflow, broken loaded images or browser runtime errors. English and Arabic homepage/service screenshots were visually reviewed.
-- Interactive checks: paired language navigation, dynamic metadata updates, mobile menu, service dialogs, native modal focus trapping, Escape and close-button behavior, related-service navigation, FAQ disclosure and existing deep links passed. Editable enquiry drafts, selected-service defaults, clipboard success and clipboard-denied manual-copy fallback passed. Browser-storage blocking did not prevent language switching. The video did not load until its dialog opened and was removed when closed.
-- No production build command, commit, publish action or deployment was run. Production build validation remains outstanding.
+- **103 automated tests passed** across six files, including 20 added SEO checks. They covered metadata and language contracts, schema relationships, sitemap consistency, robots rules, server-rendered route output, link targets, missing-page metadata, enquiry validation/submission behavior and the existing global Google tag installation.
+- **TypeScript passed** with `pnpm typecheck`. Formatting checks on changed files and `git diff --check` passed.
+- **12 local canonical pages returned HTTP 200**. All **238 internal links and fragment targets** resolved, and **17 distinct image, font and icon resources** returned successfully. Image transformations returned WebP.
+- Three deliberately missing routes returned **HTTP 404**, noindex and no inappropriate canonical. Trailing-slash and advertising-query variants remained accessible and pointed to clean canonical URLs; no broad redirects or redirect loops were introduced.
+- The static form-registration helper retained its fields and processing target, and returned the additional noindex/nofollow response header. The existing local Forms activation configuration required by the booking tests was restored.
+- **60 Chromium layout cases passed**: all 12 pages at 320, 390, 760, 1024 and 1440 pixels. Each had one H1, the expected document language/direction, a loaded hero image and no horizontal document overflow.
+- English and Arabic browser interaction checks passed for deferred booking dialogs, editable WhatsApp messages, verified phone links, Escape, close buttons, backdrop closing, service links, service expansion/details, video loading on demand, floor-care FAQ disclosure and language switching. Blocked browser storage and reduced-motion navigation also worked. **No browser page errors were observed.**
 
-## Remaining issues and follow-up
+No real enquiry was submitted, phone call initiated or WhatsApp message sent. Booking submission outcomes were tested with mocked responses. Third-party Google scripts were blocked during local interaction tests to avoid sending development traffic; the separate live Lighthouse baseline included the published page's scripts.
 
-1. **Publishing approval:** These are source changes. Publishing requires the owner’s approval. The live public URLs were not updated by this work.
-2. **Verified contact details:** Official telephone, WhatsApp and email values are still absent. The website continues to explain that direct WhatsApp booking is not connected and offers an editable enquiry with copying instead. It does not claim to send or confirm a booking.
-3. **LocalBusiness rich-result eligibility:** A verified physical address, opening hours and other unavailable business details were not added. The existing schema remains truthful, but Google LocalBusiness rich-result eligibility cannot be confirmed without the required verified information and post-publication validation. Additional business details require accurate, approved information.
-4. **Testimonials:** Approved customer reviews remain unavailable. The visible placeholder stays explicit, and no Review or AggregateRating markup was added.
-5. **Search Console after approval:** Once published, inspect representative English and Arabic URLs, check rendered language/canonicals, submit the expanded sitemap and monitor indexing. Search Console submission and Google rich-result testing against the new public URLs were not performed because the changes are not published.
-6. **Production checks:** The production build and deployed routing, status codes and image transformations still need validation after approval. Local development checks do not replace production verification. No production Core Web Vitals measurement or ranking result is claimed.
-7. **Ongoing SEO:** Rankings and search snippets depend on search-engine decisions. This work did not include external keyword-volume research, backlink work, Business Profile changes or third-party account changes. Future domain changes require updating the canonical origin, sitemap and robots.txt together; future service additions require updating both languages and the sitemap.
+## Remaining work and limits
+
+1. **Publication requires permission.** No production build or deployment was started. Netlify performs production build validation after these source changes are accepted. Recheck all production URLs, metadata, headers, sitemap and interactions after an approved publication.
+2. **Search Console:** ownership, submitted sitemap status and actual index coverage were not accessible in this run. After publication, submit or resubmit `https://star-cleaning-website.netlify.app/sitemap.xml`, inspect representative English and Arabic pages, and monitor indexing/canonical reports. Indexable HTML does not guarantee Google indexing or rankings.
+3. **Google Business Profile:** verify or maintain the real business profile, use the same business name and phone, accurate service-area settings, and genuine approved photos and customer reviews. No profile or directory listing was created or changed. A private service-area business should not publish an invented customer-facing address.
+4. **Local rich results:** the schema remains honest and useful, but Google's LocalBusiness rich-result requirements include business details such as a verified physical address that have not been supplied. No missing details were fabricated to satisfy a validator. Validate published markup with Google's Rich Results Test and the Schema.org validator.
+5. **Performance:** repeat production mobile measurements after publication and review 28-day field LCP, INP and CLS in Search Console/PageSpeed Insights when sufficient traffic exists. The mobile baseline's 500 ms Total Blocking Time and Google script cost remain follow-up opportunities; rankings and Core Web Vitals improvements cannot be promised from local checks.
+6. **Google Ads conversions:** organic SEO work does not complete the earlier conversion-tracking recommendation. Existing Google tags were not changed and no conversion action, label or reporting status was assumed. Conversion measurement remains separate from this SEO implementation.
+
+## Maintenance
+
+Use [SEO.md](SEO.md) for the current route, metadata, content and media maintenance rules. Earlier `TECHNICAL_SEO_AUDIT.md` and `TECHNICAL_SEO_REPORT.md` describe historical observations, not the current publication state.

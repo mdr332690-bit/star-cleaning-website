@@ -28,6 +28,19 @@ export const servicePageCopy = {
       en: 'List your living areas, bedrooms, kitchen and bathrooms, then note any surfaces that need particular care. Tell us about access arrangements and the date you prefer. If specific corners or high-use areas need more detailed attention, compare deep cleaning before choosing the scope.',
       ar: 'حدد غرف المعيشة والنوم والمطبخ والحمامات، ثم اذكر أي أسطح تحتاج إلى عناية خاصة. أخبرنا بترتيبات الدخول والموعد المفضل. إذا كانت هناك زوايا أو مناطق كثيرة الاستخدام تحتاج إلى اهتمام أدق، فتعرّف على التنظيف العميق قبل اختيار نطاق العمل.',
     },
+    careTitle: {
+      en: 'Floor cleaning for homes in Kuwait',
+      ar: 'تنظيف أرضيات المنازل في الكويت',
+    },
+    care: {
+      en: 'Floor care is part of planning your home cleaning. Tell us whether the rooms have tile, stone, wood or another surface, and share any care instructions. Note the approximate floor area and where furniture limits access. These details help us discuss the approach and agree which rooms and accessible floor areas to include, without assuming every material needs the same treatment.',
+      ar: 'العناية بالأرضيات جزء من التخطيط لتنظيف منزلك. أخبرنا إن كانت الأرضيات من البلاط أو الحجر أو الخشب أو خامة أخرى، وشاركنا تعليمات العناية بها. اذكر المساحة التقريبية والأماكن التي يحد فيها الأثاث من الوصول. تساعدنا هذه التفاصيل في مناقشة الطريقة والاتفاق على الغرف والأرضيات المتاحة المطلوب تضمينها، فليست كل الخامات بحاجة إلى المعاملة نفسها.',
+    },
+    compareId: 'deep',
+    compareIntro: {
+      en: 'For edges, corners and high-use areas that need extra attention, explore:',
+      ar: 'للحواف والزوايا والمناطق كثيرة الاستخدام التي تحتاج إلى عناية إضافية، تعرّف على:',
+    },
     question: {
       en: 'What information helps plan apartment cleaning?',
       ar: 'ما المعلومات التي تساعد في التخطيط لتنظيف الشقق؟',
@@ -60,6 +73,19 @@ export const servicePageCopy = {
       en: 'Share your office size, working hours and access requirements. Separate the reception, meeting spaces, pantry and washrooms in your list of priorities. Explain which desks or surfaces can be cleaned and flag anything that should be left untouched so the scope is clear before the visit.',
       ar: 'شاركنا مساحة المكتب وأوقات العمل ومتطلبات الدخول. حدد أولويات الاستقبال وغرف الاجتماعات والمطبخ الصغير والحمامات. وضّح المكاتب والأسطح المتاحة للتنظيف وأي أغراض ينبغي عدم لمسها حتى يكون نطاق العمل واضحاً قبل الزيارة.',
     },
+    careTitle: {
+      en: 'Floor care and access around the office',
+      ar: 'العناية بالأرضيات وترتيبات الوصول في المكتب',
+    },
+    care: {
+      en: 'Reception areas, corridors and spaces around desks can have different floor-care needs. Include the floor materials and accessible areas in your enquiry, and explain when shared routes need to stay in use. Identify cables, equipment and documents that should not be moved. Agreeing these details helps separate the cleaning work from the items your staff need to secure before a visit.',
+      ar: 'قد تختلف احتياجات العناية بأرضيات الاستقبال والممرات والمساحات المحيطة بالمكاتب. اذكر خامات الأرضيات والمساحات المتاحة في استفسارك، ووضّح الأوقات التي يلزم فيها إبقاء الممرات قيد الاستخدام. حدد الكابلات والأجهزة والمستندات التي ينبغي عدم تحريكها. يساعد الاتفاق على هذه التفاصيل في فصل أعمال التنظيف عن الأغراض التي يحتاج موظفوك إلى تأمينها قبل الزيارة.',
+    },
+    compareId: 'deep',
+    compareIntro: {
+      en: 'If your workplace needs attention beyond its usual cleaning routine, compare:',
+      ar: 'إذا احتاج مكان عملك إلى عناية تتجاوز التنظيف المعتاد، قارن مع:',
+    },
     question: {
       en: 'Can I discuss cleaning around office working hours?',
       ar: 'هل يمكن مناقشة التنظيف بما يناسب أوقات عمل المكتب؟',
@@ -91,6 +117,19 @@ export const servicePageCopy = {
     planning: {
       en: 'Tell us the number of floors, rooms and staircases, together with the approximate size of the villa. Identify interior surfaces that need attention and any access considerations. Discuss the priorities for each floor so the agreed work reflects the layout of your home.',
       ar: 'أخبرنا بعدد الطوابق والغرف والسلالم، إلى جانب مساحة الفيلا التقريبية. حدد الأسطح الداخلية التي تحتاج إلى عناية وأي ترتيبات للدخول. ناقش أولويات كل طابق حتى يناسب العمل المتفق عليه توزيع منزلك.',
+    },
+    careTitle: {
+      en: 'Room and floor priorities for your villa',
+      ar: 'أولويات الغرف والأرضيات في فيلتك',
+    },
+    care: {
+      en: 'Separate the areas you use daily from rooms that need occasional attention. Note changes in floor material between levels and any care instructions for stairs or interior surfaces. Share which rooms are furnished and whether any spaces are unavailable during the visit. A floor-by-floor list makes it easier to discuss the work that matters most before agreeing the cleaning scope.',
+      ar: 'ميّز بين المساحات التي تستخدمها يومياً والغرف التي تحتاج إلى عناية من حين لآخر. اذكر اختلاف خامات الأرضيات بين الطوابق وأي تعليمات للعناية بالسلالم أو الأسطح الداخلية. وضّح الغرف المؤثثة والمساحات غير المتاحة أثناء الزيارة. تسهّل قائمة تحدد احتياجات كل طابق مناقشة أولوياتك قبل الاتفاق على نطاق التنظيف.',
+    },
+    compareId: 'home',
+    compareIntro: {
+      en: 'For the everyday rooms and surfaces within a smaller home or apartment, explore:',
+      ar: 'للغرف والأسطح المستخدمة يومياً في منزل أصغر أو شقة، تعرّف على:',
     },
     question: {
       en: 'What should I include in a villa cleaning enquiry?',
@@ -127,6 +166,19 @@ export const servicePageCopy = {
       en: 'Share the number and approximate size of the sofas, carpets or rugs, any fabric care information and the areas of concern. Photos can help explain the condition. Ask about the proposed cleaning approach and expected drying time, and agree the scope before the visit.',
       ar: 'شاركنا عدد الكنب أو قطع السجاد وحجمها التقريبي وأي معلومات عن العناية بالقماش والمناطق التي تحتاج إلى اهتمام. قد تساعد الصور في توضيح الحالة. استفسر عن طريقة التنظيف المقترحة ووقت الجفاف المتوقع، واتفق على نطاق العمل قبل الزيارة.',
     },
+    careTitle: {
+      en: 'Preparing for upholstery and carpet care',
+      ar: 'الاستعداد للعناية بالمفروشات والسجاد',
+    },
+    care: {
+      en: 'Keep fabric labels or care instructions available and point out any existing wear or discoloration. Explain which sofa sections, cushions or rugs you want included so these can be discussed individually. Before the visit, ask when the treated items can be used again and what access or ventilation arrangements are needed. The answer depends on the material and agreed cleaning approach.',
+      ar: 'جهّز ملصقات الأقمشة أو تعليمات العناية بها، ووضّح أي تآكل أو تغير لون موجود مسبقاً. حدد أجزاء الكنب أو الوسائد أو قطع السجاد التي ترغب في تضمينها لمناقشة كل منها. اسأل قبل الزيارة عن موعد إعادة استخدام القطع وترتيبات الوصول أو التهوية المطلوبة. تعتمد الإجابة على الخامة وطريقة التنظيف المتفق عليها.',
+    },
+    compareId: 'home',
+    compareIntro: {
+      en: 'For rooms and hard-floor care alongside your upholstery enquiry, explore:',
+      ar: 'للعناية بالغرف والأرضيات الصلبة إلى جانب استفسارك عن المفروشات، تعرّف على:',
+    },
     question: {
       en: 'Can every sofa stain be removed?',
       ar: 'هل يمكن إزالة كل بقع الكنب؟',
@@ -158,6 +210,19 @@ export const servicePageCopy = {
     planning: {
       en: 'Start with a list of the rooms and surfaces that need more than routine care. Explain the condition, approximate size and any access limits. Compare this detailed scope with home or office cleaning so the service you discuss matches the work you need.',
       ar: 'ابدأ بقائمة الغرف والأسطح التي تحتاج إلى عناية تتجاوز التنظيف المعتاد. وضّح الحالة والمساحة التقريبية وأي قيود على الوصول. قارن هذا النطاق التفصيلي بتنظيف المنازل أو المكاتب حتى تناقش الخدمة التي تناسب العمل المطلوب.',
+    },
+    careTitle: {
+      en: 'Agreeing a detailed cleaning checklist',
+      ar: 'الاتفاق على قائمة تفصيلية للتنظيف',
+    },
+    care: {
+      en: 'Describe the specific edges, corners and frequently used surfaces you want addressed, rather than relying on the words “deep clean” alone. For floor cleaning, share the material and any care instructions, and identify areas obstructed by furniture. Agree what is accessible and which tasks are included before the visit. This gives you a practical checklist for discussing the completed work.',
+      ar: 'صف الحواف والزوايا والأسطح كثيرة الاستخدام التي تريد الاهتمام بها، بدلاً من الاكتفاء بعبارة «تنظيف عميق». لتنظيف الأرضيات، شاركنا نوع الخامة وتعليمات العناية وحدد الأماكن التي يعيق الأثاث الوصول إليها. اتفق معنا على المساحات المتاحة والمهام المشمولة قبل الزيارة، لتكون لديك قائمة عملية لمناقشة العمل المنجز.',
+    },
+    compareId: 'home',
+    compareIntro: {
+      en: 'If your priority is the living areas and surfaces used every day, compare:',
+      ar: 'إذا كانت أولويتك مساحات المعيشة والأسطح المستخدمة يومياً، قارن مع:',
     },
     question: {
       en: 'How is deep cleaning different from home cleaning?',

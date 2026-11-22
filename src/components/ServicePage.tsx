@@ -5,14 +5,8 @@ import type { Language } from '../data/content'
 import { imageUrl, imageSrcSet } from '../data/images'
 import { homePath, serviceLabels, servicePages } from '../data/servicePages'
 import type { ServicePageData } from '../data/servicePages'
-import {
-  Brand,
-  Booking,
-  Eyebrow,
-  Modal,
-  ContactActions,
-  ContactNumber,
-} from './SiteUI'
+import { Brand, Eyebrow, Modal, ContactActions, ContactNumber } from './SiteUI'
+import { LazyBooking } from './LazyBooking'
 import { Icon } from './Icon'
 import { LanguageLink } from './LanguageLink'
 import { PromotionBanner } from './PromotionBanner'
@@ -28,6 +22,9 @@ export function ServicePage({
   const t = copy[lang]
   const labels = serviceLabels[lang]
   const home = homePath(lang)
+  const comparison = servicePages.find(
+    (item) => item.id === service.page.compareId,
+  )!
 
   return (
     <div
@@ -96,8 +93,11 @@ export function ServicePage({
             <figure>
               <img
                 src={imageUrl(service.image, 1000)}
-                srcSet={imageSrcSet(service.image, [400, 650, 1000, 1200])}
-                sizes="(max-width: 760px) 90vw, 45vw"
+                srcSet={imageSrcSet(
+                  service.image,
+                  [320, 400, 480, 640, 800, 1000, 1200],
+                )}
+                sizes="(max-width: 380px) calc(100vw - 34px), (max-width: 760px) calc(100vw - 42px), (max-width: 1352px) 43vw, 570px"
                 width="1000"
                 height="850"
                 alt={service.imageAlt[lang]}
@@ -115,6 +115,22 @@ export function ServicePage({
               <p>{service.detail[lang]}</p>
               <h2>{service.page.planningTitle[lang]}</h2>
               <p>{service.page.planning[lang]}</p>
+              <h2>{service.page.careTitle[lang]}</h2>
+              <p>{service.page.care[lang]}</p>
+              <p className="service-comparison">
+                {service.page.compareIntro[lang]}{' '}
+                <Link
+                  to={
+                    lang === 'ar'
+                      ? '/ar/services/$service'
+                      : '/services/$service'
+                  }
+                  params={{ service: comparison.page.slug }}
+                >
+                  {comparison.page.heading[lang]}
+                </Link>
+                .
+              </p>
             </div>
             <aside className="service-scope" aria-labelledby="scope-heading">
               <Icon name={service.icon} size={28} />
@@ -234,7 +250,7 @@ export function ServicePage({
       </footer>
       {bookingOpen && (
         <Modal onClose={() => setBookingOpen(false)} closeLabel={t.close}>
-          <Booking lang={lang} initialService={service.id} />
+          <LazyBooking lang={lang} initialService={service.id} />
         </Modal>
       )}
     </div>
