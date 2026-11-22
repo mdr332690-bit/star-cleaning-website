@@ -7,6 +7,9 @@ import { beforeAll, describe, expect, it } from 'vitest'
 import { getRouter } from '../router'
 import { site } from './site'
 import { copy } from './content'
+import { localEnquiryCopy, localServiceAdvice } from './localSeo'
+import { findServicePage } from './servicePages'
+import { homeHeroImage, serviceHeroImage } from './images'
 
 const origin = 'https://star-cleaning-website.netlify.app'
 const sitemap = readFileSync(
@@ -54,6 +57,88 @@ describe('search-engine-visible route output', () => {
     expect(schema).toBeTruthy()
     expect(() => JSON.parse(schema!)).not.toThrow()
   })
+
+  it.each(paths)('renders a matching responsive hero preload on %s', (path) => {
+    const html = pages.get(path)!
+    const service = findServicePage(path.split('/').at(-1)!)
+    const hero = service ? serviceHeroImage(service.image) : homeHeroImage
+    const preload = html.match(/<link\b[^>]*as="image"[^>]*>/g) ?? []
+    expect(preload).toHaveLength(1)
+    const escaped = (value: string) => value.replace(/&/g, '&amp;')
+    // React 19 already emits the responsive preload for the high-priority
+    // image. An extra head preload can fetch a redundant mobile resource.
+    expect(preload[0]).toContain(`imageSrcSet="${escaped(hero.srcSet)}"`)
+    expect(preload[0]).toContain(`imageSizes="${hero.sizes}"`)
+    expect(preload[0]).toContain('fetchPriority="high"')
+    const image = html.match(/<img\b[^>]*fetchPriority="high"[^>]*>/g) ?? []
+    expect(image).toHaveLength(1)
+    expect(image[0]).toContain(`srcSet="${escaped(hero.srcSet)}"`)
+    expect(image[0]).toContain(`sizes="${hero.sizes}"`)
+    expect(image[0]).not.toContain('loading="lazy"')
+  })
+
+  it.each(paths)(
+    'keeps local enquiry content translated and conditional on %s',
+    (path) => {
+      const html = pages.get(path)!
+      const lang = path.startsWith('/ar') ? 'ar' : 'en'
+      const section = html.match(
+        /<section\b[^>]*id="location-enquiry"[^>]*>([\s\S]*?)<\/section>/,
+      )?.[1]
+      expect(section).toContain(localEnquiryCopy[lang].title)
+      expect(section).toContain(localEnquiryCopy[lang].note)
+      const locations =
+        lang === 'en'
+          ? [
+              'Kuwait City',
+              'Hawally',
+              'Salmiya',
+              'Farwaniya',
+              'Jahra',
+              'Ahmadi',
+              'Mubarak Al-Kabeer',
+            ]
+          : [
+              'مدينة الكويت',
+              'حولي',
+              'السالمية',
+              'الفروانية',
+              'الجهراء',
+              'الأحمدي',
+              'مبارك الكبير',
+            ]
+      for (const location of locations) expect(section).toContain(location)
+      const service = findServicePage(path.split('/').at(-1)!)
+      if (service)
+        expect(section).toContain(localServiceAdvice[service.id][lang])
+      expect(section).toContain(`href="${service ? '#contact' : '#booking'}"`)
+      // Unconfirmed neighbourhoods must not become schema service areas/branches.
+      const schema = html.match(
+        /<script type="application\/ld\+json">([\s\S]*?)<\/script>/,
+      )?.[1]
+      for (const location of locations) expect(schema).not.toContain(location)
+      expect(html).toContain(
+        `<html lang="${lang}" dir="${lang === 'ar' ? 'rtl' : 'ltr'}">`,
+      )
+    },
+  )
+
+  it.each(['/', '/ar'])(
+    'answers female-cleaner searches truthfully on %s',
+    (path) => {
+      const html = pages.get(path)!
+      const question =
+        path === '/ar'
+          ? 'هل توفرون عاملات تنظيف في الكويت؟'
+          : 'Do you provide female cleaning staff in Kuwait?'
+      const answer =
+        path === '/ar'
+          ? 'لا، توفر ستار كلينينج طاقم تنظيف من الرجال فقط.'
+          : 'No. Star Cleaning provides male cleaning staff only.'
+      expect(html).toContain(question)
+      expect(html).toContain(answer)
+    },
+  )
 
   it.each(paths)(
     'keeps Google links hidden when verified destinations are unset on %s',

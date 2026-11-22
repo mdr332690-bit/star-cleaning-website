@@ -10,15 +10,15 @@ export const servicePageCopy = {
     },
     title: {
       en: 'House & Apartment Cleaning Kuwait | Star Cleaning',
-      ar: 'تنظيف منازل وشقق الكويت | ستار كلينينج',
+      ar: 'تنظيف المنازل والشقق في الكويت | ستار كلينينج',
     },
     description: {
       en: 'House and apartment cleaning in Kuwait with male cleaning staff. Discuss rooms, kitchen and bathroom surfaces, floor care and your priorities with Star Cleaning.',
-      ar: 'تنظيف منازل وشقق الكويت مع ستار كلينينج بطاقم من الرجال فقط. ناقش تنظيف الغرف وأسطح المطبخ والحمامات والأرضيات ونطاق العمل المناسب لمنزلك قبل الحجز.',
+      ar: 'خدمات تنظيف المنازل في الكويت مع ستار كلينينج للشقق والبيوت بطاقم من الرجال فقط. ناقش تنظيف الغرف والمطبخ والحمامات والأرضيات ونطاق العمل قبل الحجز.',
     },
     intro: {
-      en: 'A house and an apartment can need different cleaning plans, even when they have the same number of rooms. Our home cleaning service in Kuwait starts with the spaces you use, their approximate size and the surfaces you want us to focus on. House cleaning and apartment cleaning are part of this service, with the details agreed for your home.',
-      ar: 'قد يحتاج البيت والشقة إلى خطتين مختلفتين للتنظيف حتى مع تساوي عدد الغرف. تبدأ خدمة تنظيف المنازل في الكويت بتحديد المساحات التي تستخدمها ومساحتها التقريبية والأسطح التي ترغب في التركيز عليها. يندرج تنظيف البيوت والشقق ضمن هذه الخدمة، ونتفق على التفاصيل وفق احتياجات منزلك.',
+      en: 'Choosing a house cleaning company in Kuwait starts with explaining what your home needs. A house and an apartment can need different plans, even with the same number of rooms. Our home cleaning service focuses on the spaces you use, their approximate size and the surfaces that need attention. House and apartment cleaning are part of this service, with the details agreed for your home.',
+      ar: 'عند اختيار شركة تنظيف منازل في الكويت، ابدأ بتوضيح احتياجات منزلك. قد يحتاج البيت والشقة إلى خطتين مختلفتين حتى مع تساوي عدد الغرف. تركز خدماتنا على المساحات التي تستخدمها ومساحتها التقريبية والأسطح التي تحتاج إلى عناية. يشمل ذلك تنظيف البيوت والشقق، مع الاتفاق على التفاصيل وفق احتياجات منزلك.',
     },
     planningTitle: {
       en: 'Planning your home cleaning visit',
@@ -55,11 +55,11 @@ export const servicePageCopy = {
     heading: { en: 'Office Cleaning in Kuwait', ar: 'تنظيف المكاتب في الكويت' },
     title: {
       en: 'Office Cleaning Kuwait | Star Cleaning',
-      ar: 'تنظيف مكاتب الكويت | ستار كلينينج',
+      ar: 'تنظيف المكاتب في الكويت | ستار كلينينج',
     },
     description: {
       en: 'Office cleaning in Kuwait for workstations, meeting rooms and shared spaces. Discuss your workplace routine and cleaning scope with Star Cleaning’s male staff.',
-      ar: 'تنظيف مكاتب الكويت لمحطات العمل وغرف الاجتماعات والمساحات المشتركة. ناقش أوقات العمل ونطاق التنظيف مع ستار كلينينج، بطاقم تنظيف من الرجال فقط.',
+      ar: 'تنظيف المكاتب في الكويت لمحطات العمل وغرف الاجتماعات والمساحات المشتركة. ناقش أوقات العمل ونطاق التنظيف مع ستار كلينينج، بطاقم من الرجال فقط.',
     },
     intro: {
       en: 'Office cleaning in Kuwait needs a plan around the people who use the workplace. Identify the workstations, meeting rooms and shared spaces that need care, then discuss a visit that fits your working routine. Star Cleaning focuses the conversation on the areas you actually need cleaned.',
@@ -100,11 +100,11 @@ export const servicePageCopy = {
     heading: { en: 'Villa Cleaning in Kuwait', ar: 'تنظيف الفلل في الكويت' },
     title: {
       en: 'Villa Cleaning Kuwait | Star Cleaning',
-      ar: 'تنظيف فلل الكويت | ستار كلينينج',
+      ar: 'تنظيف الفلل في الكويت | ستار كلينينج',
     },
     description: {
       en: 'Villa cleaning in Kuwait with male cleaning staff. Plan care for rooms, stairs and interior surfaces, with the scope agreed for your villa before booking.',
-      ar: 'تنظيف فلل الكويت بطاقم من الرجال فقط. خطط لتنظيف الغرف والسلالم والأسطح الداخلية مع ستار كلينينج، وناقش مساحة الفيلا والأولويات ونطاق العمل قبل الحجز.',
+      ar: 'تنظيف الفلل في الكويت بطاقم من الرجال فقط. خطط لتنظيف الغرف والسلالم والأسطح الداخلية مع ستار كلينينج، وناقش مساحة الفيلا ونطاق العمل قبل الحجز.',
     },
     intro: {
       en: 'A larger home benefits from a room-by-room plan. For villa cleaning in Kuwait, Star Cleaning discusses the layout, floors and interior areas that matter most to you. A clear list helps distinguish everyday room care from areas that need a more detailed clean.',
@@ -148,11 +148,11 @@ export const servicePageCopy = {
     },
     title: {
       en: 'Sofa & Carpet Cleaning Kuwait | Star Cleaning',
-      ar: 'تنظيف كنب وسجاد الكويت | ستار كلينينج',
+      ar: 'تنظيف الكنب والسجاد في الكويت | ستار كلينينج',
     },
     description: {
-      en: 'Sofa and carpet cleaning in Kuwait with male cleaning staff. Discuss fabric, size, condition and expected drying time with Star Cleaning before your visit.',
-      ar: 'تنظيف كنب وسجاد الكويت مع ستار كلينينج بطاقم من الرجال فقط. شاركنا نوع القماش والحجم والحالة لمناقشة طريقة العناية ووقت الجفاف المتوقع قبل الزيارة.',
+      en: 'Sofa cleaning and carpet cleaning in Kuwait with male cleaning staff. Discuss fabric, size, condition and expected drying time with Star Cleaning before your visit.',
+      ar: 'تنظيف الكنب والسجاد في الكويت مع ستار كلينينج بطاقم من الرجال فقط. شاركنا نوع القماش والحجم والحالة لمناقشة طريقة العناية ووقت الجفاف قبل الزيارة.',
     },
     intro: {
       en: 'Sofa cleaning in Kuwait starts with understanding the fabric and its condition. The same care matters for carpets and rugs. Tell Star Cleaning about the seating or flooring you want cleaned so the approach can be discussed for the material, rather than assuming every fabric needs the same treatment.',
@@ -193,11 +193,11 @@ export const servicePageCopy = {
     heading: { en: 'Deep Cleaning in Kuwait', ar: 'تنظيف عميق في الكويت' },
     title: {
       en: 'Deep Cleaning Kuwait | Star Cleaning',
-      ar: 'تنظيف عميق الكويت | ستار كلينينج',
+      ar: 'تنظيف عميق في الكويت | ستار كلينينج',
     },
     description: {
       en: 'Deep cleaning in Kuwait for high-use areas, edges, corners and accessible surfaces. Discuss a detailed cleaning scope with Star Cleaning’s male cleaning staff.',
-      ar: 'تنظيف عميق الكويت للمناطق كثيرة الاستخدام والحواف والزوايا والأسطح المتاحة. ناقش أولويات منزلك أو مكتبك مع ستار كلينينج بطاقم تنظيف من الرجال فقط.',
+      ar: 'تنظيف عميق في الكويت للمناطق كثيرة الاستخدام والحواف والزوايا والأسطح المتاحة. ناقش أولويات منزلك أو مكتبك مع ستار كلينينج بطاقم من الرجال فقط.',
     },
     intro: {
       en: 'Deep cleaning in Kuwait is a way to focus on the details that your everyday routine may miss. Star Cleaning discusses the accessible surfaces, edges, corners and high-use areas that need extra attention in your home or workplace. The plan follows your priorities and an agreed scope.',
@@ -263,7 +263,7 @@ export const serviceLabels = {
     faq: 'Service questions',
     maleQuestion: 'Who provides the cleaning service?',
     maleAnswer:
-      'Star Cleaning provides male cleaning staff only, serving Kuwait as a whole. Share your property and service requirements so the scope and availability can be discussed before booking.',
+      'Star Cleaning provides male cleaning staff only. Female cleaning staff are not offered. Share your property location and service requirements so the scope and availability can be discussed before booking.',
     enquiry: 'Prepare an enquiry',
   },
   ar: {
@@ -278,7 +278,7 @@ export const serviceLabels = {
     faq: 'أسئلة عن الخدمة',
     maleQuestion: 'من يقدم خدمة التنظيف؟',
     maleAnswer:
-      'توفر ستار كلينينج طاقم تنظيف من الرجال فقط لخدمة الكويت ككل. شاركنا تفاصيل العقار والخدمة المطلوبة لمناقشة نطاق العمل والتوافر قبل الحجز.',
+      'توفر ستار كلينينج طاقم تنظيف من الرجال فقط، ولا توفر عاملات تنظيف. شاركنا موقع العقار والخدمة المطلوبة لمناقشة نطاق العمل والتوافر قبل الحجز.',
     enquiry: 'جهّز استفسارك',
   },
 }

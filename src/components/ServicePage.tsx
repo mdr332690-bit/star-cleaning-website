@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link } from '@tanstack/react-router'
 import { copy } from '../data/content'
 import type { Language } from '../data/content'
-import { imageUrl, imageSrcSet } from '../data/images'
+import { serviceHeroImage } from '../data/images'
 import { homePath, serviceLabels, servicePages } from '../data/servicePages'
 import type { ServicePageData } from '../data/servicePages'
 import { Brand, Eyebrow, Modal, ContactActions, ContactNumber } from './SiteUI'
@@ -11,6 +11,7 @@ import { Icon } from './Icon'
 import { LanguageLink } from './LanguageLink'
 import { PromotionBanner } from './PromotionBanner'
 import { GoogleBusinessLinks } from './GoogleBusinessLinks'
+import { LocalEnquiryGuide } from './LocalEnquiryGuide'
 
 export function ServicePage({
   lang,
@@ -93,12 +94,7 @@ export function ServicePage({
             </div>
             <figure>
               <img
-                src={imageUrl(service.image, 1000)}
-                srcSet={imageSrcSet(
-                  service.image,
-                  [320, 400, 480, 640, 800, 1000, 1200],
-                )}
-                sizes="(max-width: 380px) calc(100vw - 34px), (max-width: 760px) calc(100vw - 42px), (max-width: 1352px) 43vw, 570px"
+                {...serviceHeroImage(service.image)}
                 width="1000"
                 height="850"
                 alt={service.imageAlt[lang]}
@@ -150,6 +146,7 @@ export function ServicePage({
             </aside>
           </div>
         </section>
+        <LocalEnquiryGuide lang={lang} service={service} />
         <section className="section service-faq">
           <div className="container service-reading-width">
             <Eyebrow>{t.faqEyebrow}</Eyebrow>

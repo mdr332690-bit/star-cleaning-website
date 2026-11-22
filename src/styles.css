@@ -3541,6 +3541,29 @@ em {
 .service-reading-width {
   max-width: 880px;
 }
+.location-section {
+  border-block: 1px solid var(--line);
+}
+.location-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: clamp(28px, 6vw, 80px);
+  align-items: start;
+}
+.location-grid h2 {
+  font-size: clamp(29px, 3vw, 42px);
+  margin-block-end: 24px;
+}
+.location-copy {
+  color: var(--text);
+  font-size: 15px;
+}
+.location-copy p + p {
+  margin-block-start: 20px;
+}
+.location-copy .scope-note {
+  font-size: 13px;
+}
 .service-faq .faq-list {
   margin-block-start: 32px;
 }
@@ -3606,6 +3629,7 @@ em {
 @media (max-width: 760px) {
   .service-intro,
   .service-body-grid,
+  .location-grid,
   .related-service-grid {
     grid-template-columns: 1fr;
   }

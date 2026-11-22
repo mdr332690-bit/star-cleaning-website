@@ -25,7 +25,7 @@ export const seo = {
       'Illustrative image of a cleaning professional caring for a cream sofa',
   },
   ar: {
-    title: 'شركة تنظيف الكويت | خدمات ستار كلينينج',
+    title: 'شركة تنظيف في الكويت | ستار كلينينج',
     description:
       'خدمات تنظيف المنازل والشقق والمكاتب والفلل والكنب والسجاد والتنظيف العميق في الكويت. اتصل بستار كلينينج على +96550258260 لمناقشة الخدمة وعرض السعر.',
     locale: 'ar_KW',
@@ -53,7 +53,7 @@ export const businessStructuredData = (lang: Language) => ({
       image: socialImage,
       logo: new URL('favicon.svg', site.url).href,
       areaServed: { '@type': 'Country', name: 'Kuwait' },
-      slogan: 'Care in every detail.',
+      slogan: lang === 'ar' ? 'عناية بكل تفصيلة.' : 'Care in every detail.',
       knowsLanguage: ['en', 'ar'],
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
