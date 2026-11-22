@@ -169,6 +169,63 @@ em {
 .button-cream:hover {
   background: #e9e3cc;
 }
+.google-business-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  max-inline-size: 100%;
+  margin-block-start: 24px;
+}
+.google-business-links .button.google-review-button {
+  min-block-size: 48px;
+  max-inline-size: 100%;
+  margin-block: 0;
+  font-size: 13px;
+  white-space: normal;
+  text-align: start;
+  border: 1px solid var(--gold);
+}
+.google-review-button > svg:first-child {
+  color: var(--gold);
+}
+.google-review-label {
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+}
+.google-profile-link {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 8px;
+  min-block-size: 44px;
+  max-inline-size: 100%;
+  font-size: 13px;
+  line-height: 1.7;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.google-profile-link > span {
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+}
+.google-profile-link:hover {
+  text-decoration-thickness: 2px;
+}
+.google-business-links--footer {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+.service-google-links .google-business-links {
+  margin-block: 0 32px;
+}
+@media (max-width: 760px) {
+  .google-business-links:not(.google-business-links--footer) {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
 .text-link {
   display: inline-flex;
   align-items: center;

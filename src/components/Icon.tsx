@@ -102,6 +102,12 @@ export function Icon({
         <path d="M10 5H3v9h5c0 3-2 4-4 5M21 5h-7v9h5c0 3-2 4-4 5" />
       </>
     ),
+    review: (
+      <>
+        <path d="M12 4H5a2 2 0 0 0-2 2v13l4-3h11a2 2 0 0 0 2-2v-3" />
+        <path d="m12 9 7-7 3 3-7 7-4 1 1-4Zm5-5 3 3" />
+      </>
+    ),
     globe: (
       <>
         <circle cx="12" cy="12" r="9" />
