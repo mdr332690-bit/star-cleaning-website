@@ -35,6 +35,17 @@ beforeAll(async () => {
 })
 
 describe('search-engine-visible route output', () => {
+  it('renders a single Bing verification tag in the homepage head', () => {
+    const html = pages.get('/')!
+    const head = html.match(/<head\b[^>]*>([\s\S]*?)<\/head>/)?.[1] ?? ''
+    const bingTags =
+      html.match(/<meta\b[^>]*\bname="msvalidate\.01"[^>]*>/g) ?? []
+    expect(bingTags).toHaveLength(1)
+    expect(bingTags[0]).toContain('content="744870E5AB6687CD3D3B830B76B6F551"')
+    expect(head).toContain(bingTags[0])
+    expect(head).toContain('name="google-site-verification"')
+  })
+
   it.each(paths)('renders indexable, complete SEO on %s', (path) => {
     const html = pages.get(path)!
     const head = html.match(/<head\b[^>]*>([\s\S]*?)<\/head>/)?.[1] ?? ''
