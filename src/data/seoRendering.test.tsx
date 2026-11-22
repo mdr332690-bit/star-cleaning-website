@@ -5,6 +5,8 @@ import { RouterServer } from '@tanstack/react-router/ssr/server'
 import { renderToString } from 'react-dom/server'
 import { beforeAll, describe, expect, it } from 'vitest'
 import { getRouter } from '../router'
+import { site } from './site'
+import { copy } from './content'
 
 const origin = 'https://star-cleaning-website.netlify.app'
 const sitemap = readFileSync(
@@ -52,6 +54,73 @@ describe('search-engine-visible route output', () => {
     expect(schema).toBeTruthy()
     expect(() => JSON.parse(schema!)).not.toThrow()
   })
+
+  it.each(paths)(
+    'keeps Google links hidden when verified destinations are unset on %s',
+    async (path) => {
+      const originalReviewUrl = site.googleReviewUrl
+      const originalProfileUrl = site.googleBusinessProfileUrl
+      site.googleReviewUrl = ''
+      site.googleBusinessProfileUrl = ''
+      try {
+        const { html } = await render(path)
+        expect(html).not.toContain('google-business-links')
+        expect(html).not.toContain('3nkpHdm3U7cpacnU8')
+      } finally {
+        site.googleReviewUrl = originalReviewUrl
+        site.googleBusinessProfileUrl = originalProfileUrl
+      }
+    },
+  )
+
+  it.each(paths)(
+    'prepares localized Google links in the contact area and footer on %s',
+    async (path) => {
+      // These reserved test URLs are never used as real business destinations.
+      const reviewUrl = 'https://reviews.example.test/submit'
+      const profileUrl = 'https://maps.example.test/star-cleaning-service'
+      const originalReviewUrl = site.googleReviewUrl
+      const originalProfileUrl = site.googleBusinessProfileUrl
+      site.googleReviewUrl = reviewUrl
+      site.googleBusinessProfileUrl = profileUrl
+      try {
+        const { html } = await render(path)
+        const lang = path.startsWith('/ar') ? 'ar' : 'en'
+        const t = copy[lang]
+        expect(html).toContain(
+          `<html lang="${lang}" dir="${lang === 'ar' ? 'rtl' : 'ltr'}">`,
+        )
+        const contact = html.match(
+          /<section\b[^>]*id="contact"[^>]*>([\s\S]*?)<\/section>/,
+        )?.[1]
+        const footer = html.match(/<footer\b[^>]*>([\s\S]*?)<\/footer>/)?.[1]
+        for (const area of [contact, footer]) {
+          expect(area).toContain(`href="${reviewUrl}"`)
+          expect(area).toContain(`href="${profileUrl}"`)
+          expect(area).toContain(t.googleReview)
+          expect(area).toContain(t.googleBusinessProfile)
+          expect(area).toContain(t.opensNewTab)
+        }
+        if (path === '/' || path === '/ar') {
+          const testimonials = html.match(
+            /<section\b[^>]*id="testimonials"[^>]*>([\s\S]*?)<\/section>/,
+          )?.[1]
+          expect(testimonials).toContain(`href="${reviewUrl}"`)
+          expect(testimonials).toContain(t.reviewsBadge)
+          expect(html).toContain(
+            'name="form-name" value="star-cleaning-booking"',
+          )
+        }
+        expect(html).toContain('href="tel:+96550258260"')
+        expect(html).toContain('href="https://wa.me/96550258260"')
+        expect(html).not.toContain('"aggregateRating"')
+        expect(html).not.toContain('3nkpHdm3U7cpacnU8')
+      } finally {
+        site.googleReviewUrl = originalReviewUrl
+        site.googleBusinessProfileUrl = originalProfileUrl
+      }
+    },
+  )
 
   it('keeps every internal page and fragment link resolvable without JavaScript', () => {
     for (const [path, html] of pages) {

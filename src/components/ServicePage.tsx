@@ -10,6 +10,7 @@ import { LazyBooking } from './LazyBooking'
 import { Icon } from './Icon'
 import { LanguageLink } from './LanguageLink'
 import { PromotionBanner } from './PromotionBanner'
+import { GoogleBusinessLinks } from './GoogleBusinessLinks'
 
 export function ServicePage({
   lang,
@@ -189,6 +190,7 @@ export function ServicePage({
               {labels.enquiry}
             </button>
             <p className="scope-note">{t.bookingNote}</p>
+            <GoogleBusinessLinks lang={lang} />
           </div>
         </section>
         <section className="section related-services">
@@ -240,6 +242,9 @@ export function ServicePage({
             </Link>
           </nav>
           <LanguageLink lang={lang} slug={service.page.slug} />
+        </div>
+        <div className="container service-google-links">
+          <GoogleBusinessLinks lang={lang} footer />
         </div>
         <div className="container footer-bottom">
           <span>

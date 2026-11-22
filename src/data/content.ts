@@ -308,6 +308,10 @@ export const copy = {
     reviewsText:
       'Verified customer testimonials are coming soon. We look forward to sharing their experiences with you.',
     reviewsBadge: 'AWAITING VERIFIED REVIEWS',
+    googleReview: 'Write a Google Review',
+    googleBusinessProfile: 'Our Google Business Profile',
+    googleBusinessLinks: 'Find us and share your experience on Google',
+    opensNewTab: 'opens in a new tab',
     faqEyebrow: 'A LITTLE CLARITY',
     faqTitle: 'Cleaning in Kuwait:',
     faqEm: 'your questions.',
@@ -511,6 +515,10 @@ export const copy = {
     reviewsText:
       'آراء العملاء الموثّقة تُضاف قريباً. نتطلع إلى مشاركة تجاربهم معكم.',
     reviewsBadge: 'بانتظار آراء العملاء الموثّقة',
+    googleReview: 'اكتب تقييماً على Google',
+    googleBusinessProfile: 'ملفنا التجاري على Google',
+    googleBusinessLinks: 'تعرّف علينا وشارك تجربتك على Google',
+    opensNewTab: 'يفتح في علامة تبويب جديدة',
     faqEyebrow: 'إجابات واضحة',
     faqTitle: 'التنظيف في الكويت:',
     faqEm: 'أسئلتك وإجاباتها.',

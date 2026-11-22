@@ -12,6 +12,7 @@ import { imageUrl as cdn, imageSrcSet } from '../data/images'
 import { Icon, Star } from './Icon'
 import { BookingForm } from './BookingForm'
 import { bookingCopy } from '../data/booking'
+import { GoogleBusinessLinks } from './GoogleBusinessLinks'
 
 const navIds = ['home', 'about', 'services', 'why-us', 'contact']
 type ModalState =
@@ -594,6 +595,7 @@ export function MarketingPage({ lang }: { lang: Language }) {
                 <span className="status-dot" />
                 {t.reviewsBadge}
               </span>
+              <GoogleBusinessLinks lang={lang} onDark reviewOnly />
             </div>
           </div>
         </section>
@@ -694,6 +696,7 @@ export function MarketingPage({ lang }: { lang: Language }) {
                   {t.book}
                   <Icon name="diagonal" size={17} />
                 </button>
+                <GoogleBusinessLinks lang={lang} onDark />
               </div>
               <div className="contact-details">
                 <div>
@@ -747,6 +750,7 @@ export function MarketingPage({ lang }: { lang: Language }) {
             <div className="footer-brand">
               <Brand lang={lang} />
               <p>{t.footerTagline}</p>
+              <GoogleBusinessLinks lang={lang} footer />
             </div>
             <div>
               <h3>{t.footerServices}</h3>
