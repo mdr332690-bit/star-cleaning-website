@@ -1,7 +1,10 @@
 # Dependencies and generated output
 node_modules/
 dist/
-.netlify/
+.netlify/*
+!.netlify/features/
+.netlify/features/*
+!.netlify/features/netlify-forms
 
 # Local configuration
 .env
