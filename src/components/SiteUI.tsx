@@ -3,6 +3,7 @@ import type { ReactNode } from 'react'
 import { copy } from '../data/content'
 import type { Language } from '../data/content'
 import { site } from '../data/site'
+import { trackPhoneClick } from '../data/googleAds'
 import { Icon, Star } from './Icon'
 
 export function ContactActions({
@@ -22,6 +23,7 @@ export function ContactActions({
       <a
         className={`button contact-action ${onDark ? 'button-cream' : 'button-outline'}`}
         href={`tel:${site.phone}`}
+        onClick={trackPhoneClick}
       >
         <Icon name="phone" size={19} />
         <span className="contact-action-label">
@@ -44,7 +46,11 @@ export function ContactActions({
 
 export function ContactNumber() {
   return (
-    <a className="contact-number" href={`tel:${site.phone}`}>
+    <a
+      className="contact-number"
+      href={`tel:${site.phone}`}
+      onClick={trackPhoneClick}
+    >
       <bdi dir="ltr">{site.phoneDisplay}</bdi>
     </a>
   )
