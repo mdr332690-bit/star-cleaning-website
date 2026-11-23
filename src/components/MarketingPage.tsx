@@ -30,6 +30,7 @@ export function MarketingPage({ lang }: { lang: Language }) {
   const [showAllServices, setShowAllServices] = useState(false)
   const [videoError, setVideoError] = useState(false)
   const t = copy[lang]
+  const emailHref = site.email ? `mailto:${site.email}` : undefined
   const selectedService =
     modal?.type === 'service'
       ? services.find((item) => item.id === modal.id)
@@ -728,8 +729,10 @@ export function MarketingPage({ lang }: { lang: Language }) {
                   </span>
                   <div>
                     <span>{t.emailLabel}</span>
-                    {site.email ? (
-                      <a href={`mailto:${site.email}`}>{site.email}</a>
+                    {emailHref ? (
+                      <a href={emailHref}>
+                        <bdi dir="ltr">{site.email}</bdi>
+                      </a>
                     ) : (
                       <p className="contact-placeholder">
                         {t.emailPlaceholder}
@@ -788,6 +791,12 @@ export function MarketingPage({ lang }: { lang: Language }) {
                 <Icon name="pin" size={16} />
                 {t.country}
               </span>
+              {emailHref && (
+                <a className="footer-email" href={emailHref}>
+                  <Icon name="mail" size={16} />
+                  <bdi dir="ltr">{site.email}</bdi>
+                </a>
+              )}
               <LanguageLink lang={lang} />
             </div>
           </div>
@@ -822,6 +831,15 @@ export function MarketingPage({ lang }: { lang: Language }) {
             aria-label={bookingCopy[lang].whatsapp}
           >
             <Icon name="whatsapp" size={28} />
+          </a>
+        )}
+        {emailHref && (
+          <a
+            className="floating-contact-action floating-email"
+            href={emailHref}
+            aria-label={t.emailLabel}
+          >
+            <Icon name="mail" size={26} />
           </a>
         )}
       </div>

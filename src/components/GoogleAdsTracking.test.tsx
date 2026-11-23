@@ -12,6 +12,7 @@ import {
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { getRouter } from '../router'
 import { bookingCopy, kuwaitNow } from '../data/booking'
+import { copy } from '../data/content'
 import { site } from '../data/site'
 import { ContactActions, ContactNumber } from './SiteUI'
 
@@ -150,12 +151,23 @@ describe('Google Ads lead conversions with mocked browser services', () => {
         const whatsapp = actions.getByRole('link', {
           name: bookingCopy[lang].whatsapp,
         })
-        expect([...floaters[0].children]).toEqual([booking, whatsapp])
+        const email = actions.getByRole('link', { name: copy[lang].emailLabel })
+        expect([...floaters[0].children]).toEqual([booking, whatsapp, email])
         expect(booking.getAttribute('aria-haspopup')).toBe('dialog')
         expect(whatsapp.getAttribute('href')).toBe(
           `https://wa.me/${site.whatsappNumber}`,
         )
         expect(whatsapp.getAttribute('target')).toBe('_blank')
+        const footerEmail = within(screen.getByRole('contentinfo')).getByRole(
+          'link',
+          { name: 'mdr332690@gmail.com' },
+        )
+        expect(footerEmail.querySelector('bdi')?.dir).toBe('ltr')
+        for (const link of [email, footerEmail]) {
+          expect(link.getAttribute('href')).toBe('mailto:mdr332690@gmail.com')
+          clickWithoutNavigation(link)
+        }
+        expect(window.gtag).not.toHaveBeenCalled()
         bookingTrigger = booking
 
         fillAndSubmit(inline)
