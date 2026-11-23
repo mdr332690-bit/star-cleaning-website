@@ -803,14 +803,28 @@ export function MarketingPage({ lang }: { lang: Language }) {
           </div>
         </div>
       </footer>
-      <button
-        className="floating-whatsapp"
-        onClick={() => whatsapp()}
-        aria-label={t.book}
-      >
-        <Icon name="whatsapp" size={26} />
-        <span>{t.book}</span>
-      </button>
+      <div className="floating-contact">
+        <button
+          className="floating-contact-action floating-booking"
+          type="button"
+          onClick={() => whatsapp()}
+          aria-label={lang === 'ar' ? 'احجز خدمة تنظيف' : 'Book a cleaning'}
+          aria-haspopup="dialog"
+        >
+          <Icon name="calendar-check" size={26} />
+        </button>
+        {site.whatsappNumber && (
+          <a
+            className="floating-contact-action floating-whatsapp"
+            href={`https://wa.me/${site.whatsappNumber}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={bookingCopy[lang].whatsapp}
+          >
+            <Icon name="whatsapp" size={28} />
+          </a>
+        )}
+      </div>
 
       {modal && (
         <Modal

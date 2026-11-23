@@ -12,6 +12,7 @@ import {
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { getRouter } from '../router'
 import { bookingCopy, kuwaitNow } from '../data/booking'
+import { site } from '../data/site'
 import { ContactActions, ContactNumber } from './SiteUI'
 
 const phoneConversion = [
@@ -137,14 +138,33 @@ describe('Google Ads lead conversions with mocked browser services', () => {
 
       // Homepages have an inline form as well as the shared booking dialog.
       const inline = container.querySelector<HTMLFormElement>('form')
+      let bookingTrigger = container.querySelector('.header-book')!
       if (inline) {
+        const floaters =
+          container.querySelectorAll<HTMLElement>('.floating-contact')
+        expect(floaters).toHaveLength(1)
+        const actions = within(floaters[0])
+        const booking = actions.getByRole('button', {
+          name: lang === 'ar' ? 'احجز خدمة تنظيف' : 'Book a cleaning',
+        })
+        const whatsapp = actions.getByRole('link', {
+          name: bookingCopy[lang].whatsapp,
+        })
+        expect([...floaters[0].children]).toEqual([booking, whatsapp])
+        expect(booking.getAttribute('aria-haspopup')).toBe('dialog')
+        expect(whatsapp.getAttribute('href')).toBe(
+          `https://wa.me/${site.whatsappNumber}`,
+        )
+        expect(whatsapp.getAttribute('target')).toBe('_blank')
+        bookingTrigger = booking
+
         fillAndSubmit(inline)
         await screen.findByText(bookingCopy[lang].successTitle)
         expect(vi.mocked(window.gtag!).mock.calls).toEqual([bookingConversion])
         vi.mocked(window.gtag!).mockClear()
       }
 
-      fireEvent.click(container.querySelector('.header-book')!)
+      fireEvent.click(bookingTrigger)
       const dialog = await screen.findByRole('dialog')
       const form = (await within(dialog).findByRole('form')) as HTMLFormElement
       expect(window.gtag).not.toHaveBeenCalled()

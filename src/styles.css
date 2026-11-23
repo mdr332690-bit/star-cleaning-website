@@ -1710,53 +1710,55 @@ em {
 .footer-bottom > a > svg {
   transform: rotate(-90deg);
 }
-.floating-whatsapp {
+.floating-contact {
   position: fixed;
   z-index: 25;
-  bottom: 23px;
-  inset-inline-end: 23px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 9px;
-  width: 52px;
-  height: 52px;
-  background: #265d3e;
-  border: 1px solid #ffffff45;
-  color: #fff;
-  border-radius: 50%;
-  box-shadow: 0 5px 22px #143f3533;
-  transition:
-    transform 0.2s,
-    background 0.2s;
-}
-/* Keep the English contact control above the platform badge. */
-.site[dir='ltr'] .floating-whatsapp {
-  bottom: 80px;
-}
-.floating-whatsapp:hover {
-  transform: translateY(-3px);
-  background: var(--green);
-}
-.floating-whatsapp > span {
-  position: absolute;
-  inset-inline-end: 62px;
-  white-space: nowrap;
-  font-size: 10px;
-  background: var(--green);
-  padding: 9px 12px;
-  border-radius: 4px;
-  opacity: 0;
+  bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+  right: calc(clamp(12px, 2vw, 24px) + env(safe-area-inset-right, 0px));
+  display: grid;
+  gap: 10px;
   pointer-events: none;
-  transform: translateX(5px);
-  transition:
-    opacity 0.2s,
-    transform 0.2s;
 }
-.floating-whatsapp:hover > span,
-.floating-whatsapp:focus-visible > span {
-  opacity: 1;
-  transform: none;
+.floating-contact-action {
+  display: grid;
+  place-items: center;
+  pointer-events: auto;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  border: 1px solid;
+  border-radius: 50%;
+  box-shadow: 0 5px 16px #10233933;
+  transition:
+    box-shadow 0.18s ease,
+    filter 0.18s ease;
+}
+.floating-booking {
+  background: #14263e;
+  border-color: #e8d0a475;
+  color: #e8d0a4;
+}
+.floating-whatsapp {
+  background: #25d366;
+  border-color: #075e543d;
+  color: #123126;
+}
+.floating-contact-action > svg {
+  stroke-width: 1.8;
+}
+@media (hover: hover) {
+  .floating-contact-action:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 7px 20px #10233945;
+  }
+}
+.floating-contact-action:active {
+  filter: brightness(0.92);
+}
+.floating-contact-action:focus-visible {
+  outline: 2px solid var(--paper);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px #14263e;
 }
 
 .modal {
@@ -3204,16 +3206,11 @@ em {
   .footer-bottom > a {
     margin-inline-start: auto;
   }
-  .floating-whatsapp {
+  .floating-contact-action {
     width: 48px;
     height: 48px;
-    bottom: 17px;
-    inset-inline-end: 15px;
   }
-  .floating-whatsapp > svg {
-    width: 24px;
-  }
-  .floating-whatsapp > span {
+  .site-header:has(.mobile-nav) ~ .floating-contact {
     display: none;
   }
   .booking-content {
