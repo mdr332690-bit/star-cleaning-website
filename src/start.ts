@@ -3,7 +3,7 @@ import { indexNowVerificationResponse } from './server/indexNowVerification'
 
 const indexNowVerification = createMiddleware().server(({ request, next }) => {
   return (
-    indexNowVerificationResponse(request, process.env.INDEXNOW_KEY) ?? next()
+    indexNowVerificationResponse(request, process.env.INDEXNOW_KEY_V2) ?? next()
   )
 })
 

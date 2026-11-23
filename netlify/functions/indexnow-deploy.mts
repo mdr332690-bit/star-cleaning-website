@@ -13,7 +13,10 @@ export default {
     }
 
     try {
-      console.info('IndexNow:', await submitIndexNow(process.env.INDEXNOW_KEY))
+      console.info(
+        'IndexNow:',
+        await submitIndexNow(Netlify.env.get('INDEXNOW_KEY_V2')),
+      )
     } catch {
       console.error('IndexNow: sitemap parsing or network request failed.')
     }
