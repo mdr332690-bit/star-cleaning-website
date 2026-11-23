@@ -12,7 +12,7 @@ When adding or removing a real service page, update `public/sitemap.xml` with bo
 
 ## IndexNow
 
-Configure `INDEXNOW_KEY` as a secret available only to Functions in the production deploy context. Use a randomly generated 64-character hexadecimal value and keep it out of the repository, build environment, and client code. The server serves the ownership proof at `/<key>.txt` on the production hostname.
+Configure `INDEXNOW_KEY_V2` as a secret available only to Functions in the production deploy context. Use a randomly generated 64-character hexadecimal value and keep it out of the repository, build environment, and client code. The server serves the ownership proof at `/<key>.txt` on the production hostname.
 
 The Netlify deploy event checks the live proof before submitting the current public sitemap after a published production `main` deploy. It rechecks each listed URL against `robots.txt`, the direct HTML response, its robots directives and its self-canonical. A production deploy sends the eligible set as a batch, including unchanged pages; previews and failed deploys do not send anything. The function logs the submitted URLs and HTTP status without logging the ownership proof. HTTP `200` means IndexNow accepted the batch; `202` means the URLs were received but key validation is pending. Neither guarantees search indexing. After a production deployment, confirm the root proof returns HTTP `200` with the expected plain-text body and check the `indexnow-deploy` function log for the live POST result. Do not report the integration as verified based on tests or a reachable endpoint alone.
 

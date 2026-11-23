@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs'
 import type { DeploySucceededEvent } from '@netlify/functions'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import onDeploy from '../../netlify/functions/indexnow-deploy.mts'
+import { startInstance } from '../start'
 import { submitIndexNow } from './indexNowSubmission'
 import {
   getIndexNowProofUrl,
@@ -96,6 +97,31 @@ describe('IndexNow proof', () => {
         indexNowVerificationResponse(new Request(url), testProof),
       ).toBeUndefined()
     }
+  })
+
+  it.each([
+    { variable: 'INDEXNOW_KEY_V2', status: 200 },
+    { variable: 'INDEXNOW_KEY', status: 404 },
+  ])('returns $status when only $variable is configured', async ({ variable, status }) => {
+    vi.stubEnv('INDEXNOW_KEY', undefined)
+    vi.stubEnv('INDEXNOW_KEY_V2', undefined)
+    vi.stubEnv(variable, testProof)
+
+    const request = new Request(proofUrl)
+    const pathname = new URL(proofUrl).pathname
+    const fallback = new Response(null, { status: 404 })
+    const { requestMiddleware } = await startInstance.getOptions()
+    const result = await requestMiddleware?.[0].options.server?.({
+      request,
+      pathname,
+      context: undefined,
+      handlerType: 'router',
+      next: vi.fn().mockReturnValue({ request, pathname, response: fallback }),
+    })
+
+    const response = result instanceof Response ? result : result?.response
+    expect(response?.status).toBe(status)
+    expect(await response?.text()).toBe(status === 200 ? testProof : '')
   })
 })
 
@@ -297,6 +323,12 @@ describe('Netlify deploy trigger', () => {
     } as DeploySucceededEvent
   }
 
+  function mockNetlifyEnv(values: Record<string, string | undefined>) {
+    const get = vi.fn((name: string) => values[name])
+    vi.stubGlobal('Netlify', { env: { get } })
+    return get
+  }
+
   it.each([
     { context: 'deploy-preview' },
     { branch: 'feature' },
@@ -307,13 +339,28 @@ describe('Netlify deploy trigger', () => {
     async (overrides) => {
       const request = vi.fn<typeof fetch>()
       vi.stubGlobal('fetch', request)
-      vi.stubEnv('INDEXNOW_KEY', testProof)
+      const get = mockNetlifyEnv({ INDEXNOW_KEY_V2: testProof })
 
       await onDeploy.deploySucceeded(deployEvent(overrides))
 
+      expect(get).not.toHaveBeenCalled()
       expect(request).not.toHaveBeenCalled()
     },
   )
+
+  it('does not send anything when only the legacy variable is configured', async () => {
+    const request = vi.fn<typeof fetch>()
+    const log = vi.spyOn(console, 'info').mockImplementation(() => {})
+    vi.stubGlobal('fetch', request)
+    mockNetlifyEnv({ INDEXNOW_KEY: testProof })
+
+    await onDeploy.deploySucceeded(deployEvent())
+
+    expect(request).not.toHaveBeenCalled()
+    expect(log).toHaveBeenCalledWith('IndexNow:', {
+      outcome: 'key-not-configured',
+    })
+  })
 
   it('runs after the production branch is published and reports the HTTP result', async () => {
     const request = vi
@@ -325,7 +372,7 @@ describe('Netlify deploy trigger', () => {
       .mockResolvedValueOnce(new Response(null, { status: 429 }))
     const log = vi.spyOn(console, 'info').mockImplementation(() => {})
     vi.stubGlobal('fetch', request)
-    vi.stubEnv('INDEXNOW_KEY', testProof)
+    mockNetlifyEnv({ INDEXNOW_KEY_V2: testProof })
 
     await onDeploy.deploySucceeded(deployEvent())
 
