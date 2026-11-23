@@ -69,6 +69,16 @@ describe('search-engine-visible route output', () => {
     expect(() => JSON.parse(schema!)).not.toThrow()
   })
 
+  it('renders alt attributes on English homepage images', () => {
+    const html = pages.get('/')!
+    const images = html.match(/<img\b[^>]*>/g) ?? []
+    expect(images.length).toBeGreaterThan(0)
+    for (const image of images) expect(image).toMatch(/\salt="[^"]*"/)
+
+    const filmPoster = html.match(/class="film-card">\s*(<img\b[^>]*>)/)?.[1]
+    expect(filmPoster).toMatch(/\salt=""/)
+  })
+
   it.each(paths)('renders a matching responsive hero preload on %s', (path) => {
     const html = pages.get(path)!
     const service = findServicePage(path.split('/').at(-1)!)
