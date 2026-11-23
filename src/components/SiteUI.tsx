@@ -111,6 +111,10 @@ export function Modal({
       document.body.style.overflow = overflow
     }
   }, [])
+  const close = () => {
+    dialogRef.current?.close()
+    onClose()
+  }
   return (
     <dialog
       ref={dialogRef}
@@ -118,17 +122,17 @@ export function Modal({
       aria-labelledby="dialog-heading"
       onCancel={(event) => {
         event.preventDefault()
-        onClose()
+        close()
       }}
       onClick={(event) => {
-        if (event.target === event.currentTarget) onClose()
+        if (event.target === event.currentTarget) close()
       }}
     >
       <div className="modal-panel">
         <button
           className="icon-button modal-close"
           type="button"
-          onClick={onClose}
+          onClick={close}
           aria-label={closeLabel}
         >
           <Icon name="close" />

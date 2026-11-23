@@ -65,6 +65,12 @@ export function Icon({
         <path d="M12 7v6l4 2" />
       </>
     ),
+    'calendar-check': (
+      <>
+        <rect x="3" y="5" width="18" height="16" rx="2" />
+        <path d="M7.5 3v4m9-4v4M3 10h18m-12 5.5 2 2 4-4" />
+      </>
+    ),
     heart: (
       <path d="M20.8 4.8a5.5 5.5 0 0 0-7.8 0L12 6l-1.1-1.2a5.5 5.5 0 0 0-7.8 7.8L12 22l8.8-9.4a5.5 5.5 0 0 0 0-7.8Z" />
     ),
