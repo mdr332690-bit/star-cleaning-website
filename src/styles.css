@@ -664,6 +664,7 @@ em {
 }
 .hero-actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 22px;
   align-items: center;
 }
@@ -2283,12 +2284,12 @@ em {
 [dir='rtl'] .header-actions {
   gap: 17px;
 }
-[dir='rtl'] .text-link > svg,
+[dir='rtl'] .text-link:not(.whatsapp-link) > svg,
 [dir='rtl'] .service-link > svg,
-[dir='rtl'] .mobile-nav > a > svg {
+[dir='rtl'] .mobile-nav > a:not(.whatsapp-link) > svg {
   transform: rotate(180deg);
 }
-[dir='rtl'] .text-link:hover > svg,
+[dir='rtl'] .text-link:not(.whatsapp-link):hover > svg,
 [dir='rtl'] .service-link:hover > svg {
   transform: rotate(180deg) translateX(4px);
 }

@@ -97,23 +97,91 @@ function fillAndSubmit(form: HTMLFormElement) {
   fireEvent.submit(form)
 }
 
+async function renderPage(path: string) {
+  const router = getRouter()
+  router.update({
+    history: createMemoryHistory({ initialEntries: [path] }),
+  })
+  await router.load()
+  const view = render(
+    <StrictMode>
+      <RouterProvider router={router} />
+    </StrictMode>,
+  )
+  await screen.findByRole('heading', { level: 1 })
+  return view
+}
+
+describe('Homepage contact actions', () => {
+  it.each([
+    { path: '/', lang: 'en', quoteLabel: 'Request a Quote' },
+    { path: '/ar', lang: 'ar', quoteLabel: 'اطلب عرض سعر' },
+  ] as const)('separates calls, chats and quote requests on $path', async ({
+    path,
+    lang,
+    quoteLabel,
+  }) => {
+    const { container } = await renderPage(path)
+    const labels = copy[lang]
+    const header = within(container.querySelector<HTMLElement>('.site-header')!)
+    const hero = within(container.querySelector<HTMLElement>('.hero')!)
+    const floating = within(
+      container.querySelector<HTMLElement>('.floating-contact')!,
+    )
+
+    async function expectQuoteDialog(trigger: HTMLElement) {
+      expect(trigger.getAttribute('aria-haspopup')).toBe('dialog')
+      fireEvent.click(trigger)
+      const dialog = within(await screen.findByRole('dialog'))
+      await dialog.findByRole('form')
+      fireEvent.click(dialog.getByRole('button', { name: labels.close }))
+      expect(screen.queryByRole('dialog')).toBeNull()
+    }
+
+    function expectDirectChat(link: HTMLElement) {
+      expect(link.getAttribute('href')).toBe('https://wa.me/96550258260')
+      expect(link.getAttribute('target')).toBe('_blank')
+      clickWithoutNavigation(link)
+      expect(screen.queryByRole('dialog')).toBeNull()
+    }
+
+    for (const scope of [header, hero, floating]) {
+      await expectQuoteDialog(scope.getByRole('button', { name: quoteLabel }))
+    }
+    expectDirectChat(header.getByRole('link', { name: labels.whatsapp }))
+    expectDirectChat(hero.getByRole('link', { name: labels.whatsapp }))
+    expectDirectChat(
+      floating.getByRole('link', { name: bookingCopy[lang].whatsapp }),
+    )
+
+    const openMenu = () => {
+      fireEvent.click(header.getByRole('button', { name: labels.menu }))
+      return within(header.getByRole('navigation', { name: labels.menu }))
+    }
+    expectDirectChat(openMenu().getByRole('link', { name: labels.whatsapp }))
+    expect(header.queryByRole('navigation', { name: labels.menu })).toBeNull()
+    await expectQuoteDialog(openMenu().getByRole('button', { name: quoteLabel }))
+    expect(header.queryByRole('navigation', { name: labels.menu })).toBeNull()
+
+    for (const number of screen.getAllByText(site.phoneDisplay)) {
+      expect(number.closest('a')?.getAttribute('href')).toBe('tel:+96550258260')
+    }
+    for (const call of screen.getAllByRole('link', { name: labels.callNow })) {
+      expect(call.getAttribute('href')).toBe('tel:+96550258260')
+    }
+    expect(screen.queryByRole('button', { name: /WhatsApp|واتساب/i })).toBeNull()
+    expect(window.gtag).not.toHaveBeenCalled()
+  })
+})
+
 describe('Google Ads lead conversions with mocked browser services', () => {
   it.each(cases)(
     'tracks telephone links and confirmed forms once on $path at $width px',
     async ({ path, width }) => {
       vi.stubGlobal('innerWidth', width)
       const lang = path.startsWith('/ar') ? 'ar' : 'en'
-      const router = getRouter()
-      router.update({
-        history: createMemoryHistory({ initialEntries: [path] }),
-      })
-      await router.load()
-      const { container } = render(
-        <StrictMode>
-          <RouterProvider router={router} />
-        </StrictMode>,
-      )
-      await screen.findByRole('heading', { level: 1 })
+      const { container } = await renderPage(path)
+      const inline = container.querySelector<HTMLFormElement>('form')
       expect(window.gtag).not.toHaveBeenCalled()
       expect(container.querySelector('.site')?.getAttribute('lang')).toBe(lang)
       expect(container.querySelector('.site')?.getAttribute('dir')).toBe(
@@ -121,7 +189,7 @@ describe('Google Ads lead conversions with mocked browser services', () => {
       )
 
       const phones = container.querySelectorAll('a[href^="tel:"]')
-      expect(phones).toHaveLength(5)
+      expect(phones).toHaveLength(inline ? 6 : 5)
       for (const link of phones) {
         expect(link.getAttribute('href')).toBe('tel:+96550258260')
         clickWithoutNavigation(link)
@@ -138,7 +206,6 @@ describe('Google Ads lead conversions with mocked browser services', () => {
       expect(window.gtag).not.toHaveBeenCalled()
 
       // Homepages have an inline form as well as the shared booking dialog.
-      const inline = container.querySelector<HTMLFormElement>('form')
       let bookingTrigger = container.querySelector('.header-book')!
       if (inline) {
         const floaters =
@@ -146,7 +213,7 @@ describe('Google Ads lead conversions with mocked browser services', () => {
         expect(floaters).toHaveLength(1)
         const actions = within(floaters[0])
         const booking = actions.getByRole('button', {
-          name: lang === 'ar' ? 'احجز خدمة تنظيف' : 'Book a cleaning',
+          name: copy[lang].requestQuote,
         })
         const whatsapp = actions.getByRole('link', {
           name: bookingCopy[lang].whatsapp,
