@@ -3,6 +3,7 @@ import { copy, services } from '../data/content'
 import type { Language } from '../data/content'
 import { site } from '../data/site'
 import { bookingCopy } from '../data/booking'
+import { apartmentService } from '../data/apartmentCleaning'
 import { BookingForm } from './BookingForm'
 import { Icon } from './Icon'
 import { Eyebrow } from './SiteUI'
@@ -44,9 +45,13 @@ function WhatsAppEnquiry({
   const [serviceId, setServiceId] = useState(initialService)
   const [date, setDate] = useState('')
   const [status, setStatus] = useState<'idle' | 'copied' | 'failed'>('idle')
-  const service = services.find((item) => item.id === serviceId) ?? services[0]
+  const choices =
+    initialService === apartmentService.id
+      ? [...services, apartmentService]
+      : services
+  const service = choices.find((item) => item.id === serviceId) ?? choices[0]
   const makeMessage = (id: string, selectedDate: string) => {
-    const chosen = services.find((item) => item.id === id) ?? services[0]
+    const chosen = choices.find((item) => item.id === id) ?? choices[0]
     return `${t.draftIntro} ${chosen.title[lang]}.\n${selectedDate ? `${t.datePhrase} ${selectedDate}\n` : ''}${t.draftEnd}`
   }
   const [message, setMessage] = useState(() => makeMessage(initialService, ''))
@@ -84,7 +89,7 @@ function WhatsAppEnquiry({
           setStatus('idle')
         }}
       >
-        {services.map((item) => (
+        {choices.map((item) => (
           <option key={item.id} value={item.id}>
             {item.title[lang]}
           </option>

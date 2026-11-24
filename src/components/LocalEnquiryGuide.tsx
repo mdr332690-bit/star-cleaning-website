@@ -1,6 +1,6 @@
 import type { Language } from '../data/content'
 import { localEnquiryCopy, localServiceAdvice } from '../data/localSeo'
-import type { ServicePageData } from '../data/servicePages'
+import type { CatalogServicePageData } from '../data/servicePages'
 import { Icon } from './Icon'
 import { Eyebrow } from './SiteUI'
 
@@ -9,7 +9,7 @@ export function LocalEnquiryGuide({
   service,
 }: {
   lang: Language
-  service?: ServicePageData
+  service?: CatalogServicePageData
 }) {
   const t = localEnquiryCopy[lang]
   return (

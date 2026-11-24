@@ -50,19 +50,19 @@ describe('bilingual SEO contracts', () => {
     },
   )
 
-  it('gives all twelve pages distinct titles and descriptions', () => {
+  it('gives all canonical pages distinct titles and descriptions', () => {
     const heads = pages.map(({ lang, service }) => createSeoHead(lang, service))
     expect(
       new Set(
         heads.map((head) => head.meta.find((tag) => 'title' in tag)?.title),
       ).size,
-    ).toBe(12)
+    ).toBe(pages.length)
     const descriptions = heads.map(
       (head) =>
         head.meta.find((tag) => 'name' in tag && tag.name === 'description')
           ?.content,
     )
-    expect(new Set(descriptions).size).toBe(12)
+    expect(new Set(descriptions).size).toBe(pages.length)
     expect(
       descriptions.every(
         (description) => description && description.length > 70,
@@ -115,7 +115,13 @@ describe('bilingual SEO contracts', () => {
           (offer: { itemOffered: Record<string, unknown> }) =>
             offer.itemOffered,
         )
-        expect(offered).toContainEqual(
+        const serviceNodes = graph.filter(
+          (node: Record<string, unknown>) => node['@type'] === 'Service',
+        )
+        expect(serviceNodes).toHaveLength(service.id === 'apartment' ? 1 : 0)
+        expect(
+          service.id === 'apartment' ? serviceNodes : offered,
+        ).toContainEqual(
           expect.objectContaining({
             '@id': webpage.about['@id'],
             url: webpage.url,
@@ -128,7 +134,7 @@ describe('bilingual SEO contracts', () => {
     },
   )
 
-  it('lists exactly the twelve canonical URLs and their alternates in the sitemap', () => {
+  it('lists exactly the canonical URLs and their alternates in the sitemap', () => {
     const xml = readFileSync(
       new URL('../../public/sitemap.xml', import.meta.url),
       'utf8',
@@ -139,7 +145,7 @@ describe('bilingual SEO contracts', () => {
     expect(sitemapUrls.sort()).toEqual(
       pages.map(({ path }) => origin + path).sort(),
     )
-    expect(new Set(sitemapUrls).size).toBe(12)
+    expect(new Set(sitemapUrls).size).toBe(pages.length)
     const entries = xml.match(/<url>[\s\S]*?<\/url>/g) ?? []
     for (const entry of entries) {
       const url = entry.match(/<loc>(.*?)<\/loc>/)?.[1]

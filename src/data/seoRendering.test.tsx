@@ -10,6 +10,7 @@ import { copy } from './content'
 import { localEnquiryCopy, localServiceAdvice } from './localSeo'
 import { findServicePage } from './servicePages'
 import { homeHeroImage, serviceHeroImage } from './images'
+import { apartmentCopy, apartmentService } from './apartmentCleaning'
 
 const origin = 'https://star-cleaning-website.netlify.app'
 const sitemap = readFileSync(
@@ -98,7 +99,7 @@ describe('search-engine-visible route output', () => {
     expect(image[0]).not.toContain('loading="lazy"')
   })
 
-  it.each(paths)(
+  it.each(paths.filter((path) => !path.endsWith('/apartment-cleaning')))(
     'keeps local enquiry content translated and conditional on %s',
     (path) => {
       const html = pages.get(path)!
@@ -130,7 +131,7 @@ describe('search-engine-visible route output', () => {
             ]
       for (const location of locations) expect(section).toContain(location)
       const service = findServicePage(path.split('/').at(-1)!)
-      if (service)
+      if (service && service.id !== 'apartment')
         expect(section).toContain(localServiceAdvice[service.id][lang])
       expect(section).toContain(`href="${service ? '#contact' : '#booking'}"`)
       // Unconfirmed neighbourhoods must not become schema service areas/branches.
@@ -249,16 +250,64 @@ describe('search-engine-visible route output', () => {
   })
 
   it.each(['/', '/ar'])(
-    'exposes all five service-page links near the cards on %s',
+    'exposes all six service-page links near the cards on %s',
     (path) => {
       const html = pages.get(path)!
       const directory = html.match(
         /<nav class="service-directory"[^>]*>([\s\S]*?)<\/nav>/,
       )?.[1]
-      expect([...directory!.matchAll(/<a\b/g)]).toHaveLength(5)
+      expect([...directory!.matchAll(/<a\b/g)]).toHaveLength(6)
+      expect(directory).toContain(
+        `href="${path === '/ar' ? '/ar' : ''}/services/apartment-cleaning"`,
+      )
       expect(html).toContain(
         path === '/ar' ? 'تنظيف الأرضيات' : 'floor cleaning',
       )
+    },
+  )
+
+  it.each(['en', 'ar'] as const)(
+    'renders localized apartment scope, search links and related links in %s',
+    (lang) => {
+      const prefix = lang === 'ar' ? '/ar' : ''
+      const path = `${prefix}/services/apartment-cleaning`
+      const alternatePath = `${lang === 'ar' ? '' : '/ar'}/services/apartment-cleaning`
+      const html = pages.get(path)!
+      const head = html.match(/<head\b[^>]*>([\s\S]*?)<\/head>/)?.[1]
+      const content = apartmentCopy[lang]
+      expect(html).toContain(
+        `<html lang="${lang}" dir="${lang === 'ar' ? 'rtl' : 'ltr'}">`,
+      )
+      expect(html).toContain(
+        `<h1 id="service-heading">${apartmentService.page.heading[lang]}</h1>`,
+      )
+      expect(html).toContain(`alt="${apartmentService.imageAlt[lang]}"`)
+      expect(html).toContain(`href="${alternatePath}"`)
+      expect(head).toContain(`rel="canonical" href="${origin}${path}"`)
+      for (const [language, localePrefix] of [
+        ['en', ''],
+        ['ar', '/ar'],
+        ['x-default', ''],
+      ]) {
+        expect(head).toContain(
+          `rel="alternate" hrefLang="${language}" href="${origin}${localePrefix}/services/apartment-cleaning"`,
+        )
+      }
+      for (const [room] of content.rooms)
+        expect(html).toContain(`<dt>${room}</dt>`)
+      for (const [step] of content.steps)
+        expect(html).toContain(`<h3>${step}</h3>`)
+      for (const [question] of content.faqs)
+        expect(html).toContain(`<summary>${question}`)
+      for (const slug of [
+        'house-cleaning',
+        'villa-cleaning',
+        'deep-cleaning',
+      ]) {
+        const relatedPath = `${prefix}/services/${slug}`
+        expect(html).toContain(`href="${relatedPath}"`)
+        expect(pages.get(relatedPath)).toContain(`href="${path}"`)
+      }
     },
   )
 

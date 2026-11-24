@@ -15,6 +15,7 @@ import { bookingCopy, kuwaitNow } from '../data/booking'
 import { copy } from '../data/content'
 import { site } from '../data/site'
 import { ContactActions, ContactNumber } from './SiteUI'
+import { apartmentCopy } from '../data/apartmentCleaning'
 
 const phoneConversion = [
   'event',
@@ -175,6 +176,44 @@ describe('Homepage contact actions', () => {
 })
 
 describe('Google Ads lead conversions with mocked browser services', () => {
+  it.each(['en', 'ar'] as const)(
+    'keeps the %s apartment quote and direct chat distinct',
+    async (lang) => {
+      const { container } = await renderPage(
+        `${lang === 'ar' ? '/ar' : ''}/services/apartment-cleaning`,
+      )
+      const labels = copy[lang]
+      const hero = within(
+        container.querySelector<HTMLElement>('.service-intro')!,
+      )
+      const chat = hero.getByRole('link', { name: labels.whatsapp })
+      const url = new URL(chat.getAttribute('href')!)
+      expect(url.origin).toBe('https://wa.me')
+      expect(url.pathname).toBe(`/${site.whatsappNumber}`)
+      expect(url.searchParams.get('text')).toBe(
+        apartmentCopy[lang].whatsappMessage,
+      )
+      expect(chat.getAttribute('target')).toBe('_blank')
+      clickWithoutNavigation(chat)
+      expect(screen.queryByRole('dialog')).toBeNull()
+
+      fireEvent.click(hero.getByRole('button', { name: labels.requestQuote }))
+      const dialog = within(await screen.findByRole('dialog'))
+      const form = (await dialog.findByRole('form', {
+        name: bookingCopy[lang].formTitle,
+      })) as HTMLFormElement
+      expect(new FormData(form).get('service')).toBe('Apartment Cleaning')
+      const summary = dialog.getByText(bookingCopy[lang].alternate)
+      const draft = summary.closest('details')!
+      fireEvent.click(summary)
+      expect(draft.querySelector('select')?.value).toBe('apartment')
+      expect(draft.querySelector('textarea')?.value).toContain(
+        lang === 'en' ? 'Apartment Cleaning' : 'تنظيف الشقق',
+      )
+      expect(window.gtag).not.toHaveBeenCalled()
+    },
+  )
+
   it.each(cases)(
     'tracks telephone links and confirmed forms once on $path at $width px',
     async ({ path, width }) => {
@@ -189,7 +228,8 @@ describe('Google Ads lead conversions with mocked browser services', () => {
       )
 
       const phones = container.querySelectorAll('a[href^="tel:"]')
-      expect(phones).toHaveLength(inline ? 6 : 5)
+      const isApartment = path.endsWith('/apartment-cleaning')
+      expect(phones).toHaveLength(inline ? 6 : isApartment ? 2 : 5)
       for (const link of phones) {
         expect(link.getAttribute('href')).toBe('tel:+96550258260')
         clickWithoutNavigation(link)
