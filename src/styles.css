@@ -1,6 +1,7 @@
 @import 'tailwindcss' source('../');
 @import './fonts.css';
 @import './styles/service-areas.css';
+@import './styles/apartment-cleaning.css';
 
 :root {
   --green: #173e32;

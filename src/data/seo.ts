@@ -1,5 +1,5 @@
 import type { Language } from './content'
-import { homePath, servicePath, servicePages } from './servicePages'
+import { homePath, servicePath, catalogServicePages } from './servicePages'
 import type { ServicePageData } from './servicePages'
 import { site } from './site'
 import { fontPreloads } from './fonts'
@@ -61,7 +61,7 @@ export const businessStructuredData = (lang: Language) => ({
           lang === 'ar'
             ? 'خدمات التنظيف في الكويت'
             : 'Cleaning services in Kuwait',
-        itemListElement: servicePages.map((service) => ({
+        itemListElement: catalogServicePages.map((service) => ({
           '@type': 'Offer',
           itemOffered: {
             '@type': 'Service',
@@ -127,6 +127,21 @@ export function pageStructuredData(lang: Language, service?: ServicePageData) {
     '@context': 'https://schema.org',
     '@graph': [
       ...businessStructuredData(lang)['@graph'],
+      ...(service?.id === 'apartment'
+        ? [
+            {
+              '@type': 'Service',
+              '@id': serviceUrl,
+              name: service.page.heading[lang],
+              serviceType: service.title[lang],
+              description: service.page.intro[lang],
+              url,
+              areaServed: { '@type': 'Country', name: 'Kuwait' },
+              provider: { '@id': `${site.url}#business` },
+              mainEntityOfPage: { '@id': `${url}#webpage` },
+            },
+          ]
+        : []),
       {
         '@type': 'WebPage',
         '@id': `${url}#webpage`,

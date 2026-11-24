@@ -3,7 +3,7 @@ import { Link } from '@tanstack/react-router'
 import { copy, services } from '../data/content'
 import type { Language } from '../data/content'
 import { site } from '../data/site'
-import { servicePageCopy } from '../data/servicePages'
+import { servicePageCopy, servicePages } from '../data/servicePages'
 import { LanguageLink } from './LanguageLink'
 import { PromotionBanner } from './PromotionBanner'
 import { Brand, Eyebrow, Modal, ContactActions, ContactNumber } from './SiteUI'
@@ -301,7 +301,7 @@ export function MarketingPage({ lang }: { lang: Language }) {
               <p>{t.servicesDescription}</p>
             </div>
             <nav className="service-directory" aria-label={t.serviceDirectory}>
-              {services.map((service) => (
+              {servicePages.map((service) => (
                 <Link
                   key={service.id}
                   to={
@@ -309,7 +309,7 @@ export function MarketingPage({ lang }: { lang: Language }) {
                       ? '/ar/services/$service'
                       : '/services/$service'
                   }
-                  params={{ service: servicePageCopy[service.id].slug }}
+                  params={{ service: service.page.slug }}
                 >
                   {service.title[lang]}
                   <Icon name="arrow" size={15} />

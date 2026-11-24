@@ -1,5 +1,6 @@
 import { services } from './content'
 import type { Language } from './content'
+import { apartmentService } from './apartmentCleaning'
 
 export const servicePageCopy = {
   home: {
@@ -235,11 +236,14 @@ export const servicePageCopy = {
   },
 }
 
-export const servicePages = services.map((service) => ({
+export const catalogServicePages = services.map((service) => ({
   ...service,
   page: servicePageCopy[service.id],
 }))
 
+export const servicePages = [...catalogServicePages, apartmentService]
+
+export type CatalogServicePageData = (typeof catalogServicePages)[number]
 export type ServicePageData = (typeof servicePages)[number]
 
 export const homePath = (lang: Language) => (lang === 'ar' ? '/ar' : '/')
