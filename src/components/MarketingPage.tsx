@@ -31,11 +31,14 @@ export function MarketingPage({ lang }: { lang: Language }) {
   const [videoError, setVideoError] = useState(false)
   const t = copy[lang]
   const emailHref = site.email ? `mailto:${site.email}` : undefined
+  const whatsappHref = site.whatsappNumber
+    ? `https://wa.me/${site.whatsappNumber}`
+    : undefined
   const selectedService =
     modal?.type === 'service'
       ? services.find((item) => item.id === modal.id)
       : undefined
-  const whatsapp = (serviceId = 'home') => {
+  const openQuote = (serviceId = 'home') => {
     setBookingService(serviceId)
     setMenuOpen(false)
     setModal({ type: 'booking' })
@@ -116,10 +119,11 @@ export function MarketingPage({ lang }: { lang: Language }) {
             <LanguageLink lang={lang} />
             <button
               className="button button-primary header-book"
-              onClick={() => whatsapp()}
+              onClick={() => openQuote()}
+              aria-haspopup="dialog"
             >
-              <Icon name="whatsapp" size={18} />
-              {t.book}
+              <Icon name="calendar-check" size={18} />
+              {t.requestQuote}
             </button>
             <button
               className="icon-button mobile-toggle"
@@ -156,12 +160,25 @@ export function MarketingPage({ lang }: { lang: Language }) {
                 <Icon name="arrow" size={17} />
               </a>
             ))}
+            {whatsappHref && (
+              <a
+                className="whatsapp-link"
+                href={whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMenuOpen(false)}
+              >
+                {t.whatsapp}
+                <Icon name="whatsapp" size={18} />
+              </a>
+            )}
             <button
               className="button button-primary"
-              onClick={() => whatsapp()}
+              onClick={() => openQuote()}
+              aria-haspopup="dialog"
             >
-              <Icon name="whatsapp" />
-              {t.book}
+              <Icon name="calendar-check" />
+              {t.requestQuote}
             </button>
           </nav>
         )}
@@ -181,12 +198,23 @@ export function MarketingPage({ lang }: { lang: Language }) {
               <div className="hero-actions">
                 <button
                   className="button button-primary"
-                  onClick={() => whatsapp()}
+                  onClick={() => openQuote()}
+                  aria-haspopup="dialog"
                 >
-                  <Icon name="whatsapp" />
-                  {t.book}
-                  <Icon name="diagonal" size={16} />
+                  <Icon name="calendar-check" />
+                  {t.requestQuote}
                 </button>
+                {whatsappHref && (
+                  <a
+                    className="text-link whatsapp-link"
+                    href={whatsappHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Icon name="whatsapp" size={18} />
+                    {t.whatsapp}
+                  </a>
+                )}
                 <a className="text-link" href="#services">
                   {t.explore}
                   <Icon name="arrow" size={18} />
@@ -462,7 +490,7 @@ export function MarketingPage({ lang }: { lang: Language }) {
                   </li>
                 ))}
               </ul>
-              <button className="text-link" onClick={() => whatsapp()}>
+              <button className="text-link" onClick={() => openQuote()}>
                 {t.aboutLink}
                 <Icon name="arrow" size={18} />
               </button>
@@ -657,18 +685,22 @@ export function MarketingPage({ lang }: { lang: Language }) {
                   </li>
                 ))}
               </ol>
-              <a
-                className="button button-outline"
-                href={`https://wa.me/${site.whatsappNumber}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Icon name="whatsapp" size={20} />
-                {bookingCopy[lang].whatsapp}
-              </a>
-              <p className="inquiry-phone">
-                <bdi dir="ltr">{site.phoneDisplay}</bdi>
-              </p>
+              {whatsappHref && (
+                <a
+                  className="button button-outline"
+                  href={whatsappHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Icon name="whatsapp" size={20} />
+                  {bookingCopy[lang].whatsapp}
+                </a>
+              )}
+              {site.phone && (
+                <p className="inquiry-phone">
+                  <ContactNumber />
+                </p>
+              )}
             </div>
             <div className="inquiry-card">
               <BookingForm lang={lang} />
@@ -690,11 +722,11 @@ export function MarketingPage({ lang }: { lang: Language }) {
                 <ContactActions lang={lang} onDark />
                 <button
                   className="button button-cream"
-                  onClick={() => whatsapp()}
+                  onClick={() => openQuote()}
+                  aria-haspopup="dialog"
                 >
-                  <Icon name="whatsapp" />
-                  {t.book}
-                  <Icon name="diagonal" size={17} />
+                  <Icon name="calendar-check" />
+                  {t.requestQuote}
                 </button>
                 <GoogleBusinessLinks lang={lang} onDark />
               </div>
@@ -816,16 +848,16 @@ export function MarketingPage({ lang }: { lang: Language }) {
         <button
           className="floating-contact-action floating-booking"
           type="button"
-          onClick={() => whatsapp()}
-          aria-label={lang === 'ar' ? 'احجز خدمة تنظيف' : 'Book a cleaning'}
+          onClick={() => openQuote()}
+          aria-label={t.requestQuote}
           aria-haspopup="dialog"
         >
           <Icon name="calendar-check" size={26} />
         </button>
-        {site.whatsappNumber && (
+        {whatsappHref && (
           <a
             className="floating-contact-action floating-whatsapp"
-            href={`https://wa.me/${site.whatsappNumber}`}
+            href={whatsappHref}
             target="_blank"
             rel="noopener noreferrer"
             aria-label={bookingCopy[lang].whatsapp}
@@ -911,9 +943,9 @@ export function MarketingPage({ lang }: { lang: Language }) {
                 </ul>
                 <button
                   className="button button-primary"
-                  onClick={() => whatsapp(selectedService.id)}
+                  onClick={() => openQuote(selectedService.id)}
                 >
-                  <Icon name="whatsapp" />
+                  <Icon name="calendar-check" />
                   {t.discuss}
                   <Icon name="arrow" size={17} />
                 </button>
