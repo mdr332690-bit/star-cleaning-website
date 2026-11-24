@@ -3,7 +3,12 @@ import { Link } from '@tanstack/react-router'
 import { copy, services } from '../data/content'
 import type { Language } from '../data/content'
 import { site } from '../data/site'
-import { servicePageCopy, servicePages } from '../data/servicePages'
+import {
+  catalogServicePages,
+  servicePageCopy,
+  servicePath,
+} from '../data/servicePages'
+import { apartmentService } from '../data/apartmentCleaning'
 import { LanguageLink } from './LanguageLink'
 import { PromotionBanner } from './PromotionBanner'
 import { Brand, Eyebrow, Modal, ContactActions, ContactNumber } from './SiteUI'
@@ -16,6 +21,9 @@ import { GoogleBusinessLinks } from './GoogleBusinessLinks'
 import { ServiceAreas } from './ServiceAreas'
 
 const navIds = ['home', 'about', 'services', 'why-us', 'contact']
+const [houseCleaning, ...otherServices] = catalogServicePages
+const homepageServices = [houseCleaning, apartmentService, ...otherServices]
+const featuredServiceCount = 3
 type ModalState =
   | { type: 'booking' }
   | { type: 'service'; id: string }
@@ -30,6 +38,9 @@ export function MarketingPage({ lang }: { lang: Language }) {
   const [showAllServices, setShowAllServices] = useState(false)
   const [videoError, setVideoError] = useState(false)
   const t = copy[lang]
+  const visibleServiceCount = showAllServices
+    ? homepageServices.length
+    : featuredServiceCount
   const emailHref = site.email ? `mailto:${site.email}` : undefined
   const whatsappHref = site.whatsappNumber
     ? `https://wa.me/${site.whatsappNumber}`
@@ -301,7 +312,7 @@ export function MarketingPage({ lang }: { lang: Language }) {
               <p>{t.servicesDescription}</p>
             </div>
             <nav className="service-directory" aria-label={t.serviceDirectory}>
-              {servicePages.map((service) => (
+              {homepageServices.map((service) => (
                 <Link
                   key={service.id}
                   to={
@@ -320,63 +331,80 @@ export function MarketingPage({ lang }: { lang: Language }) {
               className={`services-grid ${showAllServices ? 'expanded' : ''}`}
               id="service-list"
             >
-              {services.map((service, index) => (
-                <article
-                  className={`service-card ${!showAllServices && index > 2 ? 'extra-service' : ''}`}
-                  key={service.id}
-                  aria-labelledby={`${service.id}-card-title`}
-                >
-                  <button
-                    className="service-image-button"
-                    onClick={() =>
-                      setModal({ type: 'service', id: service.id })
+              {homepageServices.map((service, index) => {
+                const pageHref =
+                  service.id === apartmentService.id
+                    ? servicePath(lang, service.page.slug)
+                    : undefined
+                const ExploreService = pageHref ? 'a' : 'button'
+                const exploreProps = pageHref
+                  ? { href: pageHref }
+                  : {
+                      onClick: () =>
+                        setModal({ type: 'service', id: service.id }),
                     }
-                    aria-label={`${t.serviceExplore}: 0${index + 1} · ${service.title[lang]}`}
+
+                return (
+                  <article
+                    className={`service-card ${!showAllServices && index >= featuredServiceCount ? 'extra-service' : ''}`}
+                    key={service.id}
+                    aria-labelledby={`${service.id}-card-title`}
                   >
-                    <img
-                      src={cdn(service.image, 650)}
-                      srcSet={imageSrcSet(service.image, [240, 400, 650, 900])}
-                      sizes="(max-width: 760px) 43vw, (max-width: 1352px) 28vw, 400px"
-                      alt={service.imageAlt[lang]}
-                      width="650"
-                      height="470"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                    <span className="service-number">0{index + 1}</span>
-                    <span className="service-image-arrow">
-                      <Icon name="diagonal" size={20} />
-                    </span>
-                  </button>
-                  <div className="service-copy">
-                    <div className="service-card-heading">
-                      <h3 id={`${service.id}-card-title`}>
-                        <a
-                          href={`#${service.anchor}`}
-                          onClick={() => revealService(service.anchor)}
-                        >
-                          {service.title[lang]}
-                        </a>
-                      </h3>
-                      <Icon name={service.icon} size={24} />
-                    </div>
-                    <p>{service.description[lang]}</p>
-                    <button
-                      className="service-link"
-                      onClick={() =>
-                        setModal({ type: 'service', id: service.id })
-                      }
+                    <ExploreService
+                      className="service-image-button"
+                      {...exploreProps}
+                      aria-label={`${t.serviceExplore}: 0${index + 1} · ${service.title[lang]}`}
                     >
-                      {t.serviceExplore}
-                      <Icon name="arrow" size={17} />
-                    </button>
-                  </div>
-                </article>
-              ))}
+                      <img
+                        src={cdn(service.image, 650)}
+                        srcSet={imageSrcSet(
+                          service.image,
+                          [240, 400, 650, 900],
+                        )}
+                        sizes="(max-width: 760px) 43vw, (max-width: 1352px) 28vw, 400px"
+                        alt={service.imageAlt[lang]}
+                        width="650"
+                        height="470"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                      <span className="service-number">0{index + 1}</span>
+                      <span className="service-image-arrow">
+                        <Icon name="diagonal" size={20} />
+                      </span>
+                    </ExploreService>
+                    <div className="service-copy">
+                      <div className="service-card-heading">
+                        <h3 id={`${service.id}-card-title`}>
+                          <a
+                            href={pageHref ?? `#${service.anchor}`}
+                            onClick={
+                              pageHref
+                                ? undefined
+                                : () => revealService(service.anchor)
+                            }
+                          >
+                            {service.title[lang]}
+                          </a>
+                        </h3>
+                        <Icon name={service.icon} size={24} />
+                      </div>
+                      <p>{service.description[lang]}</p>
+                      <ExploreService
+                        className="service-link"
+                        {...exploreProps}
+                      >
+                        {t.serviceExplore}
+                        <Icon name="arrow" size={17} />
+                      </ExploreService>
+                    </div>
+                  </article>
+                )
+              })}
             </div>
             <div className="services-bottom">
               <span className="services-count" dir="ltr">
-                {showAllServices ? '05' : '03'} <span>/ 05</span>
+                0{visibleServiceCount} <span>/ 0{homepageServices.length}</span>
               </span>
               <button
                 className="button button-outline"
