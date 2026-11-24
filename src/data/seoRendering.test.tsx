@@ -256,15 +256,40 @@ describe('search-engine-visible route output', () => {
       const directory = html.match(
         /<nav class="service-directory"[^>]*>([\s\S]*?)<\/nav>/,
       )?.[1]
-      expect([...directory!.matchAll(/<a\b/g)]).toHaveLength(6)
-      expect(directory).toContain(
-        `href="${path === '/ar' ? '/ar' : ''}/services/apartment-cleaning"`,
+      const links = [...directory!.matchAll(/href="([^"]+)"/g)].map(
+        (match) => match[1],
       )
+      const prefix = path === '/ar' ? '/ar' : ''
+      expect(links).toHaveLength(6)
+      expect(links.slice(0, 2)).toEqual([
+        `${prefix}/services/house-cleaning`,
+        `${prefix}/services/apartment-cleaning`,
+      ])
       expect(html).toContain(
         path === '/ar' ? 'تنظيف الأرضيات' : 'floor cleaning',
       )
     },
   )
+
+  it.each(['/', '/ar'])('places Apartment Cleaning second on %s', (path) => {
+    const html = pages.get(path)!
+    const cards = [
+      ...html.matchAll(
+        /<article class="service-card[^"]*" aria-labelledby="([^"]+)-card-title">([\s\S]*?)<\/article>/g,
+      ),
+    ]
+    expect(cards.map((card) => card[1])).toEqual([
+      'home',
+      'apartment',
+      'office',
+      'villa',
+      'sofa',
+      'deep',
+    ])
+    expect(cards[1][2]).toContain(
+      `href="${path === '/ar' ? '/ar' : ''}/services/apartment-cleaning"`,
+    )
+  })
 
   it.each(['en', 'ar'] as const)(
     'renders localized apartment scope, search links and related links in %s',
