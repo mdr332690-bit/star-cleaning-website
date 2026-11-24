@@ -24,6 +24,16 @@ const navIds = ['home', 'about', 'services', 'why-us', 'contact']
 const [houseCleaning, ...otherServices] = catalogServicePages
 const homepageServices = [houseCleaning, apartmentService, ...otherServices]
 const featuredServiceCount = 3
+const heroStats = [
+  { label: 'years', value: 10, minimum: true },
+  { label: 'clients', value: 20, minimum: true },
+  { label: 'specialists', value: 6, minimum: false },
+  { label: 'completedJobs', value: 10_000, minimum: true },
+] as const
+const statFormatters = {
+  en: new Intl.NumberFormat('en'),
+  ar: new Intl.NumberFormat('ar-KW-u-nu-arab'),
+}
 type ModalState =
   | { type: 'booking' }
   | { type: 'service'; id: string }
@@ -238,22 +248,15 @@ export function MarketingPage({ lang }: { lang: Language }) {
                 {t.heroTrust}
               </p>
               <div className="hero-stats">
-                <div>
-                  <strong dir="ltr">
-                    10<span>+</span>
-                  </strong>
-                  <span>{t.years}</span>
-                </div>
-                <div>
-                  <strong dir="ltr">
-                    20<span>+</span>
-                  </strong>
-                  <span>{t.clients}</span>
-                </div>
-                <div>
-                  <strong dir="ltr">05</strong>
-                  <span>{t.solutions}</span>
-                </div>
+                {heroStats.map(({ label, value, minimum }) => (
+                  <div key={label}>
+                    <strong dir="ltr">
+                      {statFormatters[lang].format(value)}
+                      {minimum && <span>+</span>}
+                    </strong>
+                    <span>{t[label]}</span>
+                  </div>
+                ))}
               </div>
             </div>
             <div className="hero-visual">

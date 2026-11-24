@@ -80,6 +80,41 @@ describe('search-engine-visible route output', () => {
     expect(filmPoster).toMatch(/\salt=""/)
   })
 
+  it.each([
+    {
+      path: '/',
+      expected: [
+        ['10+', 'Years of experience'],
+        ['20+', 'Clients served'],
+        ['6', 'Specialists'],
+        ['10,000+', 'Completed cleaning jobs'],
+      ],
+    },
+    {
+      path: '/ar',
+      expected: [
+        ['١٠+', 'سنوات من الخبرة'],
+        ['٢٠+', 'عميلاً خدمناهم'],
+        ['٦', 'مختصون'],
+        ['١٠٬٠٠٠+', 'عمليات تنظيف مكتملة'],
+      ],
+    },
+  ])('renders localized homepage statistics on $path', ({ path, expected }) => {
+    const html = pages.get(path)!
+    const stats =
+      html.match(/class="hero-stats">([\s\S]*?)<\/div><\/div><\/div>/)?.[1] ??
+      ''
+    const items = stats.matchAll(
+      /<strong dir="ltr">([^<]+)(<span>\+<\/span>)?<\/strong><span>([^<]+)<\/span>/g,
+    )
+    expect(
+      Array.from(items, ([, value, plus, label]) => [
+        value + (plus ? '+' : ''),
+        label,
+      ]),
+    ).toEqual(expected)
+  })
+
   it.each(paths)('renders a matching responsive hero preload on %s', (path) => {
     const html = pages.get(path)!
     const service = findServicePage(path.split('/').at(-1)!)
