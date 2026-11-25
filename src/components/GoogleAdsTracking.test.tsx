@@ -35,9 +35,9 @@ const sitemap = readFileSync(
   resolve(process.cwd(), 'public/sitemap.xml'),
   'utf8',
 )
-const paths = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(
-  (match) => new URL(match[1]).pathname,
-)
+const paths = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)]
+  .map((match) => new URL(match[1]).pathname)
+  .filter((path) => !path.endsWith('/review'))
 const cases = paths.flatMap((path) =>
   [390, 1440].map((width) => ({ path, width })),
 )

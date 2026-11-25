@@ -5,6 +5,7 @@ dist/
 !.netlify/features/
 .netlify/features/*
 !.netlify/features/netlify-forms
+!.netlify/features/netlify-identity
 
 # Local configuration
 .env

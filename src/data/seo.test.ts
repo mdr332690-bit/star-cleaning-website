@@ -114,8 +114,9 @@ describe('bilingual SEO contracts', () => {
   ])('describes the actual cleaning work in Arabic for %s', (slug, scope) => {
     const service = findServicePage(slug)!
     const head = createSeoHead('ar', service)
-    const description = head.meta.find((tag) => tag.name === 'description')
-      ?.content
+    const description = head.meta.find(
+      (tag) => tag.name === 'description',
+    )?.content
     expect(description).toContain(scope)
     expect(description).not.toMatch(/طاقم|الرجال|عاملات|بالساعة/)
   })
@@ -211,16 +212,21 @@ describe('bilingual SEO contracts', () => {
       (match) => match[1],
     )
     expect(sitemapUrls.sort()).toEqual(
-      pages.map(({ path }) => origin + path).sort(),
+      [
+        ...pages.map(({ path }) => origin + path),
+        `${origin}/review`,
+        `${origin}/ar/review`,
+      ].sort(),
     )
-    expect(new Set(sitemapUrls).size).toBe(pages.length)
+    expect(new Set(sitemapUrls).size).toBe(pages.length + 2)
     const entries = xml.match(/<url>[\s\S]*?<\/url>/g) ?? []
     for (const entry of entries) {
       const url = entry.match(/<loc>(.*?)<\/loc>/)?.[1]
-      const page = pages.find(({ path }) => origin + path === url)!
+      const page = pages.find(({ path }) => origin + path === url)
       for (const alternate of createSeoHead(
-        page.lang,
-        page.service,
+        page?.lang ?? (url?.endsWith('/ar/review') ? 'ar' : 'en'),
+        page?.service,
+        page ? undefined : 'review',
       ).links.filter((link) => link.rel === 'alternate')) {
         expect(entry).toContain(
           `hreflang="${alternate.hrefLang}" href="${alternate.href}"`,

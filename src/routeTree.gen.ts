@@ -11,7 +11,11 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ArRouteImport } from './routes/ar'
+import { Route as ReviewRouteImport } from './routes/review'
+import { Route as AdminReviewsRouteImport } from './routes/admin.reviews'
+import { Route as ArReviewRouteImport } from './routes/ar_.review'
 import { Route as ServicesServiceRouteImport } from './routes/services.$service'
+import { Route as ApiReviewsSplatRouteImport } from './routes/api.reviews.$'
 import { Route as ArServicesServiceRouteImport } from './routes/ar_.services.$service'
 
 const IndexRoute = IndexRouteImport.update({
@@ -24,9 +28,29 @@ const ArRoute = ArRouteImport.update({
   path: '/ar',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReviewRoute = ReviewRouteImport.update({
+  id: '/review',
+  path: '/review',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminReviewsRoute = AdminReviewsRouteImport.update({
+  id: '/admin/reviews',
+  path: '/admin/reviews',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArReviewRoute = ArReviewRouteImport.update({
+  id: '/ar_/review',
+  path: '/ar/review',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ServicesServiceRoute = ServicesServiceRouteImport.update({
   id: '/services/$service',
   path: '/services/$service',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiReviewsSplatRoute = ApiReviewsSplatRouteImport.update({
+  id: '/api/reviews/$',
+  path: '/api/reviews/$',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ArServicesServiceRoute = ArServicesServiceRouteImport.update({
@@ -38,34 +62,75 @@ const ArServicesServiceRoute = ArServicesServiceRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/ar': typeof ArRoute
+  '/review': typeof ReviewRoute
+  '/admin/reviews': typeof AdminReviewsRoute
+  '/ar/review': typeof ArReviewRoute
   '/services/$service': typeof ServicesServiceRoute
+  '/api/reviews/$': typeof ApiReviewsSplatRoute
   '/ar/services/$service': typeof ArServicesServiceRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/ar': typeof ArRoute
+  '/review': typeof ReviewRoute
+  '/admin/reviews': typeof AdminReviewsRoute
+  '/ar/review': typeof ArReviewRoute
   '/services/$service': typeof ServicesServiceRoute
+  '/api/reviews/$': typeof ApiReviewsSplatRoute
   '/ar/services/$service': typeof ArServicesServiceRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/ar': typeof ArRoute
+  '/review': typeof ReviewRoute
+  '/admin/reviews': typeof AdminReviewsRoute
+  '/ar_/review': typeof ArReviewRoute
   '/services/$service': typeof ServicesServiceRoute
+  '/api/reviews/$': typeof ApiReviewsSplatRoute
   '/ar_/services/$service': typeof ArServicesServiceRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/ar' | '/services/$service' | '/ar/services/$service'
+  fullPaths:
+    | '/'
+    | '/ar'
+    | '/review'
+    | '/admin/reviews'
+    | '/ar/review'
+    | '/services/$service'
+    | '/api/reviews/$'
+    | '/ar/services/$service'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/ar' | '/services/$service' | '/ar/services/$service'
-  id: '__root__' | '/' | '/ar' | '/services/$service' | '/ar_/services/$service'
+  to:
+    | '/'
+    | '/ar'
+    | '/review'
+    | '/admin/reviews'
+    | '/ar/review'
+    | '/services/$service'
+    | '/api/reviews/$'
+    | '/ar/services/$service'
+  id:
+    | '__root__'
+    | '/'
+    | '/ar'
+    | '/review'
+    | '/admin/reviews'
+    | '/ar_/review'
+    | '/services/$service'
+    | '/api/reviews/$'
+    | '/ar_/services/$service'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ArRoute: typeof ArRoute
+  ReviewRoute: typeof ReviewRoute
+  AdminReviewsRoute: typeof AdminReviewsRoute
+  ArReviewRoute: typeof ArReviewRoute
   ServicesServiceRoute: typeof ServicesServiceRoute
+  ApiReviewsSplatRoute: typeof ApiReviewsSplatRoute
   ArServicesServiceRoute: typeof ArServicesServiceRoute
 }
 
@@ -85,11 +150,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ArRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/review': {
+      id: '/review'
+      path: '/review'
+      fullPath: '/review'
+      preLoaderRoute: typeof ReviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/reviews': {
+      id: '/admin/reviews'
+      path: '/admin/reviews'
+      fullPath: '/admin/reviews'
+      preLoaderRoute: typeof AdminReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ar_/review': {
+      id: '/ar_/review'
+      path: '/ar/review'
+      fullPath: '/ar/review'
+      preLoaderRoute: typeof ArReviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/services/$service': {
       id: '/services/$service'
       path: '/services/$service'
       fullPath: '/services/$service'
       preLoaderRoute: typeof ServicesServiceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/reviews/$': {
+      id: '/api/reviews/$'
+      path: '/api/reviews/$'
+      fullPath: '/api/reviews/$'
+      preLoaderRoute: typeof ApiReviewsSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ar_/services/$service': {
@@ -105,7 +198,11 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ArRoute: ArRoute,
+  ReviewRoute: ReviewRoute,
+  AdminReviewsRoute: AdminReviewsRoute,
+  ArReviewRoute: ArReviewRoute,
   ServicesServiceRoute: ServicesServiceRoute,
+  ApiReviewsSplatRoute: ApiReviewsSplatRoute,
   ArServicesServiceRoute: ArServicesServiceRoute,
 }
 export const routeTree = rootRouteImport

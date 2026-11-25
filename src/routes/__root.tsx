@@ -6,6 +6,7 @@ import {
 } from '@tanstack/react-router'
 import { NotFoundPage, notFoundCopy } from '../components/NotFoundPage'
 import { languageFromPath } from '../data/servicePages'
+import { isPrivateReviewSurface } from '../data/reviews'
 
 import '../styles.css'
 
@@ -56,17 +57,18 @@ export const Route = createRootRoute({
 })
 
 function RootDocument({ children }: { children: React.ReactNode }) {
-  const isArabic = useRouterState({
-    select: (state) => languageFromPath(state.location.pathname) === 'ar',
-  })
+  const path = useRouterState({ select: (state) => state.location.pathname })
+  const isArabic = languageFromPath(path) === 'ar'
+  const allowTracking = !isPrivateReviewSurface(path)
 
   return (
     <html lang={isArabic ? 'ar' : 'en'} dir={isArabic ? 'rtl' : 'ltr'}>
       <head>
         {/* Apply privacy controls before loading either Google runtime. */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.dataLayer = window.dataLayer || [];
+        {allowTracking && (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('consent', 'default', {
     ad_storage: 'denied',
@@ -89,29 +91,34 @@ function RootDocument({ children }: { children: React.ReactNode }) {
   googleTag.async = true;
   googleTag.src = 'https://www.googletagmanager.com/gtag/js?id=AW-18535502279';
   document.head.appendChild(googleTag);`,
-          }}
-        />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            }}
+          />
+        )}
+        {allowTracking && (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-PL9T5ZPM');`,
-          }}
-        />
+            }}
+          />
+        )}
         <HeadContent />
       </head>
       <body>
-        <noscript>
-          <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-PL9T5ZPM"
-            height="0"
-            width="0"
-            style={{ display: 'none', visibility: 'hidden' }}
-            title="Google Tag Manager"
-          />
-        </noscript>
+        {allowTracking && (
+          <noscript>
+            <iframe
+              src="https://www.googletagmanager.com/ns.html?id=GTM-PL9T5ZPM"
+              height="0"
+              width="0"
+              style={{ display: 'none', visibility: 'hidden' }}
+              title="Google Tag Manager"
+            />
+          </noscript>
+        )}
         {children}
         <Scripts />
       </body>
