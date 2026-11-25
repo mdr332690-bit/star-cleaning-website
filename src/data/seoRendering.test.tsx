@@ -2,6 +2,7 @@
 import { readFileSync } from 'node:fs'
 import { createMemoryHistory } from '@tanstack/react-router'
 import { RouterServer } from '@tanstack/react-router/ssr/server'
+import { parse, type DefaultTreeAdapterMap } from 'parse5'
 import { renderToString } from 'react-dom/server'
 import { beforeAll, describe, expect, it } from 'vitest'
 import { getRouter } from '../router'
@@ -28,6 +29,15 @@ async function render(path: string) {
   await router.load()
   return {
     html: renderToString(<RouterServer router={router} />),
+  }
+}
+
+function* renderedImages(
+  node: DefaultTreeAdapterMap['node'],
+): Generator<DefaultTreeAdapterMap['element']> {
+  if ('tagName' in node && node.tagName === 'img') yield node
+  if ('childNodes' in node) {
+    for (const child of node.childNodes) yield* renderedImages(child)
   }
 }
 
@@ -70,14 +80,39 @@ describe('search-engine-visible route output', () => {
     expect(() => JSON.parse(schema!)).not.toThrow()
   })
 
-  it('renders alt attributes on English homepage images', () => {
-    const html = pages.get('/')!
-    const images = html.match(/<img\b[^>]*>/g) ?? []
-    expect(images.length).toBeGreaterThan(0)
-    for (const image of images) expect(image).toMatch(/\salt="[^"]*"/)
+  it.each(paths)('renders localized alt text on %s', (path) => {
+    const html = parse(pages.get(path)!, { scriptingEnabled: false })
+    const images = [...renderedImages(html)]
+    const isArabic = path === '/ar' || path.startsWith('/ar/')
+    const descriptions = new Set<string>()
 
-    const filmPoster = html.match(/class="film-card">\s*(<img\b[^>]*>)/)?.[1]
-    expect(filmPoster).toMatch(/\salt=""/)
+    expect(images.length).toBeGreaterThan(0)
+    for (const image of images) {
+      const src = image.attrs.find(({ name }) => name === 'src')?.value
+      const alt = image.attrs.find(({ name }) => name === 'alt')?.value
+      const parent = image.parentNode
+      const isFilmBackdrop =
+        parent &&
+        'attrs' in parent &&
+        parent.attrs.some(
+          ({ name, value }) =>
+            name === 'class' && value.split(/\s+/).includes('film-card'),
+        )
+
+      if (isFilmBackdrop) {
+        expect(alt, src).toBe('')
+        continue
+      }
+
+      expect(alt, src).toBeDefined()
+      const description = alt?.trim().toLowerCase() ?? ''
+      expect(description, src).toMatch(
+        isArabic ? /\p{Script=Arabic}/u : /\p{Script=Latin}/u,
+      )
+      if (!isArabic) expect(description, src).not.toMatch(/\p{Script=Arabic}/u)
+      expect(descriptions, src).not.toContain(description)
+      descriptions.add(description)
+    }
   })
 
   it.each([
