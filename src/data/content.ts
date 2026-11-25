@@ -30,8 +30,8 @@ export const services = [
     icon: 'home',
     image: 'home.jpg',
     imageAlt: {
-      en: 'Illustrative home interior with a cream sofa, rug and coffee table',
-      ar: 'صورة توضيحية لمنزل بغرفة معيشة وكنبة كريمية وسجادة وطاولة قهوة',
+      en: 'Illustrative living room with a caramel sofa, cream armchairs and framed photos',
+      ar: 'صورة توضيحية لغرفة معيشة بكنبة بلون الكراميل وكراسٍ كريمية وصور مؤطّرة',
     },
     title: { en: 'Home Cleaning', ar: 'تنظيف المنازل' },
     description: {
@@ -61,8 +61,8 @@ export const services = [
     icon: 'building',
     image: 'office.jpg',
     imageAlt: {
-      en: 'Illustrative office interior with worktables, chairs and indoor plants',
-      ar: 'صورة توضيحية لمكتب بطاولات عمل وكراسٍ ونباتات داخلية',
+      en: 'Illustrative office meeting area with a long table and floor-to-ceiling windows',
+      ar: 'صورة توضيحية لمساحة اجتماعات مكتبية بطاولة طويلة ونوافذ ممتدة من الأرض إلى السقف',
     },
     title: { en: 'Office Cleaning', ar: 'تنظيف المكاتب' },
     description: {
@@ -92,8 +92,8 @@ export const services = [
     icon: 'villa',
     image: 'villa.jpg',
     imageAlt: {
-      en: 'Illustrative villa exterior with large windows, a garden and a pool',
-      ar: 'صورة توضيحية لواجهة فيلا بنوافذ كبيرة وحديقة ومسبح',
+      en: 'Illustrative villa with a glass façade, shaded terraces and a pool',
+      ar: 'صورة توضيحية لفيلا بواجهة زجاجية وشرفات مظللة ومسبح',
     },
     title: { en: 'Villa Cleaning', ar: 'تنظيف الفلل' },
     description: {
@@ -251,7 +251,7 @@ export const copy = {
     experienceLabel: 'A decade of care.',
     experienceSub: 'A standard we keep.',
     aboutImageAlt:
-      'Illustrative image of a male cleaner refreshing a cream sofa with upholstery equipment',
+      'Illustrative image of a gloved cleaner guiding an upholstery nozzle over a sofa cushion',
     videoEyebrow: 'THE CARE BEHIND THE CLEAN',
     videoTitle: 'Small details.',
     videoEm: 'Beautiful results.',
@@ -468,7 +468,7 @@ export const copy = {
     experienceLabel: 'عقد من العناية.',
     experienceSub: 'ومستوى نحافظ عليه.',
     aboutImageAlt:
-      'صورة توضيحية لعامل تنظيف يعتني بكنبة كريمية باستخدام جهاز تنظيف المفروشات',
+      'صورة توضيحية لعامل يرتدي قفازات ويمرّر فوهة جهاز تنظيف المفروشات على وسادة مقعد الكنبة',
     videoEyebrow: 'العناية خلف كل تفصيلة',
     videoTitle: 'تفاصيل صغيرة.',
     videoEm: 'نتائج جميلة.',
