@@ -82,7 +82,8 @@ p {
   line-height: 1.8;
 }
 h1,
-h2 {
+h2,
+.inquiry-heading {
   font-family: var(--serif);
   font-weight: 500;
   letter-spacing: -1.6px;
@@ -1647,7 +1648,9 @@ em {
   line-height: 1.9;
   margin-top: 23px;
 }
-.footer-grid > div > h3 {
+.footer-grid > div > .footer-heading {
+  font-family: inherit;
+  line-height: inherit;
   font-size: 8px;
   letter-spacing: 1.6px;
   font-weight: 600;
@@ -2096,7 +2099,7 @@ em {
   border-radius: 50%;
   margin-block-end: 24px;
 }
-.inquiry-success h2 {
+.inquiry-success .inquiry-heading {
   font-size: 36px;
   margin-block-end: 16px;
 }
@@ -2143,7 +2146,7 @@ em {
     grid-template-columns: minmax(0, 1fr);
   }
   .inquiry-form-content .inquiry-form-title,
-  .inquiry-success h2 {
+  .inquiry-success .inquiry-heading {
     font-size: 30px;
   }
   .inquiry-field label,
@@ -2242,7 +2245,8 @@ em {
   --serif: 'Noto Sans Arabic', sans-serif;
 }
 [dir='rtl'] h1,
-[dir='rtl'] h2 {
+[dir='rtl'] h2,
+[dir='rtl'] :where(.inquiry-heading) {
   letter-spacing: -1.5px;
   font-weight: 500;
   line-height: 1.45;
@@ -2595,7 +2599,7 @@ em {
     font-size: 5px;
     letter-spacing: 1.3px;
   }
-  .footer-grid > div > h3 {
+  .footer-grid > div > .footer-heading {
     font-size: 7px;
   }
   .footer-grid > div > button:not(.language-button),
@@ -3188,7 +3192,7 @@ em {
     font-size: 11px;
     margin-top: 18px;
   }
-  .footer-grid > div > h3 {
+  .footer-grid > div > .footer-heading {
     font-size: 8px;
     margin-bottom: 18px;
   }
@@ -3205,7 +3209,7 @@ em {
     align-items: start;
     column-gap: 24px;
   }
-  .footer-local h3 {
+  .footer-local .footer-heading {
     grid-column: 1/-1;
     margin-bottom: 14px !important;
   }
@@ -3308,7 +3312,8 @@ em {
   [dir='rtl'] .hero-visual {
     height: 450px;
   }
-  [dir='rtl'] h2 {
+  [dir='rtl'] h2,
+  [dir='rtl'] :where(.inquiry-heading) {
     font-size: 35px;
     line-height: 1.55;
   }

@@ -6,20 +6,20 @@ export const servicePageCopy = {
   home: {
     slug: 'house-cleaning',
     heading: {
-      en: 'House & Apartment Cleaning in Kuwait',
-      ar: 'تنظيف المنازل والشقق في الكويت',
+      en: 'House Cleaning in Kuwait',
+      ar: 'تنظيف المنازل في الكويت',
     },
     title: {
-      en: 'House & Apartment Cleaning Kuwait | Star Cleaning',
-      ar: 'تنظيف المنازل والشقق في الكويت | ستار كلينينج',
+      en: 'House Cleaning in Kuwait | Star Cleaning',
+      ar: 'تنظيف المنازل في الكويت | ستار كلينينج',
     },
     description: {
-      en: 'House and apartment cleaning in Kuwait with male cleaning staff. Discuss rooms, kitchen and bathroom surfaces, floor care and your priorities with Star Cleaning.',
-      ar: 'خدمات تنظيف المنازل في الكويت مع ستار كلينينج للشقق والبيوت بطاقم من الرجال فقط. ناقش تنظيف الغرف والمطبخ والحمامات والأرضيات ونطاق العمل قبل الحجز.',
+      en: 'Plan house cleaning in Kuwait with Star Cleaning. Tell us which rooms, kitchen surfaces, bathrooms and floors need attention, and request a quote.',
+      ar: 'خطّط لتنظيف منزلك في الكويت مع ستار كلينينج. حدّد الغرف وأسطح المطبخ والحمامات والأرضيات التي تحتاج إلى تنظيف، واطلب عرض سعر.',
     },
     intro: {
-      en: 'Choosing a house cleaning company in Kuwait starts with explaining what your home needs. A house and an apartment can need different plans, even with the same number of rooms. Our home cleaning service focuses on the spaces you use, their approximate size and the surfaces that need attention. House and apartment cleaning are part of this service, with the details agreed for your home.',
-      ar: 'عند اختيار شركة تنظيف منازل في الكويت، ابدأ بتوضيح احتياجات منزلك. قد يحتاج البيت والشقة إلى خطتين مختلفتين حتى مع تساوي عدد الغرف. تركز خدماتنا على المساحات التي تستخدمها ومساحتها التقريبية والأسطح التي تحتاج إلى عناية. يشمل ذلك تنظيف البيوت والشقق، مع الاتفاق على التفاصيل وفق احتياجات منزلك.',
+      en: 'Plan your house cleaning around the rooms you use most. Tell us about the size of your home and the living areas, bedrooms, kitchen and bathrooms you want cleaned. We’ll agree which spaces and surfaces to include before you book.',
+      ar: 'خطّط لتنظيف منزلك بدءاً من الغرف التي تستخدمها أكثر. أخبرنا بمساحة المنزل وغرف المعيشة والنوم والمطبخ والحمامات التي تريد تنظيفها، لنتفق على المساحات والأسطح قبل الحجز.',
     },
     planningTitle: {
       en: 'Planning your home cleaning visit',
@@ -43,23 +43,23 @@ export const servicePageCopy = {
       ar: 'للحواف والزوايا والمناطق كثيرة الاستخدام التي تحتاج إلى عناية إضافية، تعرّف على:',
     },
     question: {
-      en: 'What information helps plan apartment cleaning?',
-      ar: 'ما المعلومات التي تساعد في التخطيط لتنظيف الشقق؟',
+      en: 'What information helps plan house cleaning?',
+      ar: 'ما المعلومات التي تساعد في التخطيط لتنظيف المنزل؟',
     },
     answer: {
-      en: 'Share the approximate floor area, number of rooms and bathrooms, floor types and your main priorities. Mention any access arrangements for the apartment. These details help define the work before availability and pricing are confirmed.',
-      ar: 'شاركنا المساحة التقريبية وعدد الغرف والحمامات وأنواع الأرضيات وأهم أولوياتك. اذكر ترتيبات الدخول إلى الشقة. تساعد هذه التفاصيل في تحديد العمل قبل تأكيد التوافر والسعر.',
+      en: 'Share the approximate floor area, number of rooms and bathrooms, floor types and your main priorities. Mention any access arrangements for the house. These details help define the work before availability and pricing are confirmed.',
+      ar: 'شاركنا المساحة التقريبية وعدد الغرف والحمامات وأنواع الأرضيات وأهم أولوياتك. اذكر ترتيبات الدخول إلى المنزل. تساعد هذه التفاصيل في تحديد العمل قبل تأكيد التوافر والسعر.',
     },
   },
   office: {
     slug: 'office-cleaning',
     heading: { en: 'Office Cleaning in Kuwait', ar: 'تنظيف المكاتب في الكويت' },
     title: {
-      en: 'Office Cleaning Kuwait | Star Cleaning',
+      en: 'Office Cleaning in Kuwait | Star Cleaning',
       ar: 'تنظيف المكاتب في الكويت | ستار كلينينج',
     },
     description: {
-      en: 'Office cleaning in Kuwait for workstations, meeting rooms and shared spaces. Discuss your workplace routine and cleaning scope with Star Cleaning’s male staff.',
+      en: 'Arrange office cleaning in Kuwait for workstations, meeting rooms and shared spaces. Tell Star Cleaning which areas and times suit your workplace.',
       ar: 'تنظيف المكاتب في الكويت لمحطات العمل وغرف الاجتماعات والمساحات المشتركة. ناقش أوقات العمل ونطاق التنظيف مع ستار كلينينج، بطاقم من الرجال فقط.',
     },
     intro: {
@@ -100,11 +100,11 @@ export const servicePageCopy = {
     slug: 'villa-cleaning',
     heading: { en: 'Villa Cleaning in Kuwait', ar: 'تنظيف الفلل في الكويت' },
     title: {
-      en: 'Villa Cleaning Kuwait | Star Cleaning',
+      en: 'Villa Cleaning in Kuwait | Star Cleaning',
       ar: 'تنظيف الفلل في الكويت | ستار كلينينج',
     },
     description: {
-      en: 'Villa cleaning in Kuwait with male cleaning staff. Plan care for rooms, stairs and interior surfaces, with the scope agreed for your villa before booking.',
+      en: 'Plan villa cleaning in Kuwait with Star Cleaning. Share your layout and the rooms, stairs and interior surfaces you’d like cleaned before booking.',
       ar: 'تنظيف الفلل في الكويت بطاقم من الرجال فقط. خطط لتنظيف الغرف والسلالم والأسطح الداخلية مع ستار كلينينج، وناقش مساحة الفيلا ونطاق العمل قبل الحجز.',
     },
     intro: {
@@ -148,11 +148,11 @@ export const servicePageCopy = {
       ar: 'تنظيف الكنب والسجاد في الكويت',
     },
     title: {
-      en: 'Sofa & Carpet Cleaning Kuwait | Star Cleaning',
+      en: 'Sofa & Carpet Cleaning in Kuwait | Star Cleaning',
       ar: 'تنظيف الكنب والسجاد في الكويت | ستار كلينينج',
     },
     description: {
-      en: 'Sofa cleaning and carpet cleaning in Kuwait with male cleaning staff. Discuss fabric, size, condition and expected drying time with Star Cleaning before your visit.',
+      en: 'Need sofa or carpet cleaning in Kuwait? Tell Star Cleaning about the fabric, size and condition so we can discuss care and drying time before the visit.',
       ar: 'تنظيف الكنب والسجاد في الكويت مع ستار كلينينج بطاقم من الرجال فقط. شاركنا نوع القماش والحجم والحالة لمناقشة طريقة العناية ووقت الجفاف قبل الزيارة.',
     },
     intro: {
@@ -193,11 +193,11 @@ export const servicePageCopy = {
     slug: 'deep-cleaning',
     heading: { en: 'Deep Cleaning in Kuwait', ar: 'تنظيف عميق في الكويت' },
     title: {
-      en: 'Deep Cleaning Kuwait | Star Cleaning',
+      en: 'Deep Cleaning in Kuwait | Star Cleaning',
       ar: 'تنظيف عميق في الكويت | ستار كلينينج',
     },
     description: {
-      en: 'Deep cleaning in Kuwait for high-use areas, edges, corners and accessible surfaces. Discuss a detailed cleaning scope with Star Cleaning’s male cleaning staff.',
+      en: 'Plan a deep clean in Kuwait for your home or workplace. Tell Star Cleaning which corners, edges and high-use surfaces need more attention.',
       ar: 'تنظيف عميق في الكويت للمناطق كثيرة الاستخدام والحواف والزوايا والأسطح المتاحة. ناقش أولويات منزلك أو مكتبك مع ستار كلينينج بطاقم من الرجال فقط.',
     },
     intro: {
@@ -248,6 +248,9 @@ export type ServicePageData = (typeof servicePages)[number]
 
 export const homePath = (lang: Language) => (lang === 'ar' ? '/ar' : '/')
 
+export const languageFromPath = (pathname: string): Language =>
+  /^\/ar(?:\/|$)/.test(pathname) ? 'ar' : 'en'
+
 export const servicePath = (lang: Language, slug: string) =>
   `${lang === 'ar' ? '/ar' : ''}/services/${slug}`
 
@@ -261,7 +264,7 @@ export const serviceLabels = {
     scope: 'Suggested cleaning scope',
     prepare: 'Prepare your service enquiry',
     prepareText:
-      'Choose your preferred date and edit your message before continuing to WhatsApp. Your enquiry does not confirm a booking.',
+      'Tell us what you need cleaned and when you’d prefer us to visit. We’ll discuss availability, scope and pricing before confirming a booking.',
     related: 'Explore our other cleaning services',
     home: 'All cleaning services in Kuwait',
     faq: 'Service questions',
@@ -276,7 +279,7 @@ export const serviceLabels = {
     scope: 'نطاق التنظيف المقترح',
     prepare: 'جهّز استفسارك عن الخدمة',
     prepareText:
-      'اختر الموعد المفضل وعدّل رسالتك قبل المتابعة إلى واتساب. إرسال الاستفسار لا يؤكد الحجز.',
+      'أخبرنا بما تريد تنظيفه وموعد الزيارة المفضل. نناقش معك التوافر ونطاق العمل والسعر قبل تأكيد الحجز.',
     related: 'اكتشف خدمات التنظيف الأخرى',
     home: 'جميع خدمات التنظيف في الكويت',
     faq: 'أسئلة عن الخدمة',

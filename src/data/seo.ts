@@ -3,7 +3,7 @@ import { homePath, servicePath, catalogServicePages } from './servicePages'
 import type { ServicePageData } from './servicePages'
 import { site } from './site'
 import { fontPreloads } from './fonts'
-import { imageUrl } from './images'
+import { imageUrl, serviceSocialImage } from './images'
 
 type PageLink = {
   rel: string
@@ -16,9 +16,9 @@ type PageLink = {
 
 export const seo = {
   en: {
-    title: 'Cleaning Services Kuwait | Star Cleaning Service',
+    title: 'Cleaning Services in Kuwait | Star Cleaning',
     description:
-      'Home, apartment, office, villa, sofa, carpet and deep cleaning in Kuwait. Call Star Cleaning on +965 50258260 to discuss your space, availability and a quote.',
+      'Explore home, office, villa, sofa and carpet cleaning in Kuwait. Contact Star Cleaning to discuss availability or request a quote for a deep clean.',
     locale: 'en_KW',
     alternateLocale: 'ar_KW',
     imageAlt:
@@ -27,7 +27,7 @@ export const seo = {
   ar: {
     title: 'شركة تنظيف في الكويت | ستار كلينينج',
     description:
-      'خدمات تنظيف المنازل والشقق والمكاتب والفلل والكنب والسجاد والتنظيف العميق في الكويت. اتصل بستار كلينينج على +96550258260 لمناقشة الخدمة وعرض السعر.',
+      'تعرّف على خدمات ستار كلينينج في الكويت لتنظيف المنازل والشقق والمكاتب والفلل والكنب والسجاد. تواصل معنا للاستفسار عن التنظيف العميق وطلب عرض سعر.',
     locale: 'ar_KW',
     alternateLocale: 'en_KW',
     imageAlt: 'صورة توضيحية لعامل تنظيف يعتني بكنبة كريمية',
@@ -39,12 +39,31 @@ export const socialImage = new URL('img/star-cleaning-kuwait.jpg', site.url)
 
 // Only verified business information belongs in this graph. A service country
 // describes coverage; it is deliberately not presented as a street address.
-export const businessStructuredData = (lang: Language) => ({
+const businessId = `${site.url}#business`
+const areaServed = { '@type': 'Country', name: 'Kuwait' }
+
+function serviceStructuredData(lang: Language, service: ServicePageData) {
+  const url = new URL(servicePath(lang, service.page.slug), site.url).href
+  return {
+    '@type': 'Service',
+    '@id': `${site.url}#${service.anchor}-service`,
+    name: service.page.heading[lang],
+    alternateName: service.title[lang === 'en' ? 'ar' : 'en'],
+    serviceType: service.title[lang],
+    description: service.page.intro[lang],
+    url,
+    areaServed,
+    provider: { '@id': businessId },
+    mainEntityOfPage: { '@id': `${url}#webpage` },
+  }
+}
+
+const businessStructuredData = (lang: Language, includeCatalog: boolean) => ({
   '@context': 'https://schema.org',
   '@graph': [
     {
       '@type': 'LocalBusiness',
-      '@id': `${site.url}#business`,
+      '@id': businessId,
       name: site.name,
       alternateName: ['Star Cleaning Service', 'ستار كلينينج الكويت'],
       url: site.url,
@@ -52,33 +71,22 @@ export const businessStructuredData = (lang: Language) => ({
       description: seo[lang].description,
       image: socialImage,
       logo: new URL('favicon.svg', site.url).href,
-      areaServed: { '@type': 'Country', name: 'Kuwait' },
+      areaServed,
       slogan: lang === 'ar' ? 'عناية بكل تفصيلة.' : 'Care in every detail.',
       knowsLanguage: ['en', 'ar'],
-      hasOfferCatalog: {
-        '@type': 'OfferCatalog',
-        name:
-          lang === 'ar'
-            ? 'خدمات التنظيف في الكويت'
-            : 'Cleaning services in Kuwait',
-        itemListElement: catalogServicePages.map((service) => ({
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Service',
-            '@id': `${site.url}#${service.anchor}-service`,
-            name: service.page.heading[lang],
-            alternateName: service.title[lang === 'en' ? 'ar' : 'en'],
-            serviceType: service.title[lang],
-            description: service.page.intro[lang],
-            url: new URL(servicePath(lang, service.page.slug), site.url).href,
-            areaServed: { '@type': 'Country', name: 'Kuwait' },
-            provider: { '@id': `${site.url}#business` },
-            mainEntityOfPage: {
-              '@id': `${new URL(servicePath(lang, service.page.slug), site.url).href}#webpage`,
-            },
-          },
-        })),
-      },
+      ...(includeCatalog && {
+        hasOfferCatalog: {
+          '@type': 'OfferCatalog',
+          name:
+            lang === 'ar'
+              ? 'خدمات التنظيف في الكويت'
+              : 'Cleaning services in Kuwait',
+          itemListElement: catalogServicePages.map((service) => ({
+            '@type': 'Offer',
+            itemOffered: serviceStructuredData(lang, service),
+          })),
+        },
+      }),
     },
     {
       '@type': 'WebSite',
@@ -86,19 +94,28 @@ export const businessStructuredData = (lang: Language) => ({
       url: site.url,
       name: site.name,
       inLanguage: ['en', 'ar'],
-      publisher: { '@id': `${site.url}#business` },
+      publisher: { '@id': businessId },
     },
   ],
 })
 
 export function pageSeo(lang: Language, service?: ServicePageData) {
-  return service
-    ? {
-        ...seo[lang],
-        title: service.page.title[lang],
-        description: service.page.description[lang],
-      }
-    : seo[lang]
+  const preview = service && serviceSocialImage(service.image)
+  return {
+    ...seo[lang],
+    ...(service && {
+      title: service.page.title[lang],
+      description: service.page.description[lang],
+      imageAlt: service.imageAlt[lang],
+    }),
+    socialImage: preview
+      ? {
+          url: new URL(preview.path, site.url).href,
+          width: preview.width,
+          height: preview.height,
+        }
+      : { url: socialImage, width: 1200, height: 630 },
+  }
 }
 
 export function pageStructuredData(lang: Language, service?: ServicePageData) {
@@ -115,33 +132,16 @@ export function pageStructuredData(lang: Language, service?: ServicePageData) {
     : {
         '@type': 'ImageObject',
         '@id': `${url}#primaryimage`,
-        url: socialImage,
-        width: 1200,
-        height: 630,
+        ...metadata.socialImage,
         caption: metadata.imageAlt,
       }
-  const serviceUrl = service
-    ? `${site.url}#${service.anchor}-service`
-    : undefined
+  const serviceNode = service && serviceStructuredData(lang, service)
+  const mainEntity = { '@id': serviceNode?.['@id'] ?? businessId }
   return {
     '@context': 'https://schema.org',
     '@graph': [
-      ...businessStructuredData(lang)['@graph'],
-      ...(service?.id === 'apartment'
-        ? [
-            {
-              '@type': 'Service',
-              '@id': serviceUrl,
-              name: service.page.heading[lang],
-              serviceType: service.title[lang],
-              description: service.page.intro[lang],
-              url,
-              areaServed: { '@type': 'Country', name: 'Kuwait' },
-              provider: { '@id': `${site.url}#business` },
-              mainEntityOfPage: { '@id': `${url}#webpage` },
-            },
-          ]
-        : []),
+      ...businessStructuredData(lang, !service)['@graph'],
+      ...(serviceNode ? [serviceNode] : []),
       {
         '@type': 'WebPage',
         '@id': `${url}#webpage`,
@@ -150,8 +150,8 @@ export function pageStructuredData(lang: Language, service?: ServicePageData) {
         description: metadata.description,
         inLanguage: lang,
         isPartOf: { '@id': `${site.url}#website` },
-        about: { '@id': serviceUrl ?? `${site.url}#business` },
-        mainEntity: { '@id': serviceUrl ?? `${site.url}#business` },
+        about: mainEntity,
+        mainEntity,
         ...(service && { breadcrumb: { '@id': `${url}#breadcrumb` } }),
         primaryImageOfPage: pageImage,
       },
@@ -219,15 +219,21 @@ export function createSeoHead(lang: Language, service?: ServicePageData) {
       { property: 'og:url', content: url },
       { property: 'og:locale', content: metadata.locale },
       { property: 'og:locale:alternate', content: metadata.alternateLocale },
-      { property: 'og:image', content: socialImage },
+      { property: 'og:image', content: metadata.socialImage.url },
       { property: 'og:image:type', content: 'image/jpeg' },
-      { property: 'og:image:width', content: '1200' },
-      { property: 'og:image:height', content: '630' },
+      {
+        property: 'og:image:width',
+        content: String(metadata.socialImage.width),
+      },
+      {
+        property: 'og:image:height',
+        content: String(metadata.socialImage.height),
+      },
       { property: 'og:image:alt', content: metadata.imageAlt },
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:title', content: metadata.title },
       { name: 'twitter:description', content: metadata.description },
-      { name: 'twitter:image', content: socialImage },
+      { name: 'twitter:image', content: metadata.socialImage.url },
       { name: 'twitter:image:alt', content: metadata.imageAlt },
     ],
     scripts: [
