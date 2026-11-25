@@ -12,6 +12,7 @@ import { localEnquiryCopy, localServiceAdvice } from './localSeo'
 import { findServicePage } from './servicePages'
 import { homeHeroImage, serviceHeroImage } from './images'
 import { apartmentCopy, apartmentService } from './apartmentCleaning'
+import { notFoundCopy } from '../components/NotFoundPage'
 
 const origin = 'https://star-cleaning-website.netlify.app'
 const sitemap = readFileSync(
@@ -114,6 +115,20 @@ describe('search-engine-visible route output', () => {
       descriptions.add(description)
     }
   })
+
+  it.each(paths)(
+    'starts with one main heading and skips no levels on %s',
+    (path) => {
+      const headings = [...pages.get(path)!.matchAll(/<h([1-6])\b/g)].map(
+        ([, level]) => Number(level),
+      )
+      expect(headings[0]).toBe(1)
+      expect(headings.filter((level) => level === 1)).toHaveLength(1)
+      for (const [index, level] of headings.slice(1).entries()) {
+        expect(level).toBeLessThanOrEqual(headings[index] + 1)
+      }
+    },
+  )
 
   it.each([
     {
@@ -407,14 +422,24 @@ describe('search-engine-visible route output', () => {
   )
 
   it.each([
-    '/does-not-exist',
-    '/services/not-a-service',
-    '/ar/services/not-a-service',
-  ])('keeps missing routes noindex without a canonical on %s', async (path) => {
-    const { html } = await render(path)
-    expect(html).toContain('name="robots" content="noindex, follow"')
-    expect(html).not.toContain('rel="canonical"')
-  })
+    { path: '/does-not-exist', lang: 'en', home: '/' },
+    { path: '/services/not-a-service', lang: 'en', home: '/' },
+    { path: '/ar/does-not-exist', lang: 'ar', home: '/ar' },
+    { path: '/ar/services/not-a-service', lang: 'ar', home: '/ar' },
+  ] as const)(
+    'renders a localized, noindex 404 for $path',
+    async ({ path, lang, home }) => {
+      const { html } = await render(path)
+      const { title, description, heading } = notFoundCopy[lang]
+      expect(html).toContain(`<title>${title}</title>`)
+      expect(html).toContain(`name="description" content="${description}"`)
+      expect(html).toContain(`<h1>${heading}</h1>`)
+      expect(html).toContain(`href="${home}"`)
+      expect(html).toContain('name="robots" content="noindex, follow"')
+      expect(html).not.toContain('rel="canonical"')
+      expect(html).not.toContain('type="application/ld+json"')
+    },
+  )
 
   it('canonicalizes campaign queries without losing the requested language', async () => {
     const { html } = await render('/ar?utm_source=google&gclid=test-click')

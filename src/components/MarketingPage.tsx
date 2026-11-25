@@ -734,7 +734,7 @@ export function MarketingPage({ lang }: { lang: Language }) {
               )}
             </div>
             <div className="inquiry-card">
-              <BookingForm lang={lang} />
+              <BookingForm lang={lang} headingLevel={3} />
             </div>
           </div>
         </section>
@@ -818,7 +818,7 @@ export function MarketingPage({ lang }: { lang: Language }) {
               <GoogleBusinessLinks lang={lang} footer />
             </div>
             <div>
-              <h3>{t.footerServices}</h3>
+              <h2 className="footer-heading">{t.footerServices}</h2>
               {services.map((service) => (
                 <Link
                   key={service.id}
@@ -834,7 +834,7 @@ export function MarketingPage({ lang }: { lang: Language }) {
               ))}
             </div>
             <div>
-              <h3>{t.footerExplore}</h3>
+              <h2 className="footer-heading">{t.footerExplore}</h2>
               {[1, 2, 3, 4].map((index) => (
                 <a key={index} href={`#${navIds[index]}`}>
                   {t.nav[index]}
@@ -848,7 +848,7 @@ export function MarketingPage({ lang }: { lang: Language }) {
               </a>
             </div>
             <div className="footer-local">
-              <h3>{t.footerLocation}</h3>
+              <h2 className="footer-heading">{t.footerLocation}</h2>
               <p>{t.footerLocal}</p>
               <span>
                 <Icon name="pin" size={16} />

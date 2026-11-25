@@ -19,8 +19,8 @@ export const apartmentService = {
       ar: 'تنظيف الشقق في الكويت',
     },
     title: {
-      en: 'Apartment Cleaning in Kuwait | Request a Quote | Star Cleaning',
-      ar: 'تنظيف الشقق في الكويت | اطلب عرض سعر من ستار كلينينج',
+      en: 'Apartment Cleaning in Kuwait | Star Cleaning',
+      ar: 'تنظيف الشقق في الكويت | ستار كلينينج',
     },
     description: {
       en: 'Plan apartment cleaning in Kuwait with Star Cleaning. Discuss bedrooms, bathrooms, kitchen and living areas, then request a quote for your flat.',

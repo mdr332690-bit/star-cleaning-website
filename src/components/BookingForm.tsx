@@ -21,11 +21,14 @@ export function BookingForm({
   lang,
   initialService = '',
   titleId,
+  headingLevel = 2,
 }: {
   lang: Language
   initialService?: string
   titleId?: string
+  headingLevel?: 2 | 3
 }) {
+  const Heading = headingLevel === 3 ? 'h3' : 'h2'
   const t = bookingCopy[lang]
   const id = useId()
   const [state, setState] = useState<'idle' | 'pending' | 'success' | 'error'>(
@@ -169,7 +172,9 @@ export function BookingForm({
         <span className="inquiry-success-icon">
           <Icon name="check" size={30} />
         </span>
-        <h2 id={headingId}>{t.successTitle}</h2>
+        <Heading className="inquiry-heading" id={headingId}>
+          {t.successTitle}
+        </Heading>
         <p>{t.successText}</p>
         <p className="inquiry-note">{t.successNote}</p>
         <button
@@ -194,9 +199,9 @@ export function BookingForm({
       lang={lang}
       dir={lang === 'ar' ? 'rtl' : 'ltr'}
     >
-      <h2 className="inquiry-form-title" id={headingId}>
+      <Heading className="inquiry-heading inquiry-form-title" id={headingId}>
         {t.formTitle}
-      </h2>
+      </Heading>
       <p className="inquiry-form-intro">{t.formIntro}</p>
       <form
         name={bookingFormName}

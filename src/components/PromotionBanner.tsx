@@ -10,7 +10,7 @@ export function PromotionBanner({ lang }: { lang: Language }) {
     <section className="promotion" aria-labelledby="promotion-heading">
       <div className="container promotion-inner">
         <div className="promotion-offer">
-          <h2 id="promotion-heading" className="promotion-heading">
+          <p id="promotion-heading" className="promotion-heading">
             <span className="promotion-label">
               <Star className="tiny-star" />
               {t.label}
@@ -24,7 +24,7 @@ export function PromotionBanner({ lang }: { lang: Language }) {
                 <span className="promotion-word">{t.discountWord}</span>
               )}
             </span>
-          </h2>
+          </p>
           <p className="promotion-scope">{t.scope}</p>
         </div>
         <p className="promotion-description">

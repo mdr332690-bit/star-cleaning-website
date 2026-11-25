@@ -1,5 +1,5 @@
 // @vitest-environment node
-import { readFileSync } from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import { createSeoHead, pageStructuredData } from './seo'
 import { servicePages } from './servicePages'
@@ -71,6 +71,41 @@ describe('bilingual SEO contracts', () => {
   })
 
   it.each(pages)(
+    'uses matching titles, descriptions, and social images on $path',
+    ({ lang, service }) => {
+      const { meta } = createSeoHead(lang, service)
+      const title = meta.find((tag) => 'title' in tag)?.title
+      const social = (key: string) =>
+        meta.find((tag) => tag.property === key || tag.name === key)?.content
+
+      expect(social('og:title')).toBe(title)
+      expect(social('twitter:title')).toBe(title)
+      expect(social('og:description')).toBe(social('description'))
+      expect(social('twitter:description')).toBe(social('description'))
+      expect(social('twitter:image')).toBe(social('og:image'))
+      expect(social('twitter:image:alt')).toBe(social('og:image:alt'))
+      expect(social('og:image:type')).toBe('image/jpeg')
+
+      const image = new URL(social('og:image')!)
+      expect(image.origin).toBe(origin)
+      const source = image.searchParams.get('url') ?? image.pathname
+      expect(
+        existsSync(new URL(`../../public${source}`, import.meta.url)),
+      ).toBe(true)
+      if (service) {
+        expect(source).toBe(`/img/${service.image}`)
+        expect(image.searchParams.get('fm')).toBe('jpg')
+        expect(image.searchParams.get('fit')).toBe('cover')
+        expect(social('og:image:width')).toBe(image.searchParams.get('w'))
+        expect(social('og:image:height')).toBe(image.searchParams.get('h'))
+        expect(social('og:image:alt')).toBe(service.imageAlt[lang])
+      } else {
+        expect(source).toBe('/img/star-cleaning-kuwait.jpg')
+      }
+    },
+  )
+
+  it.each(pages)(
     'keeps verified business and page schema aligned on $path',
     ({ lang, service, path }) => {
       const graph = JSON.parse(
@@ -83,7 +118,6 @@ describe('bilingual SEO contracts', () => {
         '@type': 'Country',
         name: 'Kuwait',
       })
-      expect(business.hasOfferCatalog.itemListElement).toHaveLength(5)
       expect(business.telephone).toBe('+96550258260')
       expect(business.alternateName).toContain('Star Cleaning Service')
       for (const unsupported of [
@@ -106,29 +140,36 @@ describe('bilingual SEO contracts', () => {
       expect(webpage.primaryImageOfPage['@id']).toBe(
         `${webpage.url}#primaryimage`,
       )
+      const serviceNodes = graph.filter(
+        (node: Record<string, unknown>) => node['@type'] === 'Service',
+      )
       if (service) {
         const breadcrumb = graph.find(
           (node: Record<string, unknown>) => node['@type'] === 'BreadcrumbList',
         )
         expect(breadcrumb.itemListElement.at(-1).item).toBe(webpage.url)
-        const offered = business.hasOfferCatalog.itemListElement.map(
-          (offer: { itemOffered: Record<string, unknown> }) =>
-            offer.itemOffered,
-        )
-        const serviceNodes = graph.filter(
-          (node: Record<string, unknown>) => node['@type'] === 'Service',
-        )
-        expect(serviceNodes).toHaveLength(service.id === 'apartment' ? 1 : 0)
-        expect(
-          service.id === 'apartment' ? serviceNodes : offered,
-        ).toContainEqual(
-          expect.objectContaining({
-            '@id': webpage.about['@id'],
-            url: webpage.url,
-            name: service.page.heading[lang],
-            mainEntityOfPage: { '@id': webpage['@id'] },
-          }),
-        )
+        expect(business).not.toHaveProperty('hasOfferCatalog')
+        expect(serviceNodes).toHaveLength(1)
+        expect(serviceNodes[0]).toMatchObject({
+          '@id': webpage.about['@id'],
+          url: webpage.url,
+          name: service.page.heading[lang],
+          areaServed: business.areaServed,
+          provider: { '@id': business['@id'] },
+          mainEntityOfPage: { '@id': webpage['@id'] },
+        })
+      } else {
+        expect(serviceNodes).toHaveLength(0)
+        expect(webpage.mainEntity).toEqual({ '@id': business['@id'] })
+        expect(business.hasOfferCatalog.itemListElement).toHaveLength(5)
+        for (const { itemOffered } of business.hasOfferCatalog
+          .itemListElement) {
+          expect(itemOffered['@type']).toBe('Service')
+          expect(itemOffered.provider).toEqual({ '@id': business['@id'] })
+          expect(
+            pages.some(({ path }) => origin + path === itemOffered.url),
+          ).toBe(true)
+        }
       }
       expect(pageStructuredData(lang, service)['@graph']).toEqual(graph)
     },

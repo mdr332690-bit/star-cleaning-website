@@ -4,13 +4,17 @@ import {
   createRootRoute,
   useRouterState,
 } from '@tanstack/react-router'
-import { NotFoundPage } from '../components/NotFoundPage'
+import { NotFoundPage, notFoundCopy } from '../components/NotFoundPage'
+import { languageFromPath } from '../data/servicePages'
 
 import '../styles.css'
 
 export const Route = createRootRoute({
   notFoundComponent: NotFoundPage,
-  head: () => ({
+  beforeLoad: ({ location }) => ({
+    lang: languageFromPath(location.pathname),
+  }),
+  head: ({ match }) => ({
     links: [{ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
     meta: [
       {
@@ -25,12 +29,11 @@ export const Route = createRootRoute({
         content: '#173e32',
       },
       {
-        title: 'Page Not Found | Star Cleaning Kuwait',
+        title: notFoundCopy[match.context.lang].title,
       },
       {
         name: 'description',
-        content:
-          'This page could not be found. Return to Star Cleaning Kuwait to explore home, office, villa, sofa and carpet cleaning, and deep cleaning.',
+        content: notFoundCopy[match.context.lang].description,
       },
       {
         name: 'robots',
@@ -47,7 +50,7 @@ export const Route = createRootRoute({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   const isArabic = useRouterState({
-    select: (state) => /^\/ar(?:\/|$)/.test(state.location.pathname),
+    select: (state) => languageFromPath(state.location.pathname) === 'ar',
   })
 
   return (

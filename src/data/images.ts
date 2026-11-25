@@ -15,6 +15,16 @@ const imageWidth = (file: string, width: number) =>
 export const imageUrl = (file: string, width: number) =>
   `/.netlify/images?url=/img/${file}&w=${imageWidth(file, width)}&fm=webp&q=78`
 
+export const serviceSocialImage = (file: string) => {
+  const width = 900
+  const height = 473
+  return {
+    path: `/.netlify/images?url=/img/${file}&w=${width}&h=${height}&fit=cover&fm=jpg&q=80`,
+    width,
+    height,
+  }
+}
+
 export const imageSrcSet = (file: string, widths: number[]) =>
   [...new Set(widths.map((width) => imageWidth(file, width)))]
     .map((width) => `${imageUrl(file, width)} ${width}w`)
