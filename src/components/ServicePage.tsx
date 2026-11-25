@@ -192,7 +192,7 @@ export function ServicePage({
             </div>
           </section>
         )}
-        {!isApartment && <LocalEnquiryGuide lang={lang} service={service} />}
+        <LocalEnquiryGuide lang={lang} service={service} />
         <section className="section service-faq">
           <div className="container service-reading-width">
             <Eyebrow>{t.faqEyebrow}</Eyebrow>

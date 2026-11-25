@@ -335,7 +335,7 @@ export const copy = {
       {
         question: 'Do you offer cleaning services across Kuwait?',
         answer:
-          'Star Cleaning serves customers in Kuwait. Share your location, property type and preferred service when making an enquiry so availability and the scope of your visit can be discussed.',
+          'Yes. Our team visits homes and businesses throughout Kuwait. Share your location, property type and preferred service so we can confirm availability and the scope of your visit before you book.',
       },
       {
         question: 'Which cleaning services do you offer?',
@@ -548,7 +548,7 @@ export const copy = {
       {
         question: 'هل تقدمون خدمات التنظيف في أنحاء الكويت؟',
         answer:
-          'تخدم ستار كلينينج العملاء في الكويت. شاركنا موقعك ونوع العقار والخدمة المطلوبة عند الاستفسار لمناقشة التوافر ونطاق الزيارة.',
+          'نعم. يزور فريقنا المنازل وأماكن العمل في جميع أنحاء الكويت. أخبرنا بموقعك ونوع العقار والخدمة المطلوبة حتى نؤكد التوافر ونطاق الزيارة قبل الحجز.',
       },
       {
         question: 'ما خدمات التنظيف التي تقدمونها؟',

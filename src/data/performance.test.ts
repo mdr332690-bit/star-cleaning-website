@@ -2,7 +2,7 @@
 import { readFileSync, existsSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import { fontPreloads } from './fonts'
-import { imageUrl, imageSrcSet } from './images'
+import { homeHeroImage, imageUrl, imageSrcSet } from './images'
 
 describe('image delivery', () => {
   it.each(['cleaning-team.png', 'cleaning-detail.png'])(
@@ -37,6 +37,14 @@ describe('image delivery', () => {
     )
     expect(candidates).toContain('w=640&fm=webp&q=78 640w')
     expect(candidates).toContain('w=800&fm=webp&q=78 800w')
+  })
+
+  it('uses lighter WebP encoding consistently for the homepage hero only', () => {
+    expect(homeHeroImage.src).toContain('fm=webp&q=74')
+    for (const candidate of homeHeroImage.srcSet.split(', ')) {
+      expect(candidate).toContain('fm=webp&q=74')
+    }
+    expect(imageUrl('cleaning-team.png', 800)).toContain('fm=webp&q=78')
   })
 
   it.each(['home.jpg', 'office.jpg', 'villa.jpg'])(

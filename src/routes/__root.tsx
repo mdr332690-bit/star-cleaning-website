@@ -15,7 +15,14 @@ export const Route = createRootRoute({
     lang: languageFromPath(location.pathname),
   }),
   head: ({ match }) => ({
-    links: [{ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
+    links: [
+      { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+      {
+        rel: 'apple-touch-icon',
+        sizes: '180x180',
+        href: '/apple-touch-icon.png',
+      },
+    ],
     meta: [
       {
         charSet: 'utf-8',

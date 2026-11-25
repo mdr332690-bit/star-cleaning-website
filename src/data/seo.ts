@@ -37,8 +37,6 @@ export const seo = {
 export const socialImage = new URL('img/star-cleaning-kuwait.jpg', site.url)
   .href
 
-// Only verified business information belongs in this graph. A service country
-// describes coverage; it is deliberately not presented as a street address.
 const businessId = `${site.url}#business`
 const areaServed = { '@type': 'Country', name: 'Kuwait' }
 
@@ -62,15 +60,22 @@ const businessStructuredData = (lang: Language, includeCatalog: boolean) => ({
   '@context': 'https://schema.org',
   '@graph': [
     {
-      '@type': 'LocalBusiness',
+      '@type': 'Organization',
       '@id': businessId,
       name: site.name,
       alternateName: ['Star Cleaning Service', 'ستار كلينينج الكويت'],
       url: site.url,
       telephone: site.phone,
+      contactPoint: {
+        '@type': 'ContactPoint',
+        telephone: site.phone,
+        contactType: 'customer service',
+        availableLanguage: ['en', 'ar'],
+        areaServed,
+      },
       description: seo[lang].description,
       image: socialImage,
-      logo: new URL('favicon.svg', site.url).href,
+      logo: new URL('apple-touch-icon.png', site.url).href,
       areaServed,
       slogan: lang === 'ar' ? 'عناية بكل تفصيلة.' : 'Care in every detail.',
       knowsLanguage: ['en', 'ar'],
