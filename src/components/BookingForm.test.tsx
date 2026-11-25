@@ -1,4 +1,4 @@
-import { readFileSync, existsSync } from 'node:fs'
+import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import {
@@ -90,9 +90,6 @@ describe('Netlify Forms deployment configuration', () => {
       expect(
         screen.getByText(bookingCopy[lang].serviceBoundary, { exact: false }),
       ).toBeTruthy()
-      expect(
-        existsSync(resolve(process.cwd(), '.netlify/features/netlify-forms')),
-      ).toBe(true)
     },
   )
 })

@@ -19,6 +19,7 @@ import { BookingForm } from './BookingForm'
 import { bookingCopy } from '../data/booking'
 import { GoogleBusinessLinks } from './GoogleBusinessLinks'
 import { ServiceAreas } from './ServiceAreas'
+import { CustomerReviews } from './CustomerReviews'
 
 const navIds = ['home', 'about', 'services', 'why-us', 'contact']
 const [houseCleaning, ...otherServices] = catalogServicePages
@@ -633,30 +634,7 @@ export function MarketingPage({ lang }: { lang: Language }) {
           </div>
         </section>
 
-        <section className="section reviews-section" id="testimonials">
-          <div className="container reviews-grid">
-            <div>
-              <Eyebrow>{t.reviewsEyebrow}</Eyebrow>
-              <h2>
-                {t.reviewsTitle}
-                <br />
-                <em>{t.reviewsEm}</em>
-              </h2>
-              <p className="reviews-description">{t.reviewsDescription}</p>
-              <Star className="reviews-star" />
-            </div>
-            <div className="review-placeholder">
-              <Icon name="quote" size={42} />
-              <h3>{t.reviewsComing}</h3>
-              <p>{t.reviewsText}</p>
-              <span>
-                <span className="status-dot" />
-                {t.reviewsBadge}
-              </span>
-              <GoogleBusinessLinks lang={lang} onDark reviewOnly />
-            </div>
-          </div>
-        </section>
+        <CustomerReviews lang={lang} />
 
         <ServiceAreas lang={lang} />
 

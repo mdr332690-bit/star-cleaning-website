@@ -126,7 +126,7 @@ describe('IndexNow proof', () => {
 })
 
 describe('IndexNow submissions', () => {
-  it('tests all 14 sitemap pages and posts both languages in a single batch', async () => {
+  it('tests all 16 sitemap pages and posts both languages in a single batch', async () => {
     const actualSitemap = readFileSync(
       new URL('../../public/sitemap.xml', import.meta.url),
       'utf8',
@@ -134,10 +134,10 @@ describe('IndexNow submissions', () => {
     const sitemapUrls = [...actualSitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(
       (match) => match[1],
     )
-    expect(sitemapUrls).toHaveLength(14)
+    expect(sitemapUrls).toHaveLength(16)
     expect(
       sitemapUrls.filter((url) => new URL(url).pathname.match(/^\/ar(?:\/|$)/)),
-    ).toHaveLength(7)
+    ).toHaveLength(8)
 
     const request = vi.fn<typeof fetch>(async (url) => {
       if (url === proofUrl) return text(testProof)

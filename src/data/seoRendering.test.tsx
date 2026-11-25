@@ -19,9 +19,10 @@ const sitemap = readFileSync(
   new URL('../../public/sitemap.xml', import.meta.url),
   'utf8',
 )
-const paths = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(
+const allPaths = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(
   (match) => new URL(match[1]).pathname,
 )
+const paths = allPaths.filter((path) => !path.endsWith('/review'))
 const pages = new Map<string, string>()
 
 async function render(path: string) {
@@ -43,7 +44,7 @@ function* renderedImages(
 }
 
 beforeAll(async () => {
-  for (const path of paths) pages.set(path, (await render(path)).html)
+  for (const path of allPaths) pages.set(path, (await render(path)).html)
 })
 
 describe('search-engine-visible route output', () => {
@@ -299,13 +300,16 @@ describe('search-engine-visible route output', () => {
       'ماذا تشمل زيارة التنظيف الاحترافي؟',
       'لا نوفر خادمات بالساعة أو عمالة منزلية أو جليسات أطفال، ولا نقدّم خدمات استقدام العمالة المنزلية.',
     ],
-  ])('answers what a professional visit includes on %s', (path, question, answer) => {
-    const html = pages.get(path)!
-    const faq = [...html.matchAll(/<details\b[^>]*>([\s\S]*?)<\/details>/g)]
-      .map(([, detail]) => detail)
-      .find((detail) => detail.includes(`<span>${question}</span>`))
-    expect(faq).toContain(answer)
-  })
+  ])(
+    'answers what a professional visit includes on %s',
+    (path, question, answer) => {
+      const html = pages.get(path)!
+      const faq = [...html.matchAll(/<details\b[^>]*>([\s\S]*?)<\/details>/g)]
+        .map(([, detail]) => detail)
+        .find((detail) => detail.includes(`<span>${question}</span>`))
+      expect(faq).toContain(answer)
+    },
+  )
 
   it.each(paths)(
     'keeps Google links hidden when verified destinations are unset on %s',
@@ -357,8 +361,10 @@ describe('search-engine-visible route output', () => {
           const testimonials = html.match(
             /<section\b[^>]*id="testimonials"[^>]*>([\s\S]*?)<\/section>/,
           )?.[1]
-          expect(testimonials).toContain(`href="${reviewUrl}"`)
-          expect(testimonials).toContain(t.reviewsBadge)
+          expect(testimonials).toContain(
+            `href="${lang === 'ar' ? '/ar/review' : '/review'}"`,
+          )
+          expect(testimonials).not.toContain(`href="${reviewUrl}"`)
           expect(html).toContain(
             'name="form-name" value="star-cleaning-booking"',
           )

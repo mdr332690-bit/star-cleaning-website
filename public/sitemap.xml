@@ -84,4 +84,16 @@
     <xhtml:link rel="alternate" hreflang="ar" href="https://star-cleaning-website.netlify.app/ar/services/apartment-cleaning" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://star-cleaning-website.netlify.app/services/apartment-cleaning" />
   </url>
+  <url>
+    <loc>https://star-cleaning-website.netlify.app/review</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://star-cleaning-website.netlify.app/review" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://star-cleaning-website.netlify.app/ar/review" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://star-cleaning-website.netlify.app/review" />
+  </url>
+  <url>
+    <loc>https://star-cleaning-website.netlify.app/ar/review</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://star-cleaning-website.netlify.app/review" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://star-cleaning-website.netlify.app/ar/review" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://star-cleaning-website.netlify.app/review" />
+  </url>
 </urlset>

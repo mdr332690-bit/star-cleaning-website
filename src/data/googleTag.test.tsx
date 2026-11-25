@@ -13,9 +13,9 @@ const sitemap = readFileSync(
   new URL('../../public/sitemap.xml', import.meta.url),
   'utf8',
 )
-const paths = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(
-  (match) => new URL(match[1]).pathname,
-)
+const paths = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)]
+  .map((match) => new URL(match[1]).pathname)
+  .filter((path) => !path.endsWith('/review'))
 
 async function renderPage(path: string) {
   const router = getRouter()

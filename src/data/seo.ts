@@ -4,6 +4,7 @@ import type { ServicePageData } from './servicePages'
 import { site } from './site'
 import { fontPreloads } from './fonts'
 import { imageUrl, serviceSocialImage } from './images'
+import { reviewCopy, reviewPath } from './reviews'
 
 type PageLink = {
   rel: string
@@ -187,10 +188,27 @@ export function pageStructuredData(lang: Language, service?: ServicePageData) {
 }
 
 // Generate metadata on the server for each URL; no browser-only SEO mutations.
-export function createSeoHead(lang: Language, service?: ServicePageData) {
-  const metadata = pageSeo(lang, service)
+export function createSeoHead(
+  lang: Language,
+  service?: ServicePageData,
+  page?: 'review',
+) {
+  const isReview = page === 'review'
+  const metadata = {
+    ...pageSeo(lang, service),
+    ...(isReview
+      ? {
+          title: reviewCopy[lang].title,
+          description: reviewCopy[lang].description,
+        }
+      : {}),
+  }
   const path = (language: Language) =>
-    service ? servicePath(language, service.page.slug) : homePath(language)
+    isReview
+      ? reviewPath(language)
+      : service
+        ? servicePath(language, service.page.slug)
+        : homePath(language)
   const url = new URL(path(lang), site.url).href
   const links: PageLink[] = [
     { rel: 'canonical', href: url },
@@ -241,14 +259,16 @@ export function createSeoHead(lang: Language, service?: ServicePageData) {
       { name: 'twitter:image', content: metadata.socialImage.url },
       { name: 'twitter:image:alt', content: metadata.imageAlt },
     ],
-    scripts: [
-      {
-        type: 'application/ld+json',
-        children: JSON.stringify(pageStructuredData(lang, service)).replace(
-          /</g,
-          '\\u003c',
-        ),
-      },
-    ],
+    scripts: isReview
+      ? []
+      : [
+          {
+            type: 'application/ld+json',
+            children: JSON.stringify(pageStructuredData(lang, service)).replace(
+              /</g,
+              '\\u003c',
+            ),
+          },
+        ],
   }
 }
