@@ -197,8 +197,6 @@ export const copy = {
     heroEm: 'Kuwait.',
     heroDescription:
       'Home, office, villa, sofa and carpet cleaning, plus deep cleaning in Kuwait. Tell Star Cleaning about your space and the care it needs.',
-    staffNote:
-      'Cleaning services across Kuwait, provided by male cleaning staff only.',
     explore: 'Explore our services',
     heroTrust: 'Experienced hands. A personal touch.',
     years: 'Years of experience',
@@ -320,17 +318,17 @@ export const copy = {
       {
         question: 'How do I choose the best cleaning company in Kuwait?',
         answer:
-          'Compare the cleaning scope, relevant experience, staff arrangements and a clear quotation before deciding. Star Cleaning has over 10 years of experience, has served more than 20 clients and provides male cleaning staff only. Choose a company that explains what is included and confirms availability and pricing before booking.',
+          'Compare the cleaning scope, relevant experience and clarity of the quote before deciding. Star Cleaning has over 10 years of experience and has served more than 20 clients. Choose a company that explains what is included and confirms availability and pricing before booking.',
       },
       {
         question: 'Do you provide house and apartment cleaning in Kuwait?',
         answer:
-          'Yes. House cleaning and apartment cleaning are part of our home cleaning service in Kuwait. Tell us the number of rooms, the approximate size and the surfaces that need attention so we can discuss the scope. All cleaning staff are male.',
+          'Yes. House cleaning and apartment cleaning are part of our home cleaning service in Kuwait. Tell us the number of rooms, the approximate size and the surfaces that need attention so we can discuss the scope.',
       },
       {
-        question: 'Do you provide female cleaning staff in Kuwait?',
+        question: "What's included in a professional cleaning visit?",
         answer:
-          'No. Star Cleaning provides male cleaning staff only. If you require female cleaning staff, our service does not meet that requirement. Please confirm the staff arrangements and cleaning scope before booking.',
+          'Book a professional cleaning visit for your house, apartment, villa, office, sofas or carpets. We agree the scope and quote before booking. We don’t provide hourly maids, domestic workers, babysitters or household staffing.',
       },
       {
         question: 'Do you offer cleaning services across Kuwait?',
@@ -416,7 +414,6 @@ export const copy = {
     heroEm: 'الكويت.',
     heroDescription:
       'تنظيف المنازل والمكاتب والفلل والكنب والسجاد، بالإضافة إلى التنظيف العميق في الكويت. أخبر ستار كلينينج عن مساحتك والعناية التي تحتاج إليها.',
-    staffNote: 'خدمات تنظيف في أنحاء الكويت يقدمها طاقم تنظيف من الرجال فقط.',
     explore: 'اكتشف خدماتنا',
     heroTrust: 'أيدٍ خبيرة. ولمسة شخصية.',
     years: 'سنوات من الخبرة',
@@ -533,17 +530,17 @@ export const copy = {
       {
         question: 'كيف أختار أفضل شركة تنظيف بالكويت؟',
         answer:
-          'قارن نطاق التنظيف والخبرة المناسبة وترتيبات طاقم العمل ووضوح عرض السعر قبل الاختيار. تتمتع ستار كلينينج بخبرة تزيد عن 10 سنوات وخدمت أكثر من 20 عميلاً، وتوفر طاقم تنظيف من الرجال فقط. اختر شركة توضح ما تشمله الخدمة وتؤكد التوافر والسعر قبل الحجز.',
+          'قارن نطاق التنظيف والخبرة المناسبة ووضوح عرض السعر قبل الاختيار. تتمتع ستار كلينينج بخبرة تزيد عن 10 سنوات وخدمت أكثر من 20 عميلاً. اختر شركة توضح ما تشمله الخدمة وتؤكد التوافر والسعر قبل الحجز.',
       },
       {
         question: 'هل تقدمون تنظيف المنازل والشقق في الكويت؟',
         answer:
-          'نعم، يندرج تنظيف البيوت والشقق ضمن خدمة تنظيف المنازل في الكويت. أخبرنا بعدد الغرف والمساحة التقريبية والأسطح التي تحتاج إلى عناية لمناقشة نطاق العمل. جميع أفراد طاقم التنظيف من الرجال.',
+          'نعم، يندرج تنظيف البيوت والشقق ضمن خدمة تنظيف المنازل في الكويت. أخبرنا بعدد الغرف والمساحة التقريبية والأسطح التي تحتاج إلى عناية لمناقشة نطاق العمل.',
       },
       {
-        question: 'هل توفرون عاملات تنظيف في الكويت؟',
+        question: 'ماذا تشمل زيارة التنظيف الاحترافي؟',
         answer:
-          'لا، توفر ستار كلينينج طاقم تنظيف من الرجال فقط. إذا كنت تحتاج إلى عاملات تنظيف، فإن خدمتنا لا تلبي هذا الشرط. يرجى التأكد من ترتيبات طاقم العمل ونطاق التنظيف قبل الحجز.',
+          'نقدّم زيارات تنظيف احترافية للمنازل والشقق والفلل والمكاتب والكنب والسجاد. نتفق معك على نطاق العمل وعرض السعر قبل الحجز. لا نوفر خادمات بالساعة أو عمالة منزلية أو جليسات أطفال، ولا نقدّم خدمات استقدام العمالة المنزلية.',
       },
       {
         question: 'هل تقدمون خدمات التنظيف في أنحاء الكويت؟',

@@ -8,6 +8,7 @@ import {
   render,
   screen,
   waitFor,
+  within,
 } from '@testing-library/react'
 import { BookingForm } from './BookingForm'
 import Booking from './Booking'
@@ -86,6 +87,9 @@ describe('Netlify Forms deployment configuration', () => {
         ).toBe(bookingFormName)
       }
       expect(form.getAttribute('action')).toBe(bookingEndpoint)
+      expect(
+        screen.getByText(bookingCopy[lang].serviceBoundary, { exact: false }),
+      ).toBeTruthy()
       expect(
         existsSync(resolve(process.cwd(), '.netlify/features/netlify-forms')),
       ).toBe(true)
@@ -315,24 +319,36 @@ describe('booking inquiry submission', () => {
     ).toBeTruthy()
   })
 
-  it('keeps the editable WhatsApp enquiry available in the booking dialog', async () => {
-    render(<Booking lang="en" initialService="villa" />)
-    expect(
-      (screen.getByLabelText(/Service Type/) as HTMLSelectElement).value,
-    ).toBe('Villa Cleaning')
-    fireEvent.click(screen.getByText(bookingCopy.en.alternate))
-    const message = screen.getByLabelText(copy.en.messageLabel)
-    fireEvent.change(message, {
-      target: { value: 'Please discuss villa cleaning with me.' },
-    })
-    await waitFor(() => {
-      const link = screen.getByRole('link', { name: copy.en.sendWhatsApp })
-      expect(link.getAttribute('href')).toBe(
-        'https://wa.me/96550258260?text=Please%20discuss%20villa%20cleaning%20with%20me.',
+  it.each(['en', 'ar'] as const)(
+    'clarifies the scope and keeps the editable WhatsApp enquiry in the %s booking dialog',
+    async (lang) => {
+      const t = bookingCopy[lang]
+      render(
+        <dialog open>
+          <Booking lang={lang} initialService="villa" />
+        </dialog>,
       )
-    })
-    expect(window.gtag).not.toHaveBeenCalled()
-  })
+      const dialog = within(screen.getByRole('dialog'))
+      expect(dialog.getByText(t.serviceBoundary, { exact: false })).toBeTruthy()
+      expect(
+        (dialog.getByLabelText(new RegExp(t.service)) as HTMLSelectElement).value,
+      ).toBe('Villa Cleaning')
+      fireEvent.click(dialog.getByText(t.alternate))
+      const message = dialog.getByLabelText(copy[lang].messageLabel)
+      const draft =
+        lang === 'ar'
+          ? 'أود الاستفسار عن تنظيف الفيلا.'
+          : 'Please discuss villa cleaning with me.'
+      fireEvent.change(message, { target: { value: draft } })
+      await waitFor(() => {
+        const link = dialog.getByRole('link', { name: copy[lang].sendWhatsApp })
+        expect(link.getAttribute('href')).toBe(
+          `https://wa.me/96550258260?text=${encodeURIComponent(draft)}`,
+        )
+      })
+      expect(window.gtag).not.toHaveBeenCalled()
+    },
+  )
 
   it.each(['en', 'ar'] as const)(
     'does not count a honeypot submission even if its response is successful in %s',

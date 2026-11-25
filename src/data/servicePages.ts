@@ -60,7 +60,7 @@ export const servicePageCopy = {
     },
     description: {
       en: 'Arrange office cleaning in Kuwait for workstations, meeting rooms and shared spaces. Tell Star Cleaning which areas and times suit your workplace.',
-      ar: 'تنظيف المكاتب في الكويت لمحطات العمل وغرف الاجتماعات والمساحات المشتركة. ناقش أوقات العمل ونطاق التنظيف مع ستار كلينينج، بطاقم من الرجال فقط.',
+      ar: 'تنظيف المكاتب في الكويت لمحطات العمل وغرف الاجتماعات والمساحات المشتركة. شارك ستار كلينينج تفاصيل الموقع وترتيبات الدخول والموعد المناسب.',
     },
     intro: {
       en: 'Office cleaning in Kuwait needs a plan around the people who use the workplace. Identify the workstations, meeting rooms and shared spaces that need care, then discuss a visit that fits your working routine. Star Cleaning focuses the conversation on the areas you actually need cleaned.',
@@ -105,7 +105,7 @@ export const servicePageCopy = {
     },
     description: {
       en: 'Plan villa cleaning in Kuwait with Star Cleaning. Share your layout and the rooms, stairs and interior surfaces you’d like cleaned before booking.',
-      ar: 'تنظيف الفلل في الكويت بطاقم من الرجال فقط. خطط لتنظيف الغرف والسلالم والأسطح الداخلية مع ستار كلينينج، وناقش مساحة الفيلا ونطاق العمل قبل الحجز.',
+      ar: 'تنظيف الفلل في الكويت مع ستار كلينينج. حدّد الغرف والسلالم والأرضيات والأسطح الداخلية التي تحتاج إلى تنظيف، واطلب عرض سعر يناسب نطاق العمل.',
     },
     intro: {
       en: 'A larger home benefits from a room-by-room plan. For villa cleaning in Kuwait, Star Cleaning discusses the layout, floors and interior areas that matter most to you. A clear list helps distinguish everyday room care from areas that need a more detailed clean.',
@@ -153,7 +153,7 @@ export const servicePageCopy = {
     },
     description: {
       en: 'Need sofa or carpet cleaning in Kuwait? Tell Star Cleaning about the fabric, size and condition so we can discuss care and drying time before the visit.',
-      ar: 'تنظيف الكنب والسجاد في الكويت مع ستار كلينينج بطاقم من الرجال فقط. شاركنا نوع القماش والحجم والحالة لمناقشة طريقة العناية ووقت الجفاف قبل الزيارة.',
+      ar: 'تنظيف الكنب والسجاد في الكويت مع ستار كلينينج. شاركنا نوع القماش وحجم القطع وحالتها لمناقشة طريقة التنظيف المناسبة ووقت الجفاف.',
     },
     intro: {
       en: 'Sofa cleaning in Kuwait starts with understanding the fabric and its condition. The same care matters for carpets and rugs. Tell Star Cleaning about the seating or flooring you want cleaned so the approach can be discussed for the material, rather than assuming every fabric needs the same treatment.',
@@ -198,7 +198,7 @@ export const servicePageCopy = {
     },
     description: {
       en: 'Plan a deep clean in Kuwait for your home or workplace. Tell Star Cleaning which corners, edges and high-use surfaces need more attention.',
-      ar: 'تنظيف عميق في الكويت للمناطق كثيرة الاستخدام والحواف والزوايا والأسطح المتاحة. ناقش أولويات منزلك أو مكتبك مع ستار كلينينج بطاقم من الرجال فقط.',
+      ar: 'تنظيف عميق للمنازل والمكاتب في الكويت. حدّد الحواف والزوايا والأسطح كثيرة الاستخدام التي تحتاج إلى عناية إضافية لنناقش نطاق العمل قبل الحجز.',
     },
     intro: {
       en: 'Deep cleaning in Kuwait is a way to focus on the details that your everyday routine may miss. Star Cleaning discusses the accessible surfaces, edges, corners and high-use areas that need extra attention in your home or workplace. The plan follows your priorities and an agreed scope.',
@@ -268,9 +268,6 @@ export const serviceLabels = {
     related: 'Explore our other cleaning services',
     home: 'All cleaning services in Kuwait',
     faq: 'Service questions',
-    maleQuestion: 'Who provides the cleaning service?',
-    maleAnswer:
-      'Star Cleaning provides male cleaning staff only. Female cleaning staff are not offered. Share your property location and service requirements so the scope and availability can be discussed before booking.',
     enquiry: 'Prepare an enquiry',
   },
   ar: {
@@ -283,9 +280,6 @@ export const serviceLabels = {
     related: 'اكتشف خدمات التنظيف الأخرى',
     home: 'جميع خدمات التنظيف في الكويت',
     faq: 'أسئلة عن الخدمة',
-    maleQuestion: 'من يقدم خدمة التنظيف؟',
-    maleAnswer:
-      'توفر ستار كلينينج طاقم تنظيف من الرجال فقط، ولا توفر عاملات تنظيف. شاركنا موقع العقار والخدمة المطلوبة لمناقشة نطاق العمل والتوافر قبل الحجز.',
     enquiry: 'جهّز استفسارك',
   },
 }

@@ -215,7 +215,9 @@ export function MarketingPage({ lang }: { lang: Language }) {
                 {t.heroLine2} <br className="hero-break" /> <em>{t.heroEm}</em>
               </h1>
               <p className="hero-description">{t.heroDescription}</p>
-              <p className="staff-note">{t.staffNote}</p>
+              <p className="enquiry-scope">
+                {bookingCopy[lang].serviceBoundary}
+              </p>
               <div className="hero-actions">
                 <button
                   className="button button-primary"
@@ -716,6 +718,9 @@ export function MarketingPage({ lang }: { lang: Language }) {
                   </li>
                 ))}
               </ol>
+              <p className="enquiry-scope">
+                {bookingCopy[lang].serviceBoundary}
+              </p>
               {whatsappHref && (
                 <a
                   className="button button-outline"
@@ -750,6 +755,7 @@ export function MarketingPage({ lang }: { lang: Language }) {
                   <em>{t.contactEm}</em>
                 </h2>
                 <p>{t.contactText}</p>
+                <p>{bookingCopy[lang].serviceBoundary}</p>
                 <ContactActions lang={lang} onDark />
                 <button
                   className="button button-cream"

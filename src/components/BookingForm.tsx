@@ -202,7 +202,9 @@ export function BookingForm({
       <Heading className="inquiry-heading inquiry-form-title" id={headingId}>
         {t.formTitle}
       </Heading>
-      <p className="inquiry-form-intro">{t.formIntro}</p>
+      <p className="inquiry-form-intro">
+        {t.formIntro} {t.serviceBoundary}
+      </p>
       <form
         name={bookingFormName}
         method="POST"

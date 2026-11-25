@@ -1091,7 +1091,7 @@ em {
   display: flex;
   width: fit-content;
 }
-.staff-note {
+.enquiry-scope {
   color: var(--sage);
   font-size: 12px;
   margin-block: 12px 20px;
