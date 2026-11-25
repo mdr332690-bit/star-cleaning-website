@@ -1,6 +1,6 @@
 import type { Language } from '../data/content'
 import { localEnquiryCopy, localServiceAdvice } from '../data/localSeo'
-import type { CatalogServicePageData } from '../data/servicePages'
+import type { ServicePageData } from '../data/servicePages'
 import { Icon } from './Icon'
 import { Eyebrow } from './SiteUI'
 
@@ -9,7 +9,7 @@ export function LocalEnquiryGuide({
   service,
 }: {
   lang: Language
-  service?: CatalogServicePageData
+  service: ServicePageData
 }) {
   const t = localEnquiryCopy[lang]
   return (
@@ -22,14 +22,16 @@ export function LocalEnquiryGuide({
         <div>
           <Eyebrow>{t.eyebrow}</Eyebrow>
           <h2 id="location-heading">{t.title}</h2>
-          <a className="text-link" href={service ? '#contact' : '#booking'}>
+          <a className="text-link" href="#contact">
             {t.action}
             <Icon name="arrow" size={18} />
           </a>
         </div>
         <div className="location-copy">
           <p>{t.intro}</p>
-          {service && <p>{localServiceAdvice[service.id][lang]}</p>}
+          {service.id !== 'apartment' && (
+            <p>{localServiceAdvice[service.id][lang]}</p>
+          )}
           <p className="scope-note">{t.note}</p>
         </div>
       </div>

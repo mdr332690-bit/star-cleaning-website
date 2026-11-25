@@ -1,5 +1,6 @@
 // @vitest-environment node
 import { existsSync, readFileSync } from 'node:fs'
+import robotsParser from 'robots-parser'
 import { describe, expect, it } from 'vitest'
 import { createSeoHead, pageStructuredData } from './seo'
 import { servicePages } from './servicePages'
@@ -112,14 +113,24 @@ describe('bilingual SEO contracts', () => {
         createSeoHead(lang, service).scripts[0].children,
       )['@graph']
       const business = graph.find(
-        (node: Record<string, unknown>) => node['@type'] === 'LocalBusiness',
+        (node: Record<string, unknown>) => node['@type'] === 'Organization',
       )
       expect(business.areaServed).toEqual({
         '@type': 'Country',
         name: 'Kuwait',
       })
       expect(business.telephone).toBe('+96550258260')
+      expect(business.contactPoint).toMatchObject({
+        '@type': 'ContactPoint',
+        telephone: business.telephone,
+        availableLanguage: ['en', 'ar'],
+        areaServed: business.areaServed,
+      })
+      expect(business.logo).toBe(`${origin}/apple-touch-icon.png`)
       expect(business.alternateName).toContain('Star Cleaning Service')
+      expect(graph).not.toContainEqual(
+        expect.objectContaining({ '@type': 'LocalBusiness' }),
+      )
       for (const unsupported of [
         'address',
         'email',
@@ -203,13 +214,33 @@ describe('bilingual SEO contracts', () => {
   })
 
   it('allows crawling and declares the canonical HTTPS sitemap', () => {
-    const robots = readFileSync(
+    const contents = readFileSync(
       new URL('../../public/robots.txt', import.meta.url),
       'utf8',
     )
-    expect(robots).toMatch(/^User-agent: \*$/m)
-    expect(robots).toMatch(/^Allow: \/$/m)
-    expect(robots).not.toMatch(/^Disallow:\s*\//m)
-    expect(robots).toContain(`Sitemap: ${origin}/sitemap.xml`)
+    const robots = robotsParser(`${origin}/robots.txt`, contents)
+    expect(robots.getSitemaps()).toEqual([`${origin}/sitemap.xml`])
+    for (const crawler of [
+      'Applebot',
+      'Googlebot',
+      'bingbot',
+      'DuckDuckBot',
+      'Slurp',
+    ]) {
+      for (const path of [
+        ...pages.map(({ path }) => path),
+        '/apple-touch-icon.png',
+        '/__forms.html',
+        '/assets/entry.js',
+        '/assets/styles.css',
+        '/fonts/noto-sans-arabic-arabic.woff2',
+        '/.netlify/images?url=/img/cleaning-team.png&w=640&fm=webp',
+      ]) {
+        expect(
+          robots.isAllowed(origin + path, crawler),
+          `${crawler}: ${path}`,
+        ).toBe(true)
+      }
+    }
   })
 })

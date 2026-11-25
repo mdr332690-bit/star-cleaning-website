@@ -184,8 +184,8 @@ describe('search-engine-visible route output', () => {
     expect(image[0]).not.toContain('loading="lazy"')
   })
 
-  it.each(paths.filter((path) => !path.endsWith('/apartment-cleaning')))(
-    'keeps local enquiry content translated and conditional on %s',
+  it.each(paths)(
+    'renders translated Kuwait-wide coverage and booking guidance on %s',
     (path) => {
       const html = pages.get(path)!
       const lang = path.startsWith('/ar') ? 'ar' : 'en'
@@ -193,6 +193,7 @@ describe('search-engine-visible route output', () => {
         /<section\b[^>]*id="location-enquiry"[^>]*>([\s\S]*?)<\/section>/,
       )?.[1]
       expect(section).toContain(localEnquiryCopy[lang].title)
+      expect(section).toContain(localEnquiryCopy[lang].intro)
       expect(section).toContain(localEnquiryCopy[lang].note)
       const locations =
         lang === 'en'
@@ -219,7 +220,6 @@ describe('search-engine-visible route output', () => {
       if (service && service.id !== 'apartment')
         expect(section).toContain(localServiceAdvice[service.id][lang])
       expect(section).toContain(`href="${service ? '#contact' : '#booking'}"`)
-      // Unconfirmed neighbourhoods must not become schema service areas/branches.
       const schema = html.match(
         /<script type="application\/ld\+json">([\s\S]*?)<\/script>/,
       )?.[1]
@@ -229,6 +229,21 @@ describe('search-engine-visible route output', () => {
       )
     },
   )
+
+  it('serves a square PNG touch icon declared in every localized document', () => {
+    const icon = readFileSync(
+      new URL('../../public/apple-touch-icon.png', import.meta.url),
+    )
+    expect(icon.subarray(0, 8)).toEqual(
+      Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]),
+    )
+    expect([icon.readUInt32BE(16), icon.readUInt32BE(20)]).toEqual([180, 180])
+    for (const html of pages.values()) {
+      expect(html).toContain(
+        '<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>',
+      )
+    }
+  })
 
   it.each(['/', '/ar'])(
     'answers female-cleaner searches truthfully on %s',

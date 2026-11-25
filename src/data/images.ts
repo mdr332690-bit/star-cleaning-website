@@ -12,8 +12,8 @@ const nativeWidths: Record<string, number> = {
 const imageWidth = (file: string, width: number) =>
   Math.min(width, nativeWidths[file] ?? width)
 
-export const imageUrl = (file: string, width: number) =>
-  `/.netlify/images?url=/img/${file}&w=${imageWidth(file, width)}&fm=webp&q=78`
+export const imageUrl = (file: string, width: number, quality = 78) =>
+  `/.netlify/images?url=/img/${file}&w=${imageWidth(file, width)}&fm=webp&q=${quality}`
 
 export const serviceSocialImage = (file: string) => {
   const width = 900
@@ -25,16 +25,21 @@ export const serviceSocialImage = (file: string) => {
   }
 }
 
-export const imageSrcSet = (file: string, widths: number[]) =>
+export const imageSrcSet = (file: string, widths: number[], quality = 78) =>
   [...new Set(widths.map((width) => imageWidth(file, width)))]
-    .map((width) => `${imageUrl(file, width)} ${width}w`)
+    .map((width) => `${imageUrl(file, width, quality)} ${width}w`)
     .join(', ')
 
 // Share the exact responsive candidates between HTML images and head preloads.
 // A mismatch can download a second, unused hero image on mobile devices.
+const homeHeroQuality = 74
 export const homeHeroImage = {
-  src: imageUrl('cleaning-team.png', 1000),
-  srcSet: imageSrcSet('cleaning-team.png', [360, 480, 600, 640, 800, 928]),
+  src: imageUrl('cleaning-team.png', 1000, homeHeroQuality),
+  srcSet: imageSrcSet(
+    'cleaning-team.png',
+    [360, 480, 600, 640, 800, 928],
+    homeHeroQuality,
+  ),
   sizes:
     '(max-width: 760px) calc(100vw - 48px), (max-width: 1352px) 46vw, 585px',
 }

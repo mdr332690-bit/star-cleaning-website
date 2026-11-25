@@ -1,22 +1,20 @@
 import type { Language } from './content'
 
-// These are enquiry locations, not verified service areas or branch addresses.
-// Keep areaServed in structured data limited to the verified country, Kuwait.
 export const localEnquiryCopy = {
   en: {
     eyebrow: 'PLANNING YOUR VISIT IN KUWAIT',
     title: 'Check cleaning availability for your location.',
     intro:
-      'Enquiring from Kuwait City, Hawally, Salmiya, Farwaniya, Jahra, Ahmadi or Mubarak Al-Kabeer? Share your area, property type and preferred date so the team can check your request.',
-    note: 'Availability at your location, the cleaning scope and the price must be confirmed individually before booking. Mentioning an area here does not confirm service coverage there.',
+      'Our cleaning team comes to you anywhere in Kuwait, including Kuwait City, Hawally, Salmiya, Farwaniya, Jahra, Ahmadi and Mubarak Al-Kabeer. When you enquire, share your neighbourhood, property type and preferred date.',
+    note: 'We confirm availability for your preferred date, the cleaning scope and the price before you book.',
     action: 'Share your cleaning requirements',
   },
   ar: {
     eyebrow: 'التخطيط لزيارة التنظيف في الكويت',
     title: 'استفسر عن توافر خدمة التنظيف في منطقتك.',
     intro:
-      'إذا كان عقارك في مدينة الكويت أو حولي أو السالمية أو الفروانية أو الجهراء أو الأحمدي أو مبارك الكبير، فشاركنا منطقتك ونوع العقار والموعد المفضل حتى يتمكن الفريق من مراجعة طلبك.',
-    note: 'يجب تأكيد توافر الخدمة في موقعك ونطاق التنظيف والسعر لكل طلب قبل الحجز. ذكر منطقة هنا لا يعني تأكيد تغطية الخدمة فيها.',
+      'يصل فريق التنظيف إليك في جميع مناطق الكويت، بما فيها مدينة الكويت وحولي والسالمية والفروانية والجهراء والأحمدي ومبارك الكبير. عند الاستفسار، أخبرنا بالحي ونوع العقار والموعد المفضل.',
+    note: 'نؤكد توافر الخدمة في موعدك المفضل ونطاق التنظيف والسعر قبل الحجز.',
     action: 'شاركنا متطلبات التنظيف',
   },
 } satisfies Record<Language, Record<string, string>>
