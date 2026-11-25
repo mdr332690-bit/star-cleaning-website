@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from '@tanstack/react-router'
 import { apartmentCopy } from '../data/apartmentCleaning'
+import { bookingCopy } from '../data/booking'
 import { copy } from '../data/content'
 import type { Language } from '../data/content'
 import { serviceHeroImage } from '../data/images'
@@ -121,7 +122,9 @@ export function ServicePage({
               <Eyebrow>{t.servicesEyebrow}</Eyebrow>
               <h1 id="service-heading">{service.page.heading[lang]}</h1>
               <p className="service-lead">{service.page.intro[lang]}</p>
-              <p className="staff-note">{t.staffNote}</p>
+              <p className="enquiry-scope">
+                {bookingCopy[lang].serviceBoundary}
+              </p>
               {isApartment ? (
                 apartmentActions
               ) : (
@@ -210,13 +213,6 @@ export function ServicePage({
                   <p>{answer}</p>
                 </details>
               ))}
-              <details className="faq-item">
-                <summary>
-                  {labels.maleQuestion}
-                  <Icon name="plus" size={18} />
-                </summary>
-                <p>{labels.maleAnswer}</p>
-              </details>
             </div>
           </div>
         </section>
@@ -225,6 +221,9 @@ export function ServicePage({
             <Eyebrow>{t.contactEyebrow}</Eyebrow>
             <h2>{isApartment ? apartment.contactTitle : labels.prepare}</h2>
             <p>{isApartment ? apartment.contactIntro : labels.prepareText}</p>
+            <p className="enquiry-scope">
+              {bookingCopy[lang].serviceBoundary}
+            </p>
             <div className="service-contact-number">
               <span>{t.phoneLabel}</span>
               <ContactNumber />

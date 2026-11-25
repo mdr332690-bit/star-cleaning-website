@@ -68,6 +68,18 @@ describe('search-engine-visible route output', () => {
     expect(head).not.toContain('noindex')
     expect([...head.matchAll(/rel="canonical"/g)]).toHaveLength(1)
     expect(head).toContain(`href="${origin}${path}"`)
+    const englishPath = path.replace(/^\/ar(?=\/|$)/, '') || '/'
+    const alternatePaths = {
+      en: englishPath,
+      ar: englishPath === '/' ? '/ar' : `/ar${englishPath}`,
+      'x-default': englishPath,
+    }
+    expect([...head.matchAll(/rel="alternate" hrefLang=/g)]).toHaveLength(3)
+    for (const [language, alternatePath] of Object.entries(alternatePaths)) {
+      expect(head).toContain(
+        `rel="alternate" hrefLang="${language}" href="${origin}${alternatePath}"`,
+      )
+    }
     expect(head).toContain(`property="og:url" content="${origin}${path}"`)
     expect(head).toContain('name="twitter:card" content="summary_large_image"')
     expect([...html.matchAll(/<h1\b/g)]).toHaveLength(1)
@@ -245,22 +257,55 @@ describe('search-engine-visible route output', () => {
     }
   })
 
-  it.each(['/', '/ar'])(
-    'answers female-cleaner searches truthfully on %s',
+  it.each(paths)(
+    'clarifies the service scope near enquiry actions on %s',
     (path) => {
       const html = pages.get(path)!
-      const question =
-        path === '/ar'
-          ? 'هل توفرون عاملات تنظيف في الكويت؟'
-          : 'Do you provide female cleaning staff in Kuwait?'
-      const answer =
-        path === '/ar'
-          ? 'لا، توفر ستار كلينينج طاقم تنظيف من الرجال فقط.'
-          : 'No. Star Cleaning provides male cleaning staff only.'
-      expect(html).toContain(question)
-      expect(html).toContain(answer)
+      const clarification = path.startsWith('/ar')
+        ? 'نقدّم زيارات تنظيف احترافية فقط، ولا نوفر خادمات بالساعة أو عمالة منزلية.'
+        : 'Professional cleaning visits only. We don&#x27;t provide hourly maids or household staffing.'
+      const hero = html.match(
+        /<section\b[^>]*(?:id="home"|class="service-intro")[^>]*>([\s\S]*?)<\/section>/,
+      )?.[1]
+      const contact = html.match(
+        /<section\b[^>]*id="contact"[^>]*>([\s\S]*?)<\/section>/,
+      )?.[1]
+      expect(hero).toContain(clarification)
+      expect(contact).toContain(clarification)
+      const staffingLanguage =
+        /female cleaning staff|male cleaning staff only|عاملات تنظيف|الرجال فقط/i
+      expect(staffingLanguage.test(html)).toBe(false)
+      if (path === '/' || path === '/ar') {
+        const booking = html.match(
+          /<section\b[^>]*id="booking"[^>]*>([\s\S]*?)<\/section>/,
+        )?.[1]
+        expect(booking).toContain(clarification)
+        const formIntro = booking?.match(
+          /class="inquiry-form-intro">(.*?)<\/p>/,
+        )?.[1]
+        expect(formIntro).toContain(clarification)
+      }
     },
   )
+
+  it.each([
+    [
+      '/',
+      'What&#x27;s included in a professional cleaning visit?',
+      'We don’t provide hourly maids, domestic workers, babysitters or household staffing.',
+    ],
+    [
+      '/ar',
+      'ماذا تشمل زيارة التنظيف الاحترافي؟',
+      'لا نوفر خادمات بالساعة أو عمالة منزلية أو جليسات أطفال، ولا نقدّم خدمات استقدام العمالة المنزلية.',
+    ],
+  ])('answers what a professional visit includes on %s', (path, question, answer) => {
+    const html = pages.get(path)!
+    const faq = [...html.matchAll(/<details\b[^>]*>([\s\S]*?)<\/details>/g)]
+      .map(([, detail]) => detail)
+      .find((detail) => detail.includes(`<span>${question}</span>`))
+    expect(faq).toContain(answer)
+  })
 
   it.each(paths)(
     'keeps Google links hidden when verified destinations are unset on %s',

@@ -26,6 +26,8 @@ export const bookingCopy = {
     alternate: 'Prefer to prepare a WhatsApp message?',
     formTitle: 'Your cleaning request',
     formIntro: 'Send a booking request or ask us about a service.',
+    serviceBoundary:
+      "Professional cleaning visits only. We don't provide hourly maids or household staffing.",
     required: 'Fields marked * are required.',
     optional: 'optional',
     fullName: 'Customer Full Name',
@@ -92,6 +94,8 @@ export const bookingCopy = {
     alternate: 'هل تفضّل تجهيز رسالة عبر واتساب؟',
     formTitle: 'طلب خدمة التنظيف',
     formIntro: 'أرسل طلب حجز أو استفسر عن إحدى خدماتنا.',
+    serviceBoundary:
+      'نقدّم زيارات تنظيف احترافية فقط، ولا نوفر خادمات بالساعة أو عمالة منزلية.',
     required: 'الحقول المميزة بعلامة * مطلوبة.',
     optional: 'اختياري',
     fullName: 'اسم العميل الكامل',

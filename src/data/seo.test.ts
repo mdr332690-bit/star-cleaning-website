@@ -3,7 +3,7 @@ import { existsSync, readFileSync } from 'node:fs'
 import robotsParser from 'robots-parser'
 import { describe, expect, it } from 'vitest'
 import { createSeoHead, pageStructuredData } from './seo'
-import { servicePages } from './servicePages'
+import { findServicePage, servicePages } from './servicePages'
 import type { Language } from './content'
 
 const origin = 'https://star-cleaning-website.netlify.app'
@@ -106,12 +106,25 @@ describe('bilingual SEO contracts', () => {
     },
   )
 
+  it.each([
+    ['office-cleaning', 'ترتيبات الدخول'],
+    ['villa-cleaning', 'الغرف والسلالم والأرضيات'],
+    ['sofa-carpet-cleaning', 'نوع القماش وحجم القطع'],
+    ['deep-cleaning', 'الحواف والزوايا والأسطح كثيرة الاستخدام'],
+  ])('describes the actual cleaning work in Arabic for %s', (slug, scope) => {
+    const service = findServicePage(slug)!
+    const head = createSeoHead('ar', service)
+    const description = head.meta.find((tag) => tag.name === 'description')
+      ?.content
+    expect(description).toContain(scope)
+    expect(description).not.toMatch(/طاقم|الرجال|عاملات|بالساعة/)
+  })
+
   it.each(pages)(
     'keeps verified business and page schema aligned on $path',
     ({ lang, service, path }) => {
-      const graph = JSON.parse(
-        createSeoHead(lang, service).scripts[0].children,
-      )['@graph']
+      const { meta, scripts } = createSeoHead(lang, service)
+      const graph = JSON.parse(scripts[0].children)['@graph']
       const business = graph.find(
         (node: Record<string, unknown>) => node['@type'] === 'Organization',
       )
@@ -147,6 +160,9 @@ describe('bilingual SEO contracts', () => {
       )
       expect(webpage.url).toBe(origin + path)
       expect(webpage.inLanguage).toBe(lang)
+      expect(webpage.description).toBe(
+        meta.find((tag) => tag.name === 'description')?.content,
+      )
       expect(webpage.mainEntity).toEqual(webpage.about)
       expect(webpage.primaryImageOfPage['@id']).toBe(
         `${webpage.url}#primaryimage`,
