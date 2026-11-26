@@ -367,7 +367,7 @@ export function MarketingPage({ lang }: { lang: Language }) {
                           service.image,
                           [240, 400, 650, 900],
                         )}
-                        sizes="(max-width: 760px) 43vw, (max-width: 1352px) 28vw, 400px"
+                        sizes="(max-width: 380px) calc(100vw - 34px), (max-width: 520px) calc(100vw - 42px), (max-width: 768px) 40vw, (max-width: 1352px) 28vw, 400px"
                         alt={service.imageAlt[lang]}
                         width="650"
                         height="470"
