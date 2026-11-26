@@ -319,34 +319,52 @@ em {
   gap: 25px;
 }
 .brand {
+  --brand-mark-size: 40px;
+  --brand-title-size: 1.5rem;
   display: inline-flex;
   align-items: center;
   gap: 10px;
   flex-shrink: 0;
 }
 .brand-mark {
-  width: 36px;
-  height: 42px;
-  color: var(--gold);
+  inline-size: var(--brand-mark-size);
+  block-size: auto;
+  flex: none;
 }
 .brand-type {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 3px;
 }
 .brand-type strong {
-  font-size: 18px;
+  font-family: var(--serif);
+  font-size: var(--brand-title-size);
   font-weight: 700;
-  letter-spacing: -0.6px;
   line-height: 1;
+  white-space: nowrap;
 }
 .brand-type > span {
-  font-size: 7px;
-  font-weight: 550;
-  letter-spacing: 2px;
+  font-size: 0.625rem;
+  font-weight: 650;
+  line-height: 1.25;
+  letter-spacing: 0.16em;
 }
-.brand-dot {
-  color: var(--gold);
+.brand-type[lang='ar'] strong {
+  font-family: 'Noto Sans Arabic', sans-serif;
+  font-size: calc(var(--brand-title-size) * 0.75);
+  line-height: 1.3;
+}
+.brand-type[lang='ar'] > span {
+  font-size: 0.6875rem;
+  line-height: 1.45;
+  letter-spacing: normal;
+}
+.brand-type > .brand-tagline {
+  color: var(--text);
+  font-weight: 550;
+}
+.brand-type[lang='en'] > .brand-tagline {
+  letter-spacing: 0.05em;
 }
 .desktop-nav {
   display: flex;
@@ -1633,15 +1651,9 @@ em {
   gap: 40px;
   padding-bottom: 45px;
 }
-.footer-brand .brand-mark {
-  width: 32px;
-}
-.footer-brand .brand-type strong {
-  font-size: 16px;
-}
-.footer-brand .brand-type > span {
-  font-size: 6px;
-  letter-spacing: 1.7px;
+.site-footer .brand {
+  --brand-mark-size: 32px;
+  --brand-title-size: 1.25rem;
 }
 .footer-brand > p {
   font-size: 11px;
@@ -2259,19 +2271,8 @@ em {
 [dir='rtl'] .hero-description {
   margin-block: 17px 22px;
 }
-[dir='rtl'] .brand {
-  direction: ltr;
-}
-[dir='rtl'] .brand-type > span {
-  letter-spacing: 0.4px;
-  direction: rtl;
-  font-size: 7px;
-}
 [dir='rtl'] .eyebrow {
   letter-spacing: 0.6px;
-}
-[dir='rtl'] .brand-type strong {
-  font-family: 'DM Sans', sans-serif;
 }
 [dir='rtl'] .desktop-nav {
   gap: 23px;
@@ -2354,15 +2355,9 @@ em {
   .header-actions {
     gap: 17px;
   }
-  .brand-type strong {
-    font-size: 16px;
-  }
-  .brand-mark {
-    width: 32px;
-  }
-  .brand-type > span {
-    font-size: 6px;
-    letter-spacing: 1.8px;
+  .brand {
+    --brand-mark-size: 34px;
+    --brand-title-size: 1.25rem;
   }
   .header-book {
     padding-inline: 12px;
@@ -2582,15 +2577,9 @@ em {
     gap: 25px;
     grid-template-columns: 1.3fr 1fr 0.8fr 1fr;
   }
-  .footer-brand .brand-type strong {
-    font-size: 14px;
-  }
-  .footer-brand .brand-mark {
-    width: 26px;
-  }
-  .footer-brand .brand-type > span {
-    font-size: 5px;
-    letter-spacing: 1.3px;
+  .site-footer .brand {
+    --brand-mark-size: 28px;
+    --brand-title-size: 1.125rem;
   }
   .footer-grid > div > .footer-heading {
     font-size: 7px;
@@ -2645,12 +2634,6 @@ em {
   }
   .contact-actions .contact-action {
     min-height: 48px;
-  }
-  .brand-type strong {
-    font-size: 17px;
-  }
-  .brand-mark {
-    width: 32px;
   }
   .desktop-nav {
     display: none;
@@ -3080,11 +3063,9 @@ em {
   .footer-brand {
     grid-column: 1/-1;
   }
-  .footer-brand .brand-type strong {
-    font-size: 18px;
-  }
-  .footer-brand .brand-mark {
-    width: 35px;
+  .site-footer .brand {
+    --brand-mark-size: 34px;
+    --brand-title-size: 1.25rem;
   }
   .footer-brand > p {
     margin-top: 18px;
@@ -3213,11 +3194,9 @@ em {
   .hero-stats > div + div {
     padding-inline-start: 17px;
   }
-  .brand-type strong {
-    font-size: 15px;
-  }
-  .brand-mark {
-    width: 29px;
+  .brand {
+    --brand-mark-size: 30px;
+    --brand-title-size: clamp(1rem, 5vw, 1.125rem);
   }
   .service-copy {
     padding: 20px 15px;
@@ -3615,9 +3594,6 @@ em {
 
   small,
   .announcement p,
-  .brand-type > span,
-  [dir='rtl'] .brand-type > span,
-  .footer-brand .brand-type > span,
   .contact-action-label bdi,
   .hero-trust,
   .hero-stats > div > span,
@@ -3731,7 +3707,6 @@ em {
     text-align: center;
   }
 
-  .brand-type > span,
   .image-card > div > span,
   .experience-card > div > span,
   .about-caption {
@@ -3744,9 +3719,8 @@ em {
     gap: 6px;
   }
 
-  :is(.header-inner, .review-mast) .brand-type > span {
-    letter-spacing: normal;
-    text-wrap: balance;
+  .brand-type[lang] > span {
+    font-size: 0.75rem;
   }
 
   .review-mast > :last-child:not(.brand) {

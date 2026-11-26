@@ -113,7 +113,7 @@ describe('search-engine-visible route output', () => {
             name === 'class' && value.split(/\s+/).includes('film-card'),
         )
 
-      if (isFilmBackdrop) {
+      if (isFilmBackdrop || src === '/star-cleaning-mark.svg') {
         expect(alt, src).toBe('')
         continue
       }
@@ -243,7 +243,24 @@ describe('search-engine-visible route output', () => {
     },
   )
 
-  it('serves a square PNG touch icon declared in every localized document', () => {
+  it.each(allPaths)(
+    'renders a localized, accessible brand link on %s',
+    (path) => {
+      const isArabic = path === '/ar' || path.startsWith('/ar/')
+      const logo = pages
+        .get(path)!
+        .match(/<a class="brand"[^>]*>[\s\S]*?<\/a>/)?.[0]
+      expect(logo).toContain('src="/star-cleaning-mark.svg" alt=""')
+      expect(logo).toContain(`lang="${isArabic ? 'ar' : 'en'}"`)
+      expect(logo).toContain(
+        isArabic
+          ? '<strong>ستار كلينينج</strong><span>خدمات التنظيف · الكويت</span>'
+          : '<strong>STAR CLEANING</strong><span>SERVICE KUWAIT</span>',
+      )
+    },
+  )
+
+  it('declares the SVG favicon and square PNG touch icon in every localized document', () => {
     const icon = readFileSync(
       new URL('../../public/apple-touch-icon.png', import.meta.url),
     )
@@ -252,6 +269,9 @@ describe('search-engine-visible route output', () => {
     )
     expect([icon.readUInt32BE(16), icon.readUInt32BE(20)]).toEqual([180, 180])
     for (const html of pages.values()) {
+      expect(html).toContain(
+        '<link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg"/>',
+      )
       expect(html).toContain(
         '<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>',
       )
