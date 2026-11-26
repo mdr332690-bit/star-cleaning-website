@@ -287,7 +287,7 @@ export function ServicePage({
       </main>
       <footer className="site-footer">
         <div className="container service-footer">
-          <Brand lang={lang} href={home} />
+          <Brand lang={lang} href={home} showTagline />
           <nav aria-label={t.footerExplore}>
             <Link to={lang === 'ar' ? '/ar' : '/'}>{t.nav[0]}</Link>
             <Link to={lang === 'ar' ? '/ar' : '/'} hash="about">

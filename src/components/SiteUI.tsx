@@ -4,7 +4,7 @@ import { copy } from '../data/content'
 import type { Language } from '../data/content'
 import { site } from '../data/site'
 import { trackPhoneClick } from '../data/googleAds'
-import { Icon, Star } from './Icon'
+import { Icon } from './Icon'
 
 export function ContactActions({
   lang,
@@ -59,22 +59,34 @@ export function ContactNumber() {
 export function Brand({
   lang,
   href = '#home',
+  showTagline = false,
 }: {
   lang: Language
   href?: string
+  showTagline?: boolean
 }) {
   return (
     <a className="brand" href={href}>
-      <Star className="brand-mark" />
-      <span className="brand-type">
-        <strong>
-          STAR CLEANING<span className="brand-dot">.</span>
-        </strong>
+      <img
+        className="brand-mark"
+        src="/star-cleaning-mark.svg"
+        alt=""
+        width={64}
+        height={64}
+        fetchPriority="low"
+      />
+      <span className="brand-type" lang={lang}>
+        <strong>{lang === 'ar' ? 'ستار كلينينج' : 'STAR CLEANING'}</strong>
         <span>
-          {lang === 'ar'
-            ? 'الكويت · عناية في كل تفصيلة'
-            : 'KUWAIT · CARE IN EVERY DETAIL'}
+          {lang === 'ar' ? 'خدمات التنظيف · الكويت' : 'SERVICE KUWAIT'}
         </span>
+        {showTagline && (
+          <span className="brand-tagline">
+            {lang === 'ar'
+              ? 'الكويت · عناية في كل تفصيلة'
+              : 'KUWAIT · CARE IN EVERY DETAIL'}
+          </span>
+        )}
       </span>
     </a>
   )

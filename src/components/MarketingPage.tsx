@@ -797,7 +797,7 @@ export function MarketingPage({ lang }: { lang: Language }) {
         <div className="container">
           <div className="footer-grid">
             <div className="footer-brand">
-              <Brand lang={lang} />
+              <Brand lang={lang} showTagline />
               <p>{t.footerTagline}</p>
               <GoogleBusinessLinks lang={lang} footer />
             </div>
