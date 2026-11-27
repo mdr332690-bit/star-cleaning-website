@@ -56,6 +56,30 @@ export function ContactNumber() {
   )
 }
 
+export function HeaderBrand({
+  lang,
+  href = '#home',
+}: {
+  lang: Language
+  href?: string
+}) {
+  return (
+    <a className="header-brand" href={href}>
+      <img
+        src="/star-cleaning-logo.png"
+        alt={
+          lang === 'ar'
+            ? 'ستار كلينينج لخدمات التنظيف في الكويت'
+            : 'Star Cleaning Service Kuwait'
+        }
+        width={1200}
+        height={360}
+        fetchPriority="low"
+      />
+    </a>
+  )
+}
+
 export function Brand({
   lang,
   href = '#home',

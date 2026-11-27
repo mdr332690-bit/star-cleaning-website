@@ -11,7 +11,14 @@ import {
 import { apartmentService } from '../data/apartmentCleaning'
 import { LanguageLink } from './LanguageLink'
 import { PromotionBanner } from './PromotionBanner'
-import { Brand, Eyebrow, Modal, ContactActions, ContactNumber } from './SiteUI'
+import {
+  Brand,
+  HeaderBrand,
+  Eyebrow,
+  Modal,
+  ContactActions,
+  ContactNumber,
+} from './SiteUI'
 import { LazyBooking } from './LazyBooking'
 import { homeHeroImage, imageUrl as cdn, imageSrcSet } from '../data/images'
 import { Icon, Star } from './Icon'
@@ -121,7 +128,7 @@ export function MarketingPage({ lang }: { lang: Language }) {
         }}
       >
         <div className="container header-inner">
-          <Brand lang={lang} />
+          <HeaderBrand lang={lang} />
           <nav
             className="desktop-nav"
             aria-label={lang === 'en' ? 'Main navigation' : 'القائمة الرئيسية'}

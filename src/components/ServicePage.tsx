@@ -8,7 +8,14 @@ import { serviceHeroImage } from '../data/images'
 import { homePath, serviceLabels, servicePages } from '../data/servicePages'
 import type { ServicePageData } from '../data/servicePages'
 import { site } from '../data/site'
-import { Brand, Eyebrow, Modal, ContactActions, ContactNumber } from './SiteUI'
+import {
+  Brand,
+  HeaderBrand,
+  Eyebrow,
+  Modal,
+  ContactActions,
+  ContactNumber,
+} from './SiteUI'
 import { LazyBooking } from './LazyBooking'
 import { Icon } from './Icon'
 import { LanguageLink } from './LanguageLink'
@@ -87,7 +94,7 @@ export function ServicePage({
       </div>
       <header className="site-header">
         <div className="container header-inner">
-          <Brand lang={lang} href={home} />
+          <HeaderBrand lang={lang} href={home} />
           <div className="header-actions">
             <LanguageLink lang={lang} slug={service.page.slug} />
             <button

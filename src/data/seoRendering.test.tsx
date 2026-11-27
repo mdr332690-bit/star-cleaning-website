@@ -243,8 +243,33 @@ describe('search-engine-visible route output', () => {
     },
   )
 
+  it.each(paths)(
+    'renders the PNG once in the localized header on %s',
+    (path) => {
+      const isArabic = path === '/ar' || path.startsWith('/ar/')
+      const home = isArabic ? '/ar' : '/'
+      const html = pages.get(path)!
+      const header = html.match(
+        /<header class="site-header">[\s\S]*?<\/header>/,
+      )?.[0]
+      const logo = header?.match(
+        /<a class="header-brand"[^>]*>[\s\S]*?<\/a>/,
+      )?.[0]
+      expect(logo).toContain(`href="${path === home ? '#home' : home}"`)
+      expect(logo).toContain('src="/star-cleaning-logo.png"')
+      expect(logo).toContain('width="1200" height="360"')
+      expect(logo).toContain(
+        isArabic
+          ? 'alt="ستار كلينينج لخدمات التنظيف في الكويت"'
+          : 'alt="Star Cleaning Service Kuwait"',
+      )
+      expect(html.match(/src="\/star-cleaning-logo\.png"/g)).toHaveLength(1)
+      expect(header).not.toContain('/star-cleaning-mark.svg')
+    },
+  )
+
   it.each(allPaths)(
-    'renders a localized, accessible brand link on %s',
+    'keeps the localized footer or review brand on %s',
     (path) => {
       const isArabic = path === '/ar' || path.startsWith('/ar/')
       const logo = pages
