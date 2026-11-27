@@ -6,7 +6,7 @@ import { createSeoHead, pageStructuredData } from './seo'
 import { findServicePage, servicePages } from './servicePages'
 import type { Language } from './content'
 
-const origin = 'https://star-cleaning-website.netlify.app'
+const origin = 'https://starcleaningkw.com'
 const pages = (['en', 'ar'] as const).flatMap((lang) => [
   { lang, service: undefined, path: lang === 'en' ? '/' : '/ar' },
   ...servicePages.map((service) => ({
@@ -212,22 +212,17 @@ describe('bilingual SEO contracts', () => {
       (match) => match[1],
     )
     expect(sitemapUrls.sort()).toEqual(
-      [
-        ...pages.map(({ path }) => origin + path),
-        `${origin}/review`,
-        `${origin}/ar/review`,
-      ].sort(),
+      pages.map(({ path }) => origin + path).sort(),
     )
-    expect(new Set(sitemapUrls).size).toBe(pages.length + 2)
+    expect(new Set(sitemapUrls).size).toBe(pages.length)
     const entries = xml.match(/<url>[\s\S]*?<\/url>/g) ?? []
     for (const entry of entries) {
       const url = entry.match(/<loc>(.*?)<\/loc>/)?.[1]
-      const page = pages.find(({ path }) => origin + path === url)
-      for (const alternate of createSeoHead(
-        page?.lang ?? (url?.endsWith('/ar/review') ? 'ar' : 'en'),
-        page?.service,
-        page ? undefined : 'review',
-      ).links.filter((link) => link.rel === 'alternate')) {
+      const { lang, service } = pages.find(({ path }) => origin + path === url)!
+      const alternates = createSeoHead(lang, service).links.filter(
+        (link) => link.rel === 'alternate',
+      )
+      for (const alternate of alternates) {
         expect(entry).toContain(
           `hreflang="${alternate.hrefLang}" href="${alternate.href}"`,
         )
@@ -251,6 +246,7 @@ describe('bilingual SEO contracts', () => {
     ]) {
       for (const path of [
         ...pages.map(({ path }) => path),
+        '/sitemap.xml',
         '/apple-touch-icon.png',
         '/__forms.html',
         '/assets/entry.js',

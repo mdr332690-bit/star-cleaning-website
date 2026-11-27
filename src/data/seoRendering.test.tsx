@@ -14,15 +14,15 @@ import { homeHeroImage, serviceHeroImage } from './images'
 import { apartmentCopy, apartmentService } from './apartmentCleaning'
 import { notFoundCopy } from '../components/NotFoundPage'
 
-const origin = 'https://star-cleaning-website.netlify.app'
+const origin = 'https://starcleaningkw.com'
 const sitemap = readFileSync(
   new URL('../../public/sitemap.xml', import.meta.url),
   'utf8',
 )
-const allPaths = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(
+const paths = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(
   (match) => new URL(match[1]).pathname,
 )
-const paths = allPaths.filter((path) => !path.endsWith('/review'))
+const allPaths = [...paths, '/review', '/ar/review']
 const pages = new Map<string, string>()
 
 async function render(path: string) {
