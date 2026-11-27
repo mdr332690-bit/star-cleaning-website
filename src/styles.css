@@ -318,6 +318,14 @@ em {
   justify-content: space-between;
   gap: 25px;
 }
+.header-brand {
+  inline-size: clamp(200px, 20vw, 240px);
+  min-inline-size: 0;
+}
+.header-brand > img {
+  inline-size: 100%;
+  block-size: auto;
+}
 .brand {
   --brand-mark-size: 40px;
   --brand-title-size: 1.5rem;
@@ -3713,7 +3721,7 @@ em {
     letter-spacing: var(--mobile-label-tracking);
   }
 
-  :is(.header-inner, .review-mast) > .brand {
+  .review-mast > .brand {
     min-inline-size: 0;
     flex-shrink: 1;
     gap: 6px;
