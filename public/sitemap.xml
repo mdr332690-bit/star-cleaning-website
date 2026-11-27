@@ -1,99 +1,87 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://star-cleaning-website.netlify.app/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://star-cleaning-website.netlify.app/" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://star-cleaning-website.netlify.app/ar" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://star-cleaning-website.netlify.app/" />
+    <loc>https://starcleaningkw.com/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://starcleaningkw.com/" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://starcleaningkw.com/ar" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://starcleaningkw.com/" />
   </url>
   <url>
-    <loc>https://star-cleaning-website.netlify.app/ar</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://star-cleaning-website.netlify.app/" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://star-cleaning-website.netlify.app/ar" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://star-cleaning-website.netlify.app/" />
+    <loc>https://starcleaningkw.com/ar</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://starcleaningkw.com/" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://starcleaningkw.com/ar" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://starcleaningkw.com/" />
   </url>
   <url>
-    <loc>https://star-cleaning-website.netlify.app/services/house-cleaning</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://star-cleaning-website.netlify.app/services/house-cleaning" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://star-cleaning-website.netlify.app/ar/services/house-cleaning" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://star-cleaning-website.netlify.app/services/house-cleaning" />
+    <loc>https://starcleaningkw.com/services/house-cleaning</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://starcleaningkw.com/services/house-cleaning" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://starcleaningkw.com/ar/services/house-cleaning" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://starcleaningkw.com/services/house-cleaning" />
   </url>
   <url>
-    <loc>https://star-cleaning-website.netlify.app/ar/services/house-cleaning</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://star-cleaning-website.netlify.app/services/house-cleaning" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://star-cleaning-website.netlify.app/ar/services/house-cleaning" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://star-cleaning-website.netlify.app/services/house-cleaning" />
+    <loc>https://starcleaningkw.com/ar/services/house-cleaning</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://starcleaningkw.com/services/house-cleaning" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://starcleaningkw.com/ar/services/house-cleaning" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://starcleaningkw.com/services/house-cleaning" />
   </url>
   <url>
-    <loc>https://star-cleaning-website.netlify.app/services/office-cleaning</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://star-cleaning-website.netlify.app/services/office-cleaning" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://star-cleaning-website.netlify.app/ar/services/office-cleaning" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://star-cleaning-website.netlify.app/services/office-cleaning" />
+    <loc>https://starcleaningkw.com/services/office-cleaning</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://starcleaningkw.com/services/office-cleaning" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://starcleaningkw.com/ar/services/office-cleaning" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://starcleaningkw.com/services/office-cleaning" />
   </url>
   <url>
-    <loc>https://star-cleaning-website.netlify.app/ar/services/office-cleaning</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://star-cleaning-website.netlify.app/services/office-cleaning" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://star-cleaning-website.netlify.app/ar/services/office-cleaning" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://star-cleaning-website.netlify.app/services/office-cleaning" />
+    <loc>https://starcleaningkw.com/ar/services/office-cleaning</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://starcleaningkw.com/services/office-cleaning" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://starcleaningkw.com/ar/services/office-cleaning" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://starcleaningkw.com/services/office-cleaning" />
   </url>
   <url>
-    <loc>https://star-cleaning-website.netlify.app/services/villa-cleaning</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://star-cleaning-website.netlify.app/services/villa-cleaning" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://star-cleaning-website.netlify.app/ar/services/villa-cleaning" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://star-cleaning-website.netlify.app/services/villa-cleaning" />
+    <loc>https://starcleaningkw.com/services/villa-cleaning</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://starcleaningkw.com/services/villa-cleaning" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://starcleaningkw.com/ar/services/villa-cleaning" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://starcleaningkw.com/services/villa-cleaning" />
   </url>
   <url>
-    <loc>https://star-cleaning-website.netlify.app/ar/services/villa-cleaning</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://star-cleaning-website.netlify.app/services/villa-cleaning" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://star-cleaning-website.netlify.app/ar/services/villa-cleaning" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://star-cleaning-website.netlify.app/services/villa-cleaning" />
+    <loc>https://starcleaningkw.com/ar/services/villa-cleaning</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://starcleaningkw.com/services/villa-cleaning" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://starcleaningkw.com/ar/services/villa-cleaning" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://starcleaningkw.com/services/villa-cleaning" />
   </url>
   <url>
-    <loc>https://star-cleaning-website.netlify.app/services/sofa-carpet-cleaning</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://star-cleaning-website.netlify.app/services/sofa-carpet-cleaning" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://star-cleaning-website.netlify.app/ar/services/sofa-carpet-cleaning" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://star-cleaning-website.netlify.app/services/sofa-carpet-cleaning" />
+    <loc>https://starcleaningkw.com/services/sofa-carpet-cleaning</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://starcleaningkw.com/services/sofa-carpet-cleaning" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://starcleaningkw.com/ar/services/sofa-carpet-cleaning" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://starcleaningkw.com/services/sofa-carpet-cleaning" />
   </url>
   <url>
-    <loc>https://star-cleaning-website.netlify.app/ar/services/sofa-carpet-cleaning</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://star-cleaning-website.netlify.app/services/sofa-carpet-cleaning" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://star-cleaning-website.netlify.app/ar/services/sofa-carpet-cleaning" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://star-cleaning-website.netlify.app/services/sofa-carpet-cleaning" />
+    <loc>https://starcleaningkw.com/ar/services/sofa-carpet-cleaning</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://starcleaningkw.com/services/sofa-carpet-cleaning" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://starcleaningkw.com/ar/services/sofa-carpet-cleaning" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://starcleaningkw.com/services/sofa-carpet-cleaning" />
   </url>
   <url>
-    <loc>https://star-cleaning-website.netlify.app/services/deep-cleaning</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://star-cleaning-website.netlify.app/services/deep-cleaning" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://star-cleaning-website.netlify.app/ar/services/deep-cleaning" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://star-cleaning-website.netlify.app/services/deep-cleaning" />
+    <loc>https://starcleaningkw.com/services/deep-cleaning</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://starcleaningkw.com/services/deep-cleaning" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://starcleaningkw.com/ar/services/deep-cleaning" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://starcleaningkw.com/services/deep-cleaning" />
   </url>
   <url>
-    <loc>https://star-cleaning-website.netlify.app/ar/services/deep-cleaning</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://star-cleaning-website.netlify.app/services/deep-cleaning" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://star-cleaning-website.netlify.app/ar/services/deep-cleaning" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://star-cleaning-website.netlify.app/services/deep-cleaning" />
+    <loc>https://starcleaningkw.com/ar/services/deep-cleaning</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://starcleaningkw.com/services/deep-cleaning" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://starcleaningkw.com/ar/services/deep-cleaning" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://starcleaningkw.com/services/deep-cleaning" />
   </url>
   <url>
-    <loc>https://star-cleaning-website.netlify.app/services/apartment-cleaning</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://star-cleaning-website.netlify.app/services/apartment-cleaning" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://star-cleaning-website.netlify.app/ar/services/apartment-cleaning" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://star-cleaning-website.netlify.app/services/apartment-cleaning" />
+    <loc>https://starcleaningkw.com/services/apartment-cleaning</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://starcleaningkw.com/services/apartment-cleaning" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://starcleaningkw.com/ar/services/apartment-cleaning" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://starcleaningkw.com/services/apartment-cleaning" />
   </url>
   <url>
-    <loc>https://star-cleaning-website.netlify.app/ar/services/apartment-cleaning</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://star-cleaning-website.netlify.app/services/apartment-cleaning" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://star-cleaning-website.netlify.app/ar/services/apartment-cleaning" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://star-cleaning-website.netlify.app/services/apartment-cleaning" />
-  </url>
-  <url>
-    <loc>https://star-cleaning-website.netlify.app/review</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://star-cleaning-website.netlify.app/review" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://star-cleaning-website.netlify.app/ar/review" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://star-cleaning-website.netlify.app/review" />
-  </url>
-  <url>
-    <loc>https://star-cleaning-website.netlify.app/ar/review</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://star-cleaning-website.netlify.app/review" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://star-cleaning-website.netlify.app/ar/review" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://star-cleaning-website.netlify.app/review" />
+    <loc>https://starcleaningkw.com/ar/services/apartment-cleaning</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://starcleaningkw.com/services/apartment-cleaning" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://starcleaningkw.com/ar/services/apartment-cleaning" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://starcleaningkw.com/services/apartment-cleaning" />
   </url>
 </urlset>

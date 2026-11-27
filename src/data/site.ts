@@ -1,6 +1,6 @@
 export const site = {
   name: 'STAR CLEANING Kuwait',
-  url: 'https://star-cleaning-website.netlify.app/',
+  url: 'https://starcleaningkw.com/',
   description:
     'Star Cleaning offers home, office, villa, sofa and carpet cleaning, plus deep cleaning in Kuwait. Explore our services and prepare a cleaning enquiry.',
   // Verified business number. WhatsApp uses international digits only.
